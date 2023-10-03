@@ -3,7 +3,7 @@ import Image from "next/image";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
 import GetStartedButton from "./GetStartedButton";
-import HowItWorks from "./HowItWorks";
+import HowItWorks from "./HowItWorksButton";
 
 const Center = async () => {
   const session = await getCurrentUser();

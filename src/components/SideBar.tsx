@@ -7,7 +7,7 @@ import AuthProviders from "./AuthProviders";
 import SignOutButton from "./SignOutButton";
 import { SessionInterface } from "@/lib/session";
 import { signIn } from "next-auth/react";
-import HowItWorks from "./HowItWorks";
+import HowItWorks from "./HowItWorksButton";
 
 type Props = {
   session: SessionInterface | null;
