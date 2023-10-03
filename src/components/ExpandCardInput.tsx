@@ -9,6 +9,7 @@ type Props = {
   text: string | null | undefined;
   submitting: boolean;
   setChange: (type: string, value: string | number) => void;
+  maxLength: number;
 };
 
 const ExpandCardInput = ({
@@ -18,6 +19,7 @@ const ExpandCardInput = ({
   submitting,
   setChange,
   text,
+  maxLength,
 }: Props) => {
   return (
     <div>
@@ -28,6 +30,7 @@ const ExpandCardInput = ({
           className="ml-2 mt-1 w-2/3 h-[75px] bg-slate-300  shadow-[inset_0_0_5px_] shadow-slate-400 pl-2 placeholder-gray-400 text-sm rounded-lg px-5 py-2 ring-1 outline-none ring-gray-200 hover:ring-gray-300 focus:ring-2 focus:ring-gray-400"
           placeholder={text ? text : placeholder}
           onChange={(e) => setChange(type, e.target.value)}
+		  maxLength={maxLength}
         />
       ) : (
         <input
@@ -36,6 +39,7 @@ const ExpandCardInput = ({
           placeholder={text ? text : placeholder}
           type={type}
           onChange={(e) => setChange(type, e.target.value)}
+		  maxLength={maxLength}
         />
       )}
     </div>

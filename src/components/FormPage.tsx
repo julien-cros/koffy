@@ -93,18 +93,21 @@ const FormPage = ({ type, session }: Props) => {
           type="text"
           title="Title"
           placeholder="Buside"
+		  maxLength={30}
           setState={(value) => handleStateChange("title", value)}
         />
         <FormInput
           type="text"
           title="Brand"
           placeholder="Noir"
+		  maxLength={30}
           setState={(value) => handleStateChange("brand", value)}
         />
         <FormInput
           type="text"
           title="Variety"
           placeholder="Arabica"
+		  maxLength={30}
           setState={(value) => handleStateChange("variety", value)}
         />
         <FormInput
@@ -112,6 +115,7 @@ const FormPage = ({ type, session }: Props) => {
           title="Tasting"
           placeholder="Comment Your Taste"
           textArea
+		  maxLength={400}
           setState={(value) => handleStateChange("tasting", value)}
         />
         <FormInput
@@ -119,6 +123,7 @@ const FormPage = ({ type, session }: Props) => {
           title="Note"
           placeholder="Note"
           textArea
+		  maxLength={400}
           setState={(value) => handleStateChange("note", value)}
         />
 
@@ -126,6 +131,7 @@ const FormPage = ({ type, session }: Props) => {
           type="text"
           title="Price"
           placeholder="Price"
+		  maxLength={3}
           setState={(value) => handleStateChange("price", value)}
         />
         <HearthInput rate={rate} setRate={submitRate} />

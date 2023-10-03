@@ -87,7 +87,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
         </div>
         {/* card */}
         <div className=" w-full h-full flex justify-center items-center py-20">
-          <div className="w-3/4 max-w-xl h-fit bg-slate-200 rounded-xl shadow-2xl">
+          <div className="w-3/4 max-w-xl h-fit bg-slate-200 rounded-xl shadow-2xl break-words">
             <div className="flex flex-col pl-10 pr-10">
               {/* title */}
               <div className="flex justify-start pt-10 text-3xl font-bold">
@@ -99,9 +99,10 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     submitting={submitting}
                     text={post?.title}
                     setChange={handleStateChange}
+					maxLength={30}
                   />
                 ) : (
-                  <p>{post?.title}</p>
+                  <p className="">{post?.title}</p>
                 )}
               </div>
 
@@ -115,6 +116,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     submitting={submitting}
                     text={post?.brand}
                     setChange={handleStateChange}
+					maxLength={30}
                   />
                 ) : (
                   <p>{post?.brand}</p>
@@ -127,6 +129,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     text={post?.variety}
                     submitting={submitting}
                     setChange={handleStateChange}
+					maxLength={30}
                   />
                 ) : (
                   <p>{post?.variety}</p>
@@ -143,6 +146,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                   text={post?.tasting}
                   submitting={submitting}
                   setChange={handleStateChange}
+				  maxLength={400}
                 />
               ) : (
                 <p className="pl-2 break-words">{post?.tasting}</p>
@@ -158,6 +162,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                   text={post?.note}
                   submitting={submitting}
                   setChange={handleStateChange}
+				  maxLength={400}
                 />
               ) : (
                 <p className="pl-3 pt-3">{post?.note}</p>
@@ -173,6 +178,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     text={post?.price}
                     submitting={submitting}
                     setChange={handleStateChange}
+					maxLength={3}
                   />
                 ) : (
                   <p className="pl-1">{post?.price}$ /kg</p>
@@ -187,7 +193,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                 ) : (
                   <HearthRate rate={post?.rate} />
                 )}
-                <h2 className=" pb-10 sm:pt-10">
+                <h2 className=" py-10 sm:pt-10">
                   <p>
                     Last Update:{" "}
                     {post?.updatedAt
