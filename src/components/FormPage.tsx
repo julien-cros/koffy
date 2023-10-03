@@ -27,7 +27,7 @@ const FormPage = ({ type, session }: Props) => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = useState<number>(1);
-  const [form, setForm] = useState({
+  const [form] = useState({
     title: "",
     brand: "",
     variety: "",

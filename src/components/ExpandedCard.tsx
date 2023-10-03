@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import HearthRate from "./HearthRate";
 import ExpandCardInput from "./ExpandCardInput";
 import { AdjustmentsHorizontalIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { SessionInterface } from "@/lib/session";
 import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
 import { useRouter } from "next/navigation";
@@ -25,11 +24,10 @@ export type PostInterface = {
 
 type ExpandedCardProps = {
   post: PostInterface | null;
-  session?: SessionInterface | null;
   id: string;
 };
 
-const ExpandedCard = ({ post, session, id }: ExpandedCardProps) => {
+const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
