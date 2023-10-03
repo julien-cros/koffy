@@ -2,35 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-.form-input {
-  @apply w-full outline-0 bg-slate-100 rounded-xl p-4;
-}
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.slide-in {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0f0f0f;
-  transform-origin: bottom;
-}
-
-.slide-out {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0f0f0f;
-  transform-origin: top;
-}
+::-webkit-scrollbar {
+	width: 5px;
+	height: 4px;
+  }
+  
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 12px;
+  }

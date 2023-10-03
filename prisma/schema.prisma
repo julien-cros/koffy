@@ -20,7 +20,7 @@ model User {
 
 model Posts {
 	id			String	 @id @default(cuid()) 
-	title		String	 @unique
+	title		String?
 	brand		String?
 	price		String?
 	tasting		String?
@@ -29,6 +29,6 @@ model Posts {
 	note		String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
-	author		User	@relation(fields: [authorId], references: [id])
-	authorId	String
+	author		User?	@relation(fields: [authorId], references: [id])
+	authorId	String?
 }

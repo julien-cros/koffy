@@ -23,15 +23,15 @@ const GetStarted = () => {
         </Link>
       </div>
       <div className="mt-20 px-10  gap-10 flex justify-center">
-        <Card 
-			title="Coffe Name"
-			brand="Coffe Brand"
-			tasting="what does the coffee taste like"
-			rate={4}
-			updatedAt={new Date()}
-		/>
+        <Card
+          title="Coffe Name"
+          brand="Coffe Brand"
+          tasting="what does the coffee taste like"
+          rate={4}
+          updatedAt={new Date()}
+        />
       </div>
-      <p className="flex justify-center text-center text-xl md:text-2xl text-yellow-900 font-semibold pt-20">
+      <p className="flex justify-center text-center text-xl md:text-2xl text-yellow-900 font-semibold py-20">
         You just need to taste a rate it in our site. <br />
         One day we will be able to find <br className="block lg:hidden" /> you
         what is the best coffee for you.

@@ -1,30 +1,45 @@
 import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-// import Providers from '@/components/Providers'
+import { getCurrentUser } from "@/lib/session";
+import { Metadata } from "next";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
+
+
 export const metadata: Metadata = {
-  title: "My Coffee",
-  description: "Created by julien Cros",
+  title: "Koffy",
+  description: "A coffee list app",
+  openGraph: {
+	title: "Koffy",
+	description: "A coffee list app",
+	type: "website",
+	url: "https://koffy.juliencros.com",
+	images: [
+	  {
+		url: "https://koffy.juliencros.com/coffee.png",
+		width: 800,
+		height: 600,
+		alt: "Koffy logo",
+	  },
+	],		
+  }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <Providers> */}
-        <NavBar />
+        <NavBar session={session} />
         {children}
-        {/* </Providers> */}
-        {/* <Footer/> */}
       </body>
     </html>
   );

@@ -1,45 +1,33 @@
-"use server"
+"use client";
 
-import React, { useState } from "react";
 import FormInput from "./FormInput";
-import { redirect, useRouter } from "next/navigation";
 import HearthInput from "./HearthInput";
-import { SessionInterface} from "@/lib/session";
-import submit from "@/app/create-card/actions";
+import { SessionInterface } from "@/lib/session";
+import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   type: string;
   session: SessionInterface;
 };
 
-export type PostInterface = {
-  id: string;
-  title: string;
-  brand: string;
-  variety: string;
-  tasting: string;
-  rate: number;
-  note: string;
-  price: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: string;
-};
-
 export type FormState = {
   title: string;
   brand: string;
-  variety: string;
-  tasting: string;
-  rate: number;
-  note: string;
-  price: string;
+  variety: string | null;
+  tasting: string | null;
+  rate: number | null;
+  note: string | null;
+  price: string | null;
 };
 
-const FormPage =  ({ type, session }: Props) => {
-  let submitting = false;
-  const form: FormState = {
+const FormPage = ({ type, session }: Props) => {
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [rate, setRate] = useState<number>(1);
+  const [form, setForm] = useState({
     title: "",
     brand: "",
     variety: "",
@@ -47,65 +35,58 @@ const FormPage =  ({ type, session }: Props) => {
     rate: 1,
     note: "",
     price: "",
-  };
+  });
 
-  if (!session?.user){
-	alert("You must be logged in to view this page");
-	() => {signIn()}
+  if (!session?.user) {
+    alert("You must be logged in to view this page");
+    () => {
+      signIn();
+    };
   }
+
+  const submitRate = (rate: number) => {
+    setRate(rate);
+    handleStateChange("rate", rate);
+  };
 
   const handleStateChange = (
     fieldName: keyof FormState,
     value: string | number,
   ) => {
-	form[fieldName] = value as never;
+    form[fieldName] = value as never;
   };
 
   const handleFormSubmit = async () => {
-    submitting = !submitting;
-
-	try {
-    	if (await submit(form, type))
-		{redirect("/coffee-list")}
-	} catch (error) {
-		console.error(error);
-		alert(
-			`Failed to ${
-				type === "create" ? "create" : "edit"
-			} a project. Try again!`
-		);
-	}
-	}
-
-
-    // const { token } = await fetchToken()
-    // console.log("token: ",token)
-
-    // try {
-    //   if (type === "create") {
-    //     await CreatePost(form, session);
-
-    //     // router.push("/")
-    //   }
-
-    //   if (type === "edit") {
-    //     // await updateProject(form, post?.id as string, token)
-
-    //     router.push("/");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-
-    //   alert(
-    //     `Failed to ${
-    //       type === "create" ? "create" : "edit"
-    //     } a project. Try again!`
-    //   );
+    setSubmitting(true);
+    const valid = await findValidPost(
+      session.user.id,
+      form.brand,
+      form.variety,
+    );
+    if (valid) {
+      alert("You already tasted this coffee!");
+      setSubmitting(false);
+    } else {
+      const posts = await submit(form);
+      if (posts) {
+        router.push("/coffee-list");
+      } else {
+        alert(
+          `Failed to ${
+            type === "create" ? "create" : "edit"
+          } a project. Try again!`,
+        );
+        setSubmitting(false);
+      }
+    }
+  };
 
   return (
     <form
       action={handleFormSubmit}
-    //   onSubmit={handleFormSubmit}
+      onSubmit={() => {
+        handleFormSubmit();
+      }}
     >
       <div className="flex justify-start flex-col pt-32 pl-10 gap-10">
         <FormInput
@@ -147,13 +128,14 @@ const FormPage =  ({ type, session }: Props) => {
           placeholder="Price"
           setState={(value) => handleStateChange("price", value)}
         />
-        <HearthInput setState={(value) => handleStateChange("rate", value)} />
+        <HearthInput rate={rate} setRate={submitRate} />
 
         <div className="flex  justify-center pt-10">
           <button
-			type="submit"
+            type="submit"
             className="px-32 py-4 bg-amber-800 text-pale-red text-lg rounded-full"
             disabled={submitting || false}
+            onClick={handleFormSubmit}
           >
             {submitting ? "Submitting..." : "Submit"}
           </button>

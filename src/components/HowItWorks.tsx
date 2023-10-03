@@ -14,7 +14,7 @@ const HowItWorks = () => {
       behavior: "smooth",
     });
   };
-  
+
   return (
     <div>
       <Link
