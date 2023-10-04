@@ -50,9 +50,11 @@ const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen }: Props) => {
           </a>
           <h1 className="flex flex-col justify-center items-center space-y-6">
             {!session ? (
-              <button onClick={() => signIn()}>Get Started</button>
+              <button onClick={() => signIn("google")}>Get Started</button>
             ) : (
-              <HowItWorks />
+				<div onClick={() => setIsSidebarOpen(!isSideBarOpen)}>
+					<HowItWorks />
+				</div>
             )}
             {!session?.user ? <AuthProviders /> : <SignOutButton />}
           </h1>
