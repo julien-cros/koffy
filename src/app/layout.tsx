@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 		alt: "Koffy",
 	  },
 	],
-  }
+  },
 };
 
 export default async function RootLayout({
@@ -37,6 +37,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+		<head>
+			<link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico"/>
+		</head>
       <body className={inter.className}>
         <NavBar session={session} />
         {children}
