@@ -9,6 +9,7 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
 	const post = await getPostFromId(params.id);
+	console.log(params.id);
 
   return (
 	<div>

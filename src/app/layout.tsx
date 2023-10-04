@@ -16,15 +16,15 @@ export const metadata: Metadata = {
 	title: "Koffy",
 	description: "A coffee list app",
 	type: "website",
-	url: "https://koffy.juliencros.com",
+	url: "https://koffy.app/",
 	images: [
 	  {
-		url: "https://koffy.juliencros.com/coffee.png",
+		url: "https://koffy.app/coffee.png",
 		width: 800,
 		height: 600,
-		alt: "Koffy logo",
+		alt: "Koffy",
 	  },
-	],		
+	],
   }
 };
 

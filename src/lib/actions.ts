@@ -79,3 +79,13 @@ export const getUserPosts = async (authorId: string) => {
 	}
 }
 
+
+export const findPosts = async (key: string, value: string, authorId: string) => {
+	const posts = await db.posts.findMany({
+		where: {
+			[key]: value,
+			authorId: authorId,
+		}
+	})
+	return posts;
+}

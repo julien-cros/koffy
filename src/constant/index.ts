@@ -10,3 +10,17 @@ export const packWeight = [
 		],
 	}, 
 ]
+
+export const searchCategory = [
+	{
+		title: "Category",
+		links: [
+			"brand",
+			"variety",
+			"tasting",
+			"rate",
+			"note",
+			"price"
+		],
+	}, 
+]

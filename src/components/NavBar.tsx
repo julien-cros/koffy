@@ -9,6 +9,8 @@ import SignOutButton from "./SignOutButton";
 import SideBar from "./SideBar";
 import { SessionInterface } from "@/lib/session";
 import { useState } from "react";
+import BaseSearchBar from "./BaseSearchBar";
+import ResultSearchBar from "./ResultSearchBar";
 
 type Props = {
   session: SessionInterface | null;
@@ -16,11 +18,15 @@ type Props = {
 
 export default function Nav({ session }: Props) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [categorySearch, setCategorySearch] = useState("brand");
+  const handleSearch =  async () => {
+	
+  }
 
   return (
     <nav className="sticky top-0">
       {isSidebarOpen && (
-        <div className="w-screen h-screen absolute flex  justify-center items-center bg-opacity-50">
+        <div className="w-screen h-screen absolute flex justify-center items-center bg-opacity-50">
           <SideBar
             session={session}
             isSideBarOpen={isSidebarOpen}
@@ -31,7 +37,7 @@ export default function Nav({ session }: Props) {
       <div
         className={`${
           isSidebarOpen ? "relative" : ""
-        } flex justify-between items-center py-5 px-3 sm:px-3 md:px-4 lg:px-2 xl:px-6 backdrop-blur-sm `}
+        } flex justify-between items-center py-5 px-3 md:px-4 lg:px-2 xl:px-6 backdrop-blur-sm `}
       >
         <div className="flex items-center space-x-4">
           <ListBulletIcon
@@ -52,11 +58,8 @@ export default function Nav({ session }: Props) {
           </div>
         </div>
         <div className="flex-grow flex justify-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-1/2 hidden sm:hidden md:block placeholder-gray-400 text-sm rounded-lg px-5 py-2 ring-1 outline-none ring-gray-200 hover:ring-gray-300 focus:ring-2 focus:ring-gray-400"
-          />
+          <BaseSearchBar session={session} />
+		  	
         </div>
         <div className="flex items-center space-x-8">
           <Link href="/coffee-list" className="hidden lg:block text-sm">

@@ -5,10 +5,15 @@ import { ArrowLeftIcon, SquaresPlusIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
 
+type Props = {
+	params: {
+		id: string;
+	};
+};
 
-
-export default async function CoffeeListPage() {
+export default async function CoffeeListPage({ params }: Props ) {
   const session = await getCurrentUser();
+  console.log(params.id);
   var posts = null;
 
   if (session) {
@@ -36,7 +41,31 @@ export default async function CoffeeListPage() {
             <SquaresPlusIcon className="w-10 h-10  text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 " />
           </Link>
         </div>
+		{/* ${isSerarch ? "block" : "hidden"} */}
       </div>
+	  <div className={`py-10 border-y-[2px] mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10`}>
+	  <Card
+          title="Coffe Name"
+          brand="Coffe Brand"
+          tasting="what does the coffee taste like"
+          rate={4}
+          updatedAt={new Date()}
+        />
+		 <Card
+          title="Coffe Name"
+          brand="Coffe Brand"
+          tasting="what does the coffee taste like"
+          rate={4}
+          updatedAt={new Date()}
+        />
+		 <Card
+          title="Coffe Name"
+          brand="Coffe Brand"
+          tasting="what does the coffee taste like"
+          rate={4}
+          updatedAt={new Date()}
+        />
+	  </div>
       <div className="mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10">
         {posts?.map((post) => (
           <Link href={`/coffee-list/${post.id}`} key={post.id}>
