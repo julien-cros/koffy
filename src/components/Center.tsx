@@ -14,8 +14,8 @@ const Center = async () => {
           <h1 className=" pl-0 md:pl-10  text-7xl md:text-8xl lg:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-30% to-rose-300 ">
             Koffy
           </h1>
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-900 md:pl-10">
-            Your best coffee listing
+          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-900 md:pl-10 text-center lg:text-left mr-3">
+            always keep a record of your coffee
           </p>
         </div>
 

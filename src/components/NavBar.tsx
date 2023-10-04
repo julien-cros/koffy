@@ -10,7 +10,7 @@ import SideBar from "./SideBar";
 import { SessionInterface } from "@/lib/session";
 import { useState } from "react";
 import BaseSearchBar from "./BaseSearchBar";
-import ResultSearchBar from "./ResultSearchBar";
+// import ResultSearchBar from "./ResultSearchBar";
 
 type Props = {
   session: SessionInterface | null;
@@ -18,10 +18,10 @@ type Props = {
 
 export default function Nav({ session }: Props) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [categorySearch, setCategorySearch] = useState("brand");
-  const handleSearch =  async () => {
+//   const [categorySearch, setCategorySearch] = useState("brand");
+//   const handleSearch =  async () => {
 	
-  }
+//   }
 
   return (
     <nav className="sticky top-0">
