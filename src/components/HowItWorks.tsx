@@ -31,14 +31,8 @@ const GetStarted = () => {
           updatedAt={new Date()}
         />
       </div>
-      <div>
-        <p className="flex justify-center text-center text-xl md:text-2xl text-yellow-900 font-semibold py-20">
-          You just need to taste and rate it in our site. <br />
-          One day we will be able to find <br className="block lg:hidden"/>
-          what is the best coffee for you.
-        </p>
-      </div>
-      <div className="flex flex-col items-center justify-center gap-8 text-center pb-20">
+      
+      <div className="flex flex-col items-center justify-center gap-8 text-center py-20">
 		<div className="flex flex-row items-center space-x-10">
 	 		<p className="flex items-center">you can modify your Cards here
 			<ArrowRightIcon className="h-34 w-4" />
@@ -50,7 +44,7 @@ const GetStarted = () => {
 		<div className="">
 			<p className="font-semibold">New thoughts?</p>
 			<p className="pb-4"> update it with this button</p>
-			<button className=" text-xl text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
+			<button className="text-xl text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
 				Update
 			</button>
 			
@@ -62,6 +56,13 @@ const GetStarted = () => {
 			</button>
 
 		</div>
+		<div>
+        <p className="flex justify-center text-center text-xl md:text-2xl text-yellow-900 font-semibold py-10">
+          You just need to taste and rate it in our site. <br />
+          One day we will be able to find <br className="block lg:hidden"/>
+          what is the best coffee for you.
+        </p>
+      </div>
 	  </div>
     </div>
   );
