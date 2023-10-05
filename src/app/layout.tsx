@@ -1,11 +1,12 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
 import { Metadata } from "next";
+import { Lexend } from "next/font/google";
 
 
-const inter = Inter({ subsets: ["latin"] });
+const EBGaramond = Lexend({ subsets: ["latin"]  });
 
 
 
@@ -40,7 +41,7 @@ export default async function RootLayout({
 		<head>
 			<link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico"/>
 		</head>
-      <body className={inter.className}>
+      <body className={EBGaramond.className}>
         <NavBar session={session} />
         {children}
       </body>
