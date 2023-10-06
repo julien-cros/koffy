@@ -1,3 +1,5 @@
+"use server"
+
 import { FormState } from "@/components/FormPage";
 import { SessionInterface } from "@/lib/session";
 import { db } from "./db";
@@ -80,12 +82,19 @@ export const getUserPosts = async (authorId: string) => {
 }
 
 
-export const findPosts = async (key: string, value: string, authorId: string) => {
-	const posts = await db.posts.findMany({
-		where: {
-			[key]: value,
-			authorId: authorId,
+export default async function  findPosts (key: string, value: string | number, authorId: string) {
+	console.log("key:", key)
+	console.log("value:", value)
+	console.log("authorId:", authorId)
+		const posts = await db.posts.findMany({
+			where: {
+				[key]: value,
+				authorId: authorId,
+			}
+		})
+		if (posts.length > 0){
+			console.log("posts:", posts)
+			return posts;
 		}
-	})
-	return posts;
+		else return null;
 }

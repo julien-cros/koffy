@@ -40,7 +40,7 @@ const FormPage = ({ type, session }: Props) => {
   if (!session?.user) {
     alert("You must be logged in to view this page");
     () => {
-      signIn();
+      signIn("google");
     };
   }
 
