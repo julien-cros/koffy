@@ -118,8 +118,7 @@ export default function Nav({ session }: Props) {
             className="w-8 h-8 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
             onClick={() => setIsSidebarOpen(true)}
           />
-          <div className="items-center flex flex-row gap-1">
-            <Link href="/">
+            <Link href="/" className="flex flex-row items-center gap-1">
               <Image
                 src="/coffee.png"
                 alt="coffe logo"
@@ -127,9 +126,8 @@ export default function Nav({ session }: Props) {
                 height={40}
                 className="rounded-full"
               />
+            	<p className="text-3xl font-light">koffy</p>
             </Link>
-            <p className="text-3xl font-light">koffy</p>
-          </div>
         </div>
         <div className="lg:hidden flex flex-grow justify-end">
           <button
