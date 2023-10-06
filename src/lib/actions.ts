@@ -83,18 +83,12 @@ export const getUserPosts = async (authorId: string) => {
 
 
 export default async function  findPosts (key: string, value: string | number, authorId: string) {
-	console.log("key:", key)
-	console.log("value:", value)
-	console.log("authorId:", authorId)
 		const posts = await db.posts.findMany({
 			where: {
 				[key]: value,
 				authorId: authorId,
 			}
 		})
-		if (posts.length > 0){
-			console.log("posts:", posts)
-			return posts;
-		}
+		if (posts.length > 0) return posts;
 		else return null;
 }

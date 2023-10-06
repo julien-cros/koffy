@@ -10,8 +10,6 @@ type Props = {
 const CategorySearchBar = ({ setCategorySearch }: Props) => {
 	const [clicked, setClicked] = useState(false);
 	const [category, setCategory] = useState("brand");
-	setCategorySearch(category);
-
 
   return (
 	<div className={`flex justify-center`}>
@@ -29,25 +27,14 @@ const CategorySearchBar = ({ setCategorySearch }: Props) => {
 			onClick={() => setClicked(!clicked)}
 			>
 			<button className='w-[100px] border-x-[1px] border-t-[1px] py-2' onClick={() => setCategory("brand")}>brand</button>
-			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  setCategory("variety")}>variety</button>
-			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  setCategory("tasting")}>tasting</button>
-			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  setCategory("rate")}>rate</button>
-			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  setCategory("note")}>note</button>
-			<button className='w-[100px] border-x-[1px] border-b-[1px] rounded-b-md py-2' onClick={() => setCategory("price")}>price</button>
+			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  {setCategory("variety"); setCategorySearch("variety")}}>variety</button>
+			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  {setCategory("tasting"); setCategorySearch("tasting")}}>tasting</button>
+			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  {setCategory("rate"); setCategorySearch("rate")}}>rate</button>
+			<button className='w-[100px] border-x-[1px] py-2' onClick={() =>  {setCategory("note"); setCategorySearch("note")}}>note</button>
+			<button className='w-[100px] border-x-[1px] border-b-[1px] rounded-b-md py-2' onClick={() => {setCategory("price"); setCategorySearch("price")}}>price</button>
 		</div>
 	</div>
   )
 }
 
 export default CategorySearchBar
-
-
-{/* <select
-			className="hidden sm:hidden md:block placeholder-gray-400 text-sm rounded-lg px-5 py-2 ring-1 outline-none ring-gray-200 hover:ring-gray-300 focus:ring-2 focus:ring-gray-400"
-			onChange={(e) => setCategorySearch("brand", e.target.value)}
-		>
-			<option value="brand">Brand</option>
-			<option value="model">Model</option>
-			<option value="year">Year</option>
-			<option value="rate">Rate</option>
-		</select> */}

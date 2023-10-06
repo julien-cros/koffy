@@ -13,8 +13,6 @@ type Props = {
 const ResultSearchBar = ({ setIsSearchOpen, posts }: Props) => {
 	const router = useRouter();
 
-	console.log(posts);
-
 	const redircetion = (id: string) => {
 		router.push(`/coffee-list/${id}`)
 	}

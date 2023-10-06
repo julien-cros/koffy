@@ -35,7 +35,6 @@ export default function Nav({ session }: Props) {
   const handleSearch = (fieldName: string, value: string) => {
     setCategorySearch(fieldName);
     setSearch(value);
-    console.log(search);
   };
 
   const atoi = (type: string, str: string) => {
@@ -82,7 +81,7 @@ export default function Nav({ session }: Props) {
       <div
         className={`${
           searchClicked ? "block" : "hidden"
-        } w-screen h-screen flex justify-center items-center absolute bg-black bg-opacity-50`}
+        } w-screen h-screen flex justify-center items-center absolute bg-black bg-opacity-50 z-10`}
       >
         <XMarkIcon
           className="w-8 h-8 absolute top-5 right-5 text-white cursor-pointer"
@@ -111,7 +110,7 @@ export default function Nav({ session }: Props) {
       <div
         className={`
 		  ${isSidebarOpen ? "relative" : ""} 
-		  flex justify-between items-center py-5 px-3 md:px-4 lg:px-2 xl:px-6  `}
+		  flex justify-between items-center py-5 px-3 md:px-4 lg:px-2 xl:px-6  backdrop-blur-sm `}
       >
         <div className="flex items-center space-x-4">
           <ListBulletIcon
