@@ -16,6 +16,7 @@ model User {
 	avatar		String?
 	name		String?
 	posts		Posts[]
+	wishlist	Wishlist[]
 }
 
 model Posts {
@@ -29,6 +30,16 @@ model Posts {
 	note		String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
+	author		User?	@relation(fields: [authorId], references: [id])
+	authorId	String?
+}
+
+model Wishlist {
+	id	String	@id @default(cuid())
+	title	String?
+	brand	String?
+	price	String?
+	url		String?
 	author		User?	@relation(fields: [authorId], references: [id])
 	authorId	String?
 }

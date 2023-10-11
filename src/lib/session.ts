@@ -27,6 +27,13 @@ export interface UserProfile {
 		createAt: string;
 		updatedAt: string;
 	};
+	wishlist?: {
+		id: number;
+		title: string;
+		brand: string;
+		price: string;
+		url: string;
+	}
 }
 
 export const authOptions: NextAuthOptions = {

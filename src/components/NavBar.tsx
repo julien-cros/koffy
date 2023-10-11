@@ -57,11 +57,10 @@ export default function Nav({ session }: Props) {
         setSearchClicked(false);
         setPosts(res);
         setIsSearchOpen(true);
-		return;
+        return;
+      } else {
+        alert("No results found");
       }
-	  else {
-		  alert("No results found");
-		}
     } else {
       alert("You must be logged in to serach");
     }
@@ -69,15 +68,26 @@ export default function Nav({ session }: Props) {
 
   return (
     <nav className={`${isSearchOpen ? "sticky top-0" : "sticky top-0"}`}>
-      {isSidebarOpen && (
-        <div className="w-screen h-screen absolute flex justify-center items-center bg-opacity-50">
-          <SideBar
-            session={session}
-            isSideBarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-        </div>
-      )}
+      <div
+        className={`${
+          isSidebarOpen
+            ? "opacity-50 z-10 absolute w-screen h-screen"
+            : "opacity-0 w-0 h-0"
+        }   bg-opacity-50 transition-opacity  bg-black`}
+      />
+      <div
+        className={`w-screen h-screen top-0 left-0 fixed flex justify-center items-center ease-in-out z-40 duration-300 ${
+          isSidebarOpen ? "translate-x-0 " : "-translate-x-full"
+        } overflow-hidden`}
+      >
+        <SideBar
+          session={session}
+          isSideBarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+          setSearchClicked={setSearchClicked}
+        />
+      </div>
+
       <div
         className={`${
           searchClicked ? "block" : "hidden"
@@ -115,26 +125,18 @@ export default function Nav({ session }: Props) {
         <div className="flex items-center space-x-4">
           <ListBulletIcon
             className="w-8 h-8 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
-            onClick={() => setIsSidebarOpen(true)}
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           />
-            <Link href="/" className="flex flex-row items-center gap-1">
-              <Image
-                src="/coffee.png"
-                alt="coffe logo"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            	<p className="text-3xl font-light">koffy</p>
-            </Link>
-        </div>
-        <div className="lg:hidden flex flex-grow justify-end">
-          <button
-            className="lg:hidden px-4 py-2 hover:scale-105 active:scale-95 transition duration-150"
-            onClick={() => setSearchClicked(true)}
-          >
-            <MagnifyingGlassIcon className="w-6 h-6" />
-          </button>
+          <Link href="/" className="flex flex-row items-center gap-1">
+            <Image
+              src="/coffee.png"
+              alt="coffe logo"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <p className="text-3xl font-light">koffy</p>
+          </Link>
         </div>
         <div className="hidden lg:block">
           <div className="flex justify-center items-center gap-2">

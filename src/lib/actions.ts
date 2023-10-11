@@ -82,13 +82,83 @@ export const getUserPosts = async (authorId: string) => {
 }
 
 
-export default async function  findPosts (key: string, value: string | number, authorId: string) {
-		const posts = await db.posts.findMany({
-			where: {
-				[key]: value,
-				authorId: authorId,
-			}
-		})
-		if (posts.length > 0) return posts;
-		else return null;
+export default async function findPosts(key: string, value: string | number, authorId: string) {
+	const posts = await db.posts.findMany({
+		where: {
+			[key]: value,
+			authorId: authorId,
+		}
+	})
+	if (posts.length > 0) return posts;
+	else return null;
 }
+
+// export const getWishlist = async (authorId: string) => {
+// 	const wishlist = await db.wishlist.findMany({
+// 		where: {
+// 			authorId,
+// 		},
+// 	});
+// 	if (wishlist.length > 0) return wishlist;
+// 	else return null;
+// }
+
+// export const createWishlist = async (form: WishLlistProps, user: SessionInterface) => {
+// 	try {
+// 		await db.wishlist.create({
+// 			data: {
+// 				title: form.title,
+// 				brand: form.brand,
+// 				price: form.price,
+// 				url: form.url,
+// 				author: {
+// 					connect: {
+// 						id: user.user.id,
+// 					},
+// 				}
+// 			}
+// 		})
+// 		return true;
+// 	} catch (err) {
+// 		throw err;
+// 	}
+// }
+
+// export const DelUpWishlist = async (type: string, form: WishLlistProps, id: string, user: SessionInterface) => {
+// 	if (user) {
+// 		if (type === "update") {
+// 			try {
+// 				await db.wishlist.update({
+// 					where: {
+// 						id,
+// 						authorId: user?.user.id
+// 					},
+// 					data: {
+// 						title: form?.title,
+// 						brand: form?.brand,
+// 						price: form?.price,
+// 						url: form?.url
+// 					}
+// 				});
+// 				return true;
+// 			} catch (error) {
+// 				return (null);
+// 			}
+// 		}
+// 		else if (type === "delete") {
+// 			try {
+// 				await db.wishlist.delete({
+// 					where: {
+// 						id
+// 					}
+// 				})
+// 				return true;
+// 			} catch (error) {
+// 				return false;
+// 			}
+// 		}
+// 	}
+// 	return false
+// }
+
+// await db.user.update({)

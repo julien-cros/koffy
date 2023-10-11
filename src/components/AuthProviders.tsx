@@ -23,14 +23,14 @@ const AuthProviders = ({
   return (
     <button
       onClick={() => signIn("google")}
-      className={`rounded-full text-sm tracking-wide px-4 py-2
+      className={`rounded-full tracking-wide px-4 py-2
  						${bgColor ? bgColor : "bg-amber-800"}
  						${textColor ? textColor : "text-white"}
  						${hoverBgColor ? hoverBgColor : "hover:bg-amber-800"}
  						${hoverTextColor ? hoverTextColor : "hover:text-white"}
  						${borderColor ? borderColor : "border-none"}
  						${border ? border : "border-none"}
-						hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl`}
+						hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm`}
     >
       Sign in with Google
     </button>
