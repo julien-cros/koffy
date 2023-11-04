@@ -12,11 +12,11 @@ const BaseSearchBar = ({session, setSearch }: Props) => {
 
 
   return (
-	<div className='w-full h-full flex justify-center'>
+	<div className='w-76 flex justify-center'>
 		<input
             type="text"
             placeholder="Search..."
-            className=" placeholder-gray-400 text-sm rounded-lg px-5 py-2 ring-1 outline-none ring-gray-200 hover:ring-gray-300 focus:ring-2 focus:ring-gray-400"
+            className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 sm:text-sm"
 			onChange={(e) => setSearch(e.target.value)}
 			
           />

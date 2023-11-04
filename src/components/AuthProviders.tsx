@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 type SignInButtonProps = {
   bgColor?: string;
@@ -20,9 +21,10 @@ const AuthProviders = ({
   borderColor,
   border,
 }: SignInButtonProps) => {
+	  const Router = useRouter();
   return (
     <button
-      onClick={() => signIn("google")}
+      onClick={() => {signIn("google"); Router.push("/")}}
       className={`rounded-full tracking-wide px-4 py-2
  						${bgColor ? bgColor : "bg-amber-800"}
  						${textColor ? textColor : "text-white"}

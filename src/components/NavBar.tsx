@@ -138,12 +138,12 @@ export default function Nav({ session }: Props) {
             <p className="text-3xl font-light">koffy</p>
           </Link>
         </div>
-        <div className="hidden lg:block">
-          <div className="flex justify-center items-center gap-2">
+		<div className="hidden lg:block">
+        <div className="flex gap-2">
             <CategorySearchBar setCategorySearch={setCategorySearch} />
             <BaseSearchBar session={session} setSearch={setSearch} />
             <MagnifyingGlassIcon
-              className="w-10 h-10"
+              className="w-5 h-5 mt-2"
               onClick={handleSearchSubmit}
             />
           </div>

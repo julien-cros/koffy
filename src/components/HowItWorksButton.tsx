@@ -16,10 +16,10 @@ const HowItWorks = () => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center">
       <Link
         href="#section-1"
-        className="bg-amber-800 text-pale-red px-4 py-2 rounded-full hover:bg-pale-red hover:text-amber-800 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl"
+        className="bg-amber-800 text-pale-red px-4 py-2 rounded-full hover:bg-pale-red hover:text-amber-800 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
         onClick={handleScroll}
       >
         How it works?

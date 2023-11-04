@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
-import GetStartedButton from "./GetStartedButton";
+import Link from "next/link";
 import HowItWorks from "./HowItWorksButton";
 
 const Center = async () => {
@@ -22,7 +22,12 @@ const Center = async () => {
         <div className="flex flex-row gap-4 pt-5 pl-0 md:pl-10 justify-center lg:justify-start">
           {!session?.user ? (
             <>
-              <GetStartedButton />
+              <Link
+                href={`/coffee-list`}
+                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800 hover:bg-amber-800 hover:text-pale-red border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+              >
+                coffee list
+              </Link>
               <AuthProviders
                 bgColor="bg-pale-red"
                 textColor="text-amber-800"
@@ -32,7 +37,15 @@ const Center = async () => {
               />
             </>
           ) : (
-            <HowItWorks />
+            <>
+              <Link
+                href={`/coffee-list`}
+                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800 hover:bg-amber-800 hover:text-pale-red border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+              >
+                coffee list
+              </Link>
+              <HowItWorks />
+            </>
           )}
         </div>
       </div>
