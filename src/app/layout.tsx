@@ -11,7 +11,7 @@ const EBGaramond = Lexend({ subsets: ["latin"]  });
 
 
 export const metadata: Metadata = {
-	metadataBase: new URL('http://localhost:3000'),
+	metadataBase: new URL('https://koffy.app/'),
   openGraph: {
 	title: "Koffy",
 	description: "A coffee list app",
