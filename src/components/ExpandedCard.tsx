@@ -74,7 +74,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
 						className="cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
 					/>
 				</Link>
-				<p className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
+				<p className="md:text-3xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
 					Details
 				</p>
 			</div>
