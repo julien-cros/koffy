@@ -24,7 +24,7 @@ const Center = async () => {
             <>
               <Link
                 href={`/coffee-list`}
-                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800 hover:bg-amber-800 hover:text-pale-red border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800  hover:text-amber-800 border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg hover:bg-pale-red  active:shadow-xl  text-xs md:text-sm"
               >
                 coffee list
               </Link>

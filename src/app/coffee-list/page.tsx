@@ -24,7 +24,7 @@ export default async function CoffeeListPage() {
 				/>
 			</Link>
         <p
-          className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300"
+          className="md:text-3xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300"
         >
           My coffee list
         </p>
