@@ -20,29 +20,6 @@
 	}
 
 
-@keyframes scroll {
-	0% {
-		transform: translateX(25%);
-	}
-	100% {
-		transform: translateX(-25%);
-	}
-}
-.animate {
-	animation: scroll 20s linear infinite;
-	transform: translateX(-25%);
-}
-
-.animate:hover {
-	animation-play-state: paused;
-	/* animation:  2s forwards ease-out */
-}
-
-
-
-
-
-
 
 
 

@@ -67,7 +67,7 @@ export default function Nav({ session }: Props) {
   };
 
   return (
-    <nav className={`${isSearchOpen ? "sticky top-0" : "sticky top-0"}`}>
+    <nav className={`${isSearchOpen ? "sticky top-0" : "sticky top-0 z-40"}`}>
       <div
         className={`${
           isSidebarOpen

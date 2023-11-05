@@ -38,7 +38,7 @@ export const coffeDsisplay = [
 		brand: 'Belleville',
 		rate: 4,
 		price: "15",
-		tasting: "red fruits and great acidity",
+		tasting: "red fruits and great",
 		updatedAt: new Date(),
 
 	},
