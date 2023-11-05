@@ -23,3 +23,39 @@ export const searchCategory = [
 		],
 	}, 
 ]
+
+export const coffeDsisplay = [
+	{
+		title: 'Dois Irmaos',
+		brand: 'Lomi',
+		rate: 5,
+		price: "14",
+		tasting: "fruity with a hint of cocoa",
+		updatedAt:  new Date(),
+	},
+	{
+		title: 'Chateau Belleville',
+		brand: 'Belleville',
+		rate: 4,
+		price: "15",
+		tasting: "red fruits and great acidity",
+		updatedAt: new Date(),
+
+	},
+	{
+		title: 'La Pantoufle',
+		brand: 'Belleville',
+		rate: 4,
+		price: "16",
+		tasting: "powerful and creamy",
+		updatedAt:  new Date(),
+	},
+	{
+		title: 'Bob-o-Link',
+		brand: 'Terre de Cafe',
+		rate: 4,
+		price: "17",
+		tasting: "smooth and chocolate",
+		updatedAt:  new Date(),
+	},
+]

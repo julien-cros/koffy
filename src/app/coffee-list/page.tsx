@@ -14,17 +14,17 @@ export default async function CoffeeListPage() {
   }
   return (
     <div className="flex flex-col justify-center m-10">
-      <div className="grid grid-cols-2 items-center">
+      <div className="flex  justify-between items-center">
 		<div className="flex flex-row items-center gap-2">
 			<Link href={"/"}>
 				<ArrowLeftIcon
-					height={30}
-					width={30}
-					className="cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
+					// height={30}
+					// width={30}
+					className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10  cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
 				/>
 			</Link>
         <p
-          className="md:text-3xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300"
+          className="text-2xl md:text-3xl lg:text-5xl flex flex-grow font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300"
         >
           My coffee list
         </p>

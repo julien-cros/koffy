@@ -40,6 +40,7 @@ export default async function RootLayout({
     <html lang="en">
 		<head>
 			<link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico"/>
+			<script src="https://code.jquery.com/jquery-3.5.0.min.js" async></script>
 		</head>
       <body className={EBGaramond.className}>
         <NavBar session={session} />

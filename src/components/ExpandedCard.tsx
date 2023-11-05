@@ -65,16 +65,14 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
   return (
     <form action={onSubmit}>
       <div className=" w-full h-full items-center">
-        <div className="grid grid-cols-2 items-center p-10">
+        <div className="flex flex-row justify-between items-center p-10">
 			<div className="flex flex-row items-center gap-2">
 				<Link href={"/coffee-list"}>
 					<ArrowLeftIcon
-						width={30}
-						height={30}
-						className="cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
+						className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
 					/>
 				</Link>
-				<p className="md:text-3xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
+				<p className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
 					Details
 				</p>
 			</div>
@@ -87,7 +85,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
         </div>
         {/* card */}
         <div className=" w-full h-full flex justify-center items-center py-20">
-          <div className="w-3/4 max-w-xl h-fit bg-slate-200 rounded-xl shadow-2xl break-words">
+          <div className="w-3/4 max-w-xl h-fit bg-pale-red  rounded-xl shadow-2xl break-words">
             <div className="flex flex-col pl-10 pr-10">
               {/* title */}
               <div className="flex justify-start pt-10 text-3xl font-bold">

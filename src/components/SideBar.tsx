@@ -19,7 +19,7 @@ type Props = {
 const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen, setSearchClicked }: Props) => {
   return (
     <div className="flex w-full h-full z-50">
-      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full bg-white rounded-[_0_3rem_0_0]">
+      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full background-color rounded-[_0_3rem_0_0]">
         <div className="flex justify-start items-start">
           <ListBulletIcon
             className="flex mt-6 ml-3"

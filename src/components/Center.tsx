@@ -1,9 +1,9 @@
 import React from "react";
-import Image from "next/image";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
 import Link from "next/link";
 import HowItWorks from "./HowItWorksButton";
+import DisplayCard from "./DisplayCard";
 
 const Center = async () => {
   const session = await getCurrentUser();
@@ -40,7 +40,9 @@ const Center = async () => {
             <>
               <Link
                 href={`/coffee-list`}
-                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800 hover:bg-amber-800 hover:text-pale-red border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+                className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800
+				 hover:bg-pale-red hover:text-amber-800  hover:scale-105 transition duration-105
+				 	 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
               >
                 coffee list
               </Link>
@@ -50,13 +52,8 @@ const Center = async () => {
         </div>
       </div>
       <div className=" flex justify-center items-center px-10 md:px-10 lg:px-0 xl:px-0 2xl:px-0">
-        <div className="h-[100%] w-full bg-pale-red flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none">
-          <Image
-            src="/café-wallaga.png"
-            alt="coffe-beans"
-            width={700}
-            height={700}
-          />
+        <div className="h-[500px] lg:h-[100%] w-full bg-pale-red flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none">
+		  <DisplayCard />
         </div>
       </div>
     </div>
