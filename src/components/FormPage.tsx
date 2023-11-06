@@ -40,7 +40,7 @@ const FormPage = ({ type, session }: Props) => {
     note: "",
     price: "",
 	weight: "",
-    status: true,
+    status: false,
   });
 
   if (!session?.user) {
@@ -155,9 +155,9 @@ const FormPage = ({ type, session }: Props) => {
         <div className="flex justify-between items-center">
           <HearthInput rate={rate} setRate={submitRate} />
           <div>
-            <div>
-              {status === false ? <p className="text-center text-sm mb-2 text-slate-400">private</p> : <p className="text-center text-sm mb-2 text-slate-400">public</p>}
-            </div>
+		  <div className=" text-center text-sm text-slate-400">
+						{form.status ? "Public" : "Private"}
+					</div>	
             <label className="relative items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -170,7 +170,6 @@ const FormPage = ({ type, session }: Props) => {
 							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400 "
 				onClick={() => {
 					setStatus(!status);
-					console.log(status);
 					handleStateChange("status", status);
 					}}
               ></div>

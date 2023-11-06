@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 .background-color {
-	/* background-color: #FCF9F6; */
-	/* background-color:  linear-gradient(to left top, rgb(154, 105, 105) 50%, rgba(255, 255, 255) 100% ) padding-box; */
-	
+	background-color: #FCF9F6;
 }
 :root{
 	background-color: #FCF9F6;
