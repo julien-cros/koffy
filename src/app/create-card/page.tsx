@@ -13,7 +13,7 @@ const CreateCard = async () => {
   return (
     <div >
       <Modal>
-        <h3 className="flex justify-start flex-col absolute md:text-5xl text-3xl font-extrabold text-left max-w-5xl w-full">
+        <h3 className="flex justify-start text-2xl md:text-3xl lg:text-5xl  font-extrabold text-left max-w-5xl w-full">
           You tasted a new Coffee!
         </h3>
         <div className="">

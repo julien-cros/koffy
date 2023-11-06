@@ -49,6 +49,7 @@ export const CreatePost = async (form: FormState, user: SessionInterface) => {
 			rate: form.rate,
 			note: form.note,
 			price: form.price,
+			status: form.status,
 			author: {
 				connect: {
 					id: user.user.id,

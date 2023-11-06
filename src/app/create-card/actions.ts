@@ -26,6 +26,8 @@ export default async function submit(form: FormState) {
 				rate: form?.rate,
 				note: form?.note,
 				price: form?.price,
+				weight: form?.weight,
+				status: form?.status,
 				author: {
 					connect: {
 						id: user.user.id,
@@ -73,6 +75,8 @@ export async function updatePost(id: string, form: FormState, type: string) {
 					rate: form?.rate,
 					note: form?.note,
 					price: form?.price,
+					weight: form?.weight,
+					status: form?.status,
 				},
 			});
 			return true;
