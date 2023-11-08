@@ -2,16 +2,17 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 
 export async function findSearchPost(key: string, value: string | number, isPrivate: string) {
-	const user = await getCurrentUser();
+	const user = await getCurrentUser() ? await getCurrentUser() : null;
+	if (isPrivate === "private" && !user) return null;
 
-	if (isPrivate === "private" && user) {
+	if (isPrivate === "private") {
 		const posts = await db.posts.findMany({
 			where: {
 				[key]: {
 					contains: value,
 					mode: 'insensitive',
 				},
-				authorId: user.user.id,
+				authorId: user?.user.id,
 			},
 		}
 		)
@@ -21,26 +22,24 @@ export async function findSearchPost(key: string, value: string | number, isPriv
 	else if (isPrivate === "public") {
 		const posts = await db.posts.findMany({
 			where: {
-				AND: [
-					{
+				// OR: [
+				// 	{
 						[key]: {
 							contains: value,
 							mode: 'insensitive',
 						},
 						status: true,
-					},
-					{
-						OR: [
-							{
-								status: false,
-							},
-							{
-								authorId: user?.user.id,
-							}
-						]
-					}
+					// },
+					// {
+					// 	[key]: {
+					// 		contains: value,
+					// 		mode: 'insensitive',
+					// 	},
+					// 	status: false,
+					// 	authorId: user.user.id
+					// }
 
-				],
+				// ],
 			}
 		}
 		)
