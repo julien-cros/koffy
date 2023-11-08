@@ -58,7 +58,22 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
     setForm({ ...form, [fieldName]: value });
   };
 
+  function isAlphanumeric(str: string) {
+	return str.match(/^[a-zA-Z0-9@#$*|,.?: -]*$/) !== null;
+  }
+
+
   const onSubmit = async () => {
+	if (form.title === "" || form.title === null ) {
+		alert("Title is required!");
+		setSubmitting(false);
+	}
+	else if ( isAlphanumeric(form?.title) === false || isAlphanumeric(form?.brand) === false  
+		|| isAlphanumeric(form?.variety) === false || isAlphanumeric(form?.tasting) === false 
+		|| isAlphanumeric(form?.note) === false || isAlphanumeric(form?.weight) === false ) {
+		alert("Only alphanumeric characters are allowed!");
+		setSubmitting(false);
+		}
     const updatedPost = await updatePost(id, form, type);
     if (updatedPost) {
       router.push("/coffee-list");

@@ -70,7 +70,11 @@ export default function Nav({ session }: Props) {
               />
             </Link>
           </div>
+		  <div className=" flex gap-[26px]  justify-center pr-[32px] "> 
+		  <ButtonPrivatePublic  status={status}
+			setStatus={setStatus}/>
           <CategorySearchBar setCategorySearch={setCategorySearch} />
+		  </div>
         </div>
       </div>
       <div
@@ -97,8 +101,8 @@ export default function Nav({ session }: Props) {
         <div className="hidden lg:block">
           <div className="flex gap-2">
 			<ButtonPrivatePublic
-			isPrivate={status}
-			setIsPrivate={setStatus}/>
+			status={status}
+			setStatus={setStatus}/>
             <CategorySearchBar setCategorySearch={setCategorySearch} />
             <BaseSearchBar session={session} setSearch={setSearch} />
             <Link href={`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`}>

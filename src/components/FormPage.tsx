@@ -43,6 +43,10 @@ const FormPage = ({ type, session }: Props) => {
     status: false,
   });
 
+  function isAlphanumeric(str: string) {
+	return str.match(/^[a-zA-Z0-9@#$*|,.?: -]*$/) !== null;
+  }
+
   if (!session?.user) {
     alert("You must be logged in to view this page");
     () => {
@@ -65,14 +69,25 @@ const FormPage = ({ type, session }: Props) => {
   const handleFormSubmit = async () => {
     setSubmitting(true);
     const valid = await findValidPost(
-      session.user.id,
-      form.brand,
-      form.variety,
+      session?.user.id,
+      form?.brand,
+      form?.variety,
     );
     if (valid) {
       alert("You already tasted this coffee!");
       setSubmitting(false);
-    } else {
+    } 
+	else if (form.title === "" || form.title === null ) {
+		alert("Title is required!");
+		setSubmitting(false);
+	}
+	else if ( isAlphanumeric(form?.title) === false || isAlphanumeric(form?.brand) === false  
+		|| isAlphanumeric(form?.variety) === false || isAlphanumeric(form?.tasting) === false 
+		|| isAlphanumeric(form?.note) === false || isAlphanumeric(form?.weight) === false ) {
+		alert("Only alphanumeric characters are allowed!");
+		setSubmitting(false);
+		}
+	else {
       const posts = await submit(form);
       if (posts) {
         router.push("/coffee-list");
