@@ -37,7 +37,7 @@ const SearchPage  = async ({ params } : PageProps) => {
 			</div>
 
 			{/* body page */}
-			<div className='mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10'>
+			<div className='mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10 pb-10'>
 				{posts?.map((post) => (
 					<Link href={`/coffee-list/${post.id}`} key={post.id}>
 						<Card

@@ -39,7 +39,7 @@ const FormPage = ({ type, session }: Props) => {
     rate: 1,
     note: "",
     price: "",
-	weight: "",
+	weight: "150g",
     status: false,
   });
 
