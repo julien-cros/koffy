@@ -82,8 +82,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
 				</p>
 			</div>
 			<div className="flex flex-row gap-10 justify-center items-center">
-				<div className="flex justify-center items-center gap-2">
-					<div className=" text-center text-sm text-slate-400">
+				<div className=" flex flex-col justify-center items-center ">
+					<div className=" text-center text-xs text-slate-400">
 						{form.status ? "Public" : "Private"}
 					</div>	
 					<label className="relative items-center cursor-pointer"

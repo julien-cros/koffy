@@ -86,7 +86,9 @@ export const getUserPosts = async (authorId: string) => {
 export default async function findPosts(key: string, value: string | number, authorId: string) {
 	const posts = await db.posts.findMany({
 		where: {
-			[key]: value,
+			[key]: {value,
+				mode: 'insensitive',
+			},
 			authorId: authorId,
 		}
 	})

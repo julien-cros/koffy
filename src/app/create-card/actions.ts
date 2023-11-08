@@ -4,7 +4,7 @@ import { FormState } from "@/components/FormPage";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 
-async function getData() {
+ export async function getData() {
 	const user = await getCurrentUser();
 
 	if (!user?.user.id) {

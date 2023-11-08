@@ -14,11 +14,9 @@ import SideBar from "./SideBar";
 import { SessionInterface } from "@/lib/session";
 import { useState } from "react";
 import BaseSearchBar from "./BaseSearchBar";
-import findPosts from "@/lib/actions";
-import { PostInterface } from "./ExpandedCard";
-import ResultSearchBar from "./ResultSearchBar";
 import CategorySearchBar from "./CategorySearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import ButtonPrivatePublic from "./ButtonPrivatePublic";
 
 type Props = {
   session: SessionInterface | null;
@@ -27,47 +25,12 @@ type Props = {
 export default function Nav({ session }: Props) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [categorySearch, setCategorySearch] = useState("brand");
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [status, setStatus] = useState(false);
   const [search, setSearch] = useState("");
-  const [posts, setPosts] = useState<PostInterface[] | null>(null);
   const [searchClicked, setSearchClicked] = useState(false);
 
-  const handleSearch = (fieldName: string, value: string) => {
-    setCategorySearch(fieldName);
-    setSearch(value);
-  };
-
-  const atoi = (type: string, str: string) => {
-    if (type === "rate") {
-      return parseInt(str);
-    } else {
-      return str;
-    }
-  };
-
-  const handleSearchSubmit = async () => {
-    if (session) {
-      handleSearch(categorySearch, search);
-      const res = await findPosts(
-        categorySearch,
-        atoi(categorySearch, search),
-        session?.user?.id,
-      );
-      if (res) {
-        setSearchClicked(false);
-        setPosts(res);
-        setIsSearchOpen(true);
-        return;
-      } else {
-        alert("No results found");
-      }
-    } else {
-      alert("You must be logged in to serach");
-    }
-  };
-
   return (
-    <nav className={`${isSearchOpen ? "sticky top-0" : "sticky top-0 z-40"}`}>
+    <nav className="sticky top-0 z-40">
       <div
         className={`${
           isSidebarOpen
@@ -97,25 +60,18 @@ export default function Nav({ session }: Props) {
           className="w-8 h-8 absolute top-5 right-5 text-white cursor-pointer"
           onClick={() => setSearchClicked(false)}
         />
-        <div className="flex flex-col justify-center items-center gap-4 z-10">
+        <div className="flex flex-col justify-center items-center gap-4 z-40">
           <div className="flex flex-row items-center justify-center gap-2">
             <BaseSearchBar session={session} setSearch={setSearch} />
-            <button className=" w-8 h-8 bg-white border-[1px] rounded-md">
+            <Link href={`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`}>
               <ChevronRightIcon
                 className="w-6 h-6 pl-1 "
-                onClick={handleSearchSubmit}
+				onClick={() => setSearchClicked(false)}
               />
-            </button>
+            </Link>
           </div>
           <CategorySearchBar setCategorySearch={setCategorySearch} />
         </div>
-      </div>
-      <div
-        className={`${
-          isSearchOpen ? "block" : "hidden"
-        } w-screen h-screen absolute bg-black bg-opacity-50 overflow-scroll z-10`}
-      >
-        <ResultSearchBar setIsSearchOpen={setIsSearchOpen} posts={posts} />
       </div>
       <div
         className={`
@@ -138,14 +94,18 @@ export default function Nav({ session }: Props) {
             <p className="text-3xl font-light">koffy</p>
           </Link>
         </div>
-		<div className="hidden lg:block">
-        <div className="flex gap-2">
+        <div className="hidden lg:block">
+          <div className="flex gap-2">
+			<ButtonPrivatePublic
+			isPrivate={status}
+			setIsPrivate={setStatus}/>
             <CategorySearchBar setCategorySearch={setCategorySearch} />
             <BaseSearchBar session={session} setSearch={setSearch} />
-            <MagnifyingGlassIcon
-              className="w-5 h-5 mt-2"
-              onClick={handleSearchSubmit}
-            />
+            <Link href={`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`}>
+              <MagnifyingGlassIcon
+                className="w-5 h-5 mt-2"
+              />
+            </Link>
           </div>
         </div>
         <div className="flex items-center space-x-8">

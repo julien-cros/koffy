@@ -41,14 +41,14 @@ export default function WeightInput({ setState, isUpdate }: Props) {
         )
 
   return (
-    <div className="flex justify-start pl-10 z-10 items-end pb-2  w-full">
+    <div className="flex justify-start pl-10 z-10 items-end pb-2 w-full">
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-slate-100 
 		  	text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 
 			focus-visible:ring-offset-2 focus-visible:ring-slate-900 sm:text-sm">
             <Combobox.Input
-              className={`w-40 border-none  ${isUpdate ? "bg-slate-300 text-slate-400" : "bg-slate-100"} py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 outline-none `}
+              className={`w-24 md:w-32 text-sm  border-none  ${isUpdate ? "bg-slate-300 text-slate-400" : "bg-slate-100"} py-2 pl-3 pr-10 leading-5 text-gray-900 outline-none `}
               displayValue={(weight : WeightProp) => weight.value}
               onChange={(event) => setQuery(event.target.value)}
             />
