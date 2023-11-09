@@ -109,16 +109,20 @@ export default async function findPosts(key: string, value: string | number, aut
 }
 
 export async function getUserFromId(id: string) {
-	const user = await db.user.findMany({
+	const user = await getCurrentUser();
+	if (!user?.user.id) return null;
+	const userpost = await db.user.findMany({
 		where: {
+			id: user?.user.id,
 			posts: {
 				some: {
 					id: id,
-				}
+				},
+
 			}
 		},
 	});
-	if (user) return user;
+	if (userpost) return userpost;
 	else return null;
 }
 
