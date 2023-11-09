@@ -4,6 +4,7 @@ import { FormState } from "@/components/FormPage";
 import { SessionInterface, authOptions } from "@/lib/session";
 import { db } from "./db";
 import { getServerSession } from "next-auth";
+import { checkUser } from "@/app/create-card/actions";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
@@ -111,18 +112,8 @@ export default async function findPosts(key: string, value: string | number, aut
 export async function getUserFromId(id: string) {
 	const user = await getCurrentUser();
 	if (!user?.user.id) return null;
-	const userpost = await db.user.findMany({
-		where: {
-			id: user?.user.id,
-			posts: {
-				some: {
-					id: id,
-				},
-
-			}
-		},
-	});
-	if (userpost) return userpost;
+	const response = checkUser(id, user.user.id);
+	if (response) return response;
 	else return null;
 }
 
