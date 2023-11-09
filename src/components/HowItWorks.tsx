@@ -36,7 +36,7 @@ const GetStarted = () => {
           brand="Coffe Brand"
           tasting="what does the coffee taste like"
           rate={4}
-          updatedAt={new Date()}
+          createdAt={new Date()}
         />
       </div>
       

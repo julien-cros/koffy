@@ -1,5 +1,5 @@
 import ExpandedCard from "@/components/ExpandedCard";
-import { getPostFromId } from "@/lib/actions";
+import { getPostFromId, getUserFromId } from "@/lib/actions";
 
 type PageProps = {
   params: {
@@ -8,11 +8,14 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
+	const user = await getUserFromId(params.id);
 	const post = await getPostFromId(params.id);
+
+	const isMine = user ? true : false;
 
   return (
 	<div>
-		<ExpandedCard post={post} id={params.id}/>
+		<ExpandedCard post={post} id={params.id} isMine={isMine}/>
 	</div>
   );
 };

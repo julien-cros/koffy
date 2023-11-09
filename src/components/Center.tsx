@@ -1,9 +1,9 @@
 import React from "react";
 import AuthProviders from "./AuthProviders";
-import { getCurrentUser } from "@/lib/session";
 import Link from "next/link";
 import HowItWorks from "./HowItWorksButton";
 import DisplayCard from "./DisplayCard";
+import { getCurrentUser } from "@/lib/actions";
 
 const Center = async () => {
   const session = await getCurrentUser();

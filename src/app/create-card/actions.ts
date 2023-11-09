@@ -1,8 +1,8 @@
 "use server";
 
 import { FormState } from "@/components/FormPage";
+import { getCurrentUser } from "@/lib/actions";
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
 
  export async function getData() {
 	const user = await getCurrentUser();
@@ -87,7 +87,7 @@ export async function updatePost(id: string, form: FormState, type: string) {
 }
 }
 
-export const findValidPost = async (userId: string, brand: string, variety: string | null) => {
+export const findValidPost = async (userId: string, brand: string) => {
 	if (!userId) {
 		throw new Error("Unauthorized");
 	}
@@ -95,7 +95,6 @@ export const findValidPost = async (userId: string, brand: string, variety: stri
 		where: {
 			authorId: userId,
 			brand: brand,
-			variety: variety,
 		},
 	}
 	);
@@ -105,17 +104,19 @@ export const findValidPost = async (userId: string, brand: string, variety: stri
 	return false;
 }
 
-const checkUser = async (id: string, userId: string) => {
+export const checkUser = async (id: string, userId: string) => {
 	const post = await db.posts.findUnique({
 		where: {
 			id,
 		},
 	});
 	if (!post) {
-		throw new Error("Post not found");
+		// throw new Error("Post not found");
+		return null;
 	}
 	if (post.authorId !== userId) {
-		throw new Error("Unauthorized");
+		// throw new Error("Unauthorized");
+		return null;
 	}
 	return post;
 }

@@ -1,7 +1,8 @@
 import "./globals.css";
 // import { Inter } from "next/font/google";
 import NavBar from "@/components/NavBar";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
+
 import { Metadata } from "next";
 import { Lexend } from "next/font/google";
 

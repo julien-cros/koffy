@@ -1,8 +1,8 @@
+import { getCurrentUser } from "@/lib/actions";
 import { db } from "@/lib/db";
-import { getCurrentUser } from "@/lib/session";
 
 export async function findSearchPost(key: string, value: string | number, isPrivate: string) {
-	const user = await getCurrentUser() ? await getCurrentUser() : null;
+	const user = await getCurrentUser();
 	if (isPrivate === "private" && !user) return null;
 
 	if (isPrivate === "private") {

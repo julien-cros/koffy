@@ -1,8 +1,9 @@
 "use server"
 
 import { FormState } from "@/components/FormPage";
-import { SessionInterface } from "@/lib/session";
+import { SessionInterface, authOptions } from "@/lib/session";
 import { db } from "./db";
+import { getServerSession } from "next-auth";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
@@ -76,23 +77,48 @@ export const getUserPosts = async (authorId: string) => {
 				authorId,
 			}
 		})
-		return posts;
+		if (posts.length > 0) return posts;
+		else return null;
 	} catch (err) {
 		throw err;
 	}
 }
 
 
+export async function getCurrentUser() {
+	const session = (await getServerSession(
+		authOptions,
+	)) as SessionInterface | null;
+
+	return session;
+}
+
+
 export default async function findPosts(key: string, value: string | number, authorId: string) {
 	const posts = await db.posts.findMany({
 		where: {
-			[key]: {value,
+			[key]: {
+				contains: value,
 				mode: 'insensitive',
 			},
 			authorId: authorId,
 		}
 	})
 	if (posts.length > 0) return posts;
+	else return null;
+}
+
+export async function getUserFromId(id: string) {
+	const user = await db.user.findMany({
+		where: {
+			posts: {
+				some: {
+					id: id,
+				}
+			}
+		},
+	});
+	if (user) return user;
 	else return null;
 }
 

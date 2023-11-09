@@ -7,7 +7,7 @@ import { SessionInterface } from "@/lib/session";
 import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   type: string;
@@ -27,7 +27,6 @@ export type FormState = {
 };
 
 const FormPage = ({ type, session }: Props) => {
-  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = useState<number>(1);
   const [status, setStatus] = useState<boolean>(true);
@@ -44,7 +43,7 @@ const FormPage = ({ type, session }: Props) => {
   });
 
   function isAlphanumeric(str: string) {
-	return str.match(/^[a-zA-Z0-9@#$*|,.?: -]*$/) !== null;
+	return str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null;
   }
 
   if (!session?.user) {
@@ -71,7 +70,6 @@ const FormPage = ({ type, session }: Props) => {
     const valid = await findValidPost(
       session?.user.id,
       form?.brand,
-      form?.variety,
     );
     if (valid) {
       alert("You already tasted this coffee!");
@@ -90,7 +88,7 @@ const FormPage = ({ type, session }: Props) => {
 	else {
       const posts = await submit(form);
       if (posts) {
-        router.push("/coffee-list");
+        <Link href={`/coffee-list`} />;
       } else {
         alert(
           `Failed to ${
@@ -176,7 +174,6 @@ const FormPage = ({ type, session }: Props) => {
             <label className="relative items-center cursor-pointer">
               <input
                 type="checkbox"
-                value=""
                 className="sr-only peer"
               />
               <div

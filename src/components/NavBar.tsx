@@ -29,6 +29,8 @@ export default function Nav({ session }: Props) {
   const [search, setSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
 
+
+
   return (
     <nav className="sticky top-0 z-40">
       <div
@@ -116,12 +118,9 @@ export default function Nav({ session }: Props) {
           <Link href="/coffee-list" className="hidden lg:block text-sm">
             Coffee List
           </Link>
-          <a
-            href="https://www.juliencros.com/"
-            className="hidden lg:block text-sm"
-          >
-            About
-          </a>
+          <Link href="/create-card" className="hidden lg:block text-sm">
+			Create
+		  </Link>
           <div className="flex items-center">
             {session?.user ? (
               <div className="flex items-center space-x-2">

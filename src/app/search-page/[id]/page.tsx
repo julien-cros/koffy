@@ -45,7 +45,7 @@ const SearchPage  = async ({ params } : PageProps) => {
 							title={post?.title}
 							brand={post?.brand}
 							tasting={post?.tasting}
-							updatedAt={post.updatedAt}
+							createdAt={post?.createdAt}
 							rate={post?.rate}
 						/>
 					</Link>

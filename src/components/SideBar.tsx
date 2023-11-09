@@ -6,7 +6,6 @@ import Link from "next/link";
 import AuthProviders from "./AuthProviders";
 import SignOutButton from "./SignOutButton";
 import { SessionInterface } from "@/lib/session";
-import { signIn } from "next-auth/react";
 import HowItWorks from "./HowItWorksButton";
 
 type Props = {
@@ -16,7 +15,12 @@ type Props = {
   setSearchClicked: (searchClicked: boolean) => void;
 };
 
-const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen, setSearchClicked }: Props) => {
+const SideBar = ({
+  session,
+  isSideBarOpen,
+  setIsSidebarOpen,
+  setSearchClicked,
+}: Props) => {
   return (
     <div className="flex w-full h-full z-50 ">
       <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full background-color rounded-[_0_3rem_0_0]">
@@ -39,7 +43,10 @@ const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen, setSearchClicked }:
         <div className=" h-1/2 flex flex-col mt-5 gap-6 items-center justify-center">
           <button
             className=" px-4 py-2 hover:scale-105 active:scale-95 transition duration-150"
-            onClick={() => {setSearchClicked(true); setIsSidebarOpen(!isSideBarOpen)}}
+            onClick={() => {
+              setSearchClicked(true);
+              setIsSidebarOpen(!isSideBarOpen);
+            }}
           >
             <MagnifyingGlassIcon className="w-6 h-6" />
           </button>
@@ -49,7 +56,13 @@ const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen, setSearchClicked }:
           >
             <p>coffe Lists</p>
           </Link>
-		  {/* <Link href={"/wishlist"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}> 
+          <Link
+            href="/create-card"
+            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+          >
+            create
+          </Link>
+          {/* <Link href={"/wishlist"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}> 
 		 	 <p>wishlist</p>
 		  </Link> */}
           <a
@@ -58,16 +71,10 @@ const SideBar = ({ session, isSideBarOpen, setIsSidebarOpen, setSearchClicked }:
           >
             About
           </a>
-          <h1 className="flex flex-col justify-center items-center space-y-6">
-            {!session ? (
-              <button onClick={() => signIn("google")}>Get Started</button>
-            ) : (
-				<div onClick={() => setIsSidebarOpen(!isSideBarOpen)}>
-					<HowItWorks />
-				</div>
-            )}
+          <div onClick={() => setIsSidebarOpen(!isSideBarOpen)} className="space-y-6">
+            <HowItWorks/>
             {!session?.user ? <AuthProviders /> : <SignOutButton />}
-          </h1>
+          </div>
         </div>
       </div>
       <div

@@ -1,6 +1,6 @@
 import FormPage from "@/components/FormPage";
 import Modal from "@/components/Modal";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import { redirect } from "next/navigation";
 
 const CreateCard = async () => {

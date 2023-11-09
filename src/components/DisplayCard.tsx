@@ -13,12 +13,6 @@ const DisplayCard = () => {
 		{ ssr: false }
 	);
 
-// 	window.$ = jQuery;
-// 	var $ = require('jquery.js');
-// if (typeof window !== "undefined") {
-// window.$ = window.jQuery = require("jquery");
-// }
-
 	const options = {
 		loop: true,
 		nav: false,
@@ -27,7 +21,6 @@ const DisplayCard = () => {
 		autoplayTimeout: 5000,
 		autoplayHoverPause: true,
 		items: 1,
-		singleItem: true,
 		touchDrag: true,
 	};
 
@@ -44,7 +37,7 @@ const DisplayCard = () => {
 							brand={coffee.brand}
 							tasting={coffee.tasting}
 							rate={coffee.rate}
-							updatedAt={coffee.updatedAt}
+							createdAt={coffee.createdAt}
 							shadow={"shadow-xl"}
 						/>
 					</div>

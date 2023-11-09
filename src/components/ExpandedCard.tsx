@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import HearthRate from "./HearthRate";
 import ExpandCardInput from "./ExpandCardInput";
-import { AdjustmentsHorizontalIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
+import {
+  AdjustmentsHorizontalIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/solid";
 import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import WeightInput from "./WeightInput";
-
 export type PostInterface = {
   id: string;
   title: string | null;
@@ -28,10 +29,10 @@ export type PostInterface = {
 type ExpandedCardProps = {
   post: PostInterface | null;
   id: string;
+  isMine: boolean;
 };
 
-const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
-  const router = useRouter();
+const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<string>("update");
@@ -40,7 +41,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
     setRate(rate);
     handleStateChange("rate", rate);
   };
-
+  
   const [form, setForm] = useState({
     title: post?.title || "",
     brand: post?.brand || "",
@@ -49,79 +50,91 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
     rate: post?.rate || 1,
     note: post?.note || "",
     price: post?.price || "",
-	weight: post?.weight || "",
-	status: post?.status || false,
+    weight: post?.weight || "",
+    status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
   });
 
-  const handleStateChange = (fieldName: string, value: string | number | boolean) => {
+  const handleStateChange = (
+    fieldName: string,
+    value: string | number | boolean,
+  ) => {
     setForm({ ...form, [fieldName]: value });
   };
 
   function isAlphanumeric(str: string) {
-	return str.match(/^[a-zA-Z0-9@#$*|,.?: -]*$/) !== null;
+    return str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null;
   }
 
 
   const onSubmit = async () => {
-	if (form.title === "" || form.title === null ) {
-		alert("Title is required!");
-		setSubmitting(false);
-	}
-	else if ( isAlphanumeric(form?.title) === false || isAlphanumeric(form?.brand) === false  
-		|| isAlphanumeric(form?.variety) === false || isAlphanumeric(form?.tasting) === false 
-		|| isAlphanumeric(form?.note) === false || isAlphanumeric(form?.weight) === false ) {
-		alert("Only alphanumeric characters are allowed!");
-		setSubmitting(false);
-		}
-    const updatedPost = await updatePost(id, form, type);
-    if (updatedPost) {
-      router.push("/coffee-list");
-    } else {
-      alert("Failed to update");
+    if (!isMine) return;
+    if (form.title === "" || form.title === null) {
+      alert("Title is required!");
+      setSubmitting(false);
+	  return;
+    } else if (
+      isAlphanumeric(form?.title) === false ||
+      isAlphanumeric(form?.brand) === false ||
+      isAlphanumeric(form?.variety) === false ||
+      isAlphanumeric(form?.tasting) === false ||
+      isAlphanumeric(form?.note) === false ||
+      isAlphanumeric(form?.weight) === false
+    ) {
+      alert("Only alphanumeric characters are allowed!");
+      setSubmitting(false);
+	  return;
     }
-  };
+    const updatedPost = await updatePost(id, form, type);
+	if (updatedPost) {
+	  <Link href={`/coffee-list/${id}`} />;
+	} else {
+	  alert("Failed to update");
+	}
+};
 
   return (
     <form action={onSubmit}>
       <div className=" w-full h-full items-center">
         <div className="flex flex-row justify-between items-center p-10">
-			<div className="flex flex-row items-center gap-2">
-				<Link href={"/coffee-list"}>
-					<ArrowLeftIcon
-						className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
-					/>
-				</Link>
-				<p className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
-					Details
-				</p>
-			</div>
+          <div className="flex flex-row items-center gap-2">
+            <Link href={"/coffee-list"}>
+              <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
+            </Link>
+            <p className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
+              Details
+            </p>
+          </div>
+          <div className={`${isMine ? "block" : "hidden"}`}>
 			<div className="flex flex-row gap-10 justify-center items-center">
 				<div className=" flex flex-col justify-center items-center ">
-					<div className=" text-center text-xs text-slate-400">
-						{form.status ? "Public" : "Private"}
-					</div>	
-					<label className="relative items-center cursor-pointer"
-					>
-					<input type="checkbox" value="" className="sr-only peer" disabled={!submitting}
-					{...form.status && {checked: true}}
-					onClick={() => handleStateChange("status", !form.status)}
-					/>	
-					<div className={`ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
-						peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-slate-400 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
-						peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400`}
-						
-						>
-					</div>
-					</label>
+				<div className=" text-center text-xs text-slate-400">
+					{form.status ? "Public" : "Private"}
 				</div>
-          <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
-            <AdjustmentsHorizontalIcon
-              className="w-10 h-10 flex justify-end text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
-              onClick={() => setSubmitting(!submitting)}
-            />
-          </div>
-			  </div>
+				<label className="relative items-center cursor-pointer">
+					<input
+					type="checkbox"
+					className="sr-only peer"
+					disabled={!submitting}
+					checked={form.status}
+						onClick={() => handleStateChange("status", !form.status)}
+					/>
+					<div
+					className={`ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
+							peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-slate-400 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
+							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400`}
+					></div>
+				</label>
+				</div>
+				<div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
+				<AdjustmentsHorizontalIcon
+					className="w-10 h-10 flex justify-end text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
+					onClick={() => setSubmitting(!submitting)}
+				/>
+				</div>
+			</div>
+		  </div>
+          
         </div>
         {/* card */}
         <div className=" w-full h-full flex justify-center items-center py-20">
@@ -137,8 +150,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     submitting={submitting}
                     text={post?.title}
                     setChange={handleStateChange}
-					maxLength={30}
-					isRequierd={false}
+                    maxLength={30}
+                    isRequierd={false}
                   />
                 ) : (
                   <p className="">{post?.title}</p>
@@ -155,8 +168,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     submitting={submitting}
                     text={post?.brand}
                     setChange={handleStateChange}
-					maxLength={30}
-					isRequierd={false}
+                    maxLength={30}
+                    isRequierd={false}
                   />
                 ) : (
                   <p>{post?.brand}</p>
@@ -169,8 +182,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                     text={post?.variety}
                     submitting={submitting}
                     setChange={handleStateChange}
-					maxLength={30}
-					isRequierd={false}
+                    maxLength={30}
+                    isRequierd={false}
                   />
                 ) : (
                   <p>{post?.variety}</p>
@@ -187,8 +200,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                   text={post?.tasting}
                   submitting={submitting}
                   setChange={handleStateChange}
-				  maxLength={400}
-				  isRequierd={false}
+                  maxLength={400}
+                  isRequierd={false}
                 />
               ) : (
                 <p className="pl-2 break-words">{post?.tasting}</p>
@@ -204,8 +217,8 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
                   text={post?.note}
                   submitting={submitting}
                   setChange={handleStateChange}
-				  maxLength={400}
-				  isRequierd={false}
+                  maxLength={400}
+                  isRequierd={false}
                 />
               ) : (
                 <p className="pl-3 pt-3">{post?.note}</p>
@@ -214,24 +227,26 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
               {/* price */}
               <div className="flex flex-row  items-center pt-10">
                 {submitting ? (
-				<div className=" flex ">
-					<ExpandCardInput
-					  placeholder="$"
-					  type="price"
-					  isTextArea={false}
-					  text={post?.price}
-					  submitting={submitting}
-					  setChange={handleStateChange}
-					  maxLength={5}
-					  isRequierd={false}
-					/>
-					<WeightInput
-						isUpdate={true}
-						setState={(value) => handleStateChange("weight", value)}
-					/>
-				</div>
+                  <div className="flex">
+                    <ExpandCardInput
+                      placeholder="$"
+                      type="price"
+                      isTextArea={false}
+                      text={post?.price}
+                      submitting={submitting}
+                      setChange={handleStateChange}
+                      maxLength={5}
+                      isRequierd={false}
+                    />
+                    <WeightInput
+                      isUpdate={true}
+                      setState={(value) => handleStateChange("weight", value)}
+                    />
+                  </div>
                 ) : (
-                  <p className="pl-1">{post?.price} / {post?.weight}</p>
+                  <p className="pl-1">
+                    {post?.price} / {post?.weight}
+                  </p>
                 )}
               </div>
               <div className="flex justify-center items-center py-10 ">
@@ -276,7 +291,7 @@ const ExpandedCard = ({ post, id }: ExpandedCardProps) => {
               Delete
             </button>
             <button
-              className=" text-xl text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
+              className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
               onClick={() => setType("update")}
             >
               Update

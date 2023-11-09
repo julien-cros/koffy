@@ -31,7 +31,7 @@ export const coffeDsisplay = [
 		rate: 5,
 		price: "14",
 		tasting: "fruity with a hint of cocoa",
-		updatedAt:  new Date(),
+		createdAt:  new Date(),
 	},
 	{
 		title: 'Chateau Belleville',
@@ -39,7 +39,7 @@ export const coffeDsisplay = [
 		rate: 4,
 		price: "15",
 		tasting: "red fruits and great",
-		updatedAt: new Date(),
+		createdAt: new Date(),
 
 	},
 	{
@@ -48,7 +48,7 @@ export const coffeDsisplay = [
 		rate: 4,
 		price: "16",
 		tasting: "powerful and creamy",
-		updatedAt:  new Date(),
+		createdAt:  new Date(),
 	},
 	{
 		title: 'Bob-o-Link',
@@ -56,6 +56,6 @@ export const coffeDsisplay = [
 		rate: 4,
 		price: "17",
 		tasting: "smooth and chocolate",
-		updatedAt:  new Date(),
+		createdAt:  new Date(),
 	},
 ]

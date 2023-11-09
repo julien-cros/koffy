@@ -5,12 +5,12 @@ type CardProps = {
   title: string | null;
   brand: string | null;
   tasting: string | null;
-  updatedAt: Date | null;
+  createdAt: Date | null;
   rate: number | null;
   shadow?: string;
 };
 
-const Card = ({ title, brand, tasting, updatedAt, rate, shadow }: CardProps) => {
+const Card = ({ title, brand, tasting, createdAt, rate, shadow }: CardProps) => {
   return (
     <div className={`
 		${shadow ? shadow : "shadow-xl"}
@@ -21,7 +21,7 @@ const Card = ({ title, brand, tasting, updatedAt, rate, shadow }: CardProps) => 
       <div className="flex flex-row  items-center gap-5 justify-between pt-5 text-clip overflow-hidden">
         <HearthRate rate={rate} />
         <p className="text-sm pr-6">
-          {updatedAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
+          {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
         </p>
       </div>
     </div>

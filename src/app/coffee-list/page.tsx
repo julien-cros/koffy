@@ -1,6 +1,5 @@
 import Card from "@/components/Card";
-import { getUserPosts } from "@/lib/actions";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser, getUserPosts } from "@/lib/actions";
 import { ArrowLeftIcon, SquaresPlusIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";
@@ -18,8 +17,6 @@ export default async function CoffeeListPage() {
 		<div className="flex flex-row items-center gap-2">
 			<Link href={"/"}>
 				<ArrowLeftIcon
-					// height={30}
-					// width={30}
 					className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10  cursor-pointer hover:scale-105 transition duration-150 active:scale-95"
 				/>
 			</Link>
@@ -43,7 +40,7 @@ export default async function CoffeeListPage() {
               title={post?.title}
               brand={post?.brand}
               tasting={post?.tasting}
-              updatedAt={post.updatedAt}
+              createdAt={post?.createdAt}
               rate={post?.rate}
             />
           </Link>
@@ -55,7 +52,7 @@ export default async function CoffeeListPage() {
             brand="future Brand"
             tasting="Taste a  coffe and rate it"
             rate={4}
-            updatedAt={new Date()}
+            createdAt={new Date()}
           />
         )}
       </div>
