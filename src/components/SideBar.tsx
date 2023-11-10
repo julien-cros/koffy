@@ -71,7 +71,7 @@ const SideBar = ({
           >
             About
           </a>
-          <div onClick={() => setIsSidebarOpen(!isSideBarOpen)} className="space-y-6">
+          <div onClick={() => setIsSidebarOpen(!isSideBarOpen)} className="space-y-6 flex flex-col items-center">
             <HowItWorks/>
             {!session?.user ? <AuthProviders /> : <SignOutButton />}
           </div>
