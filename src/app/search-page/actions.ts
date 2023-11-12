@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/actions";
+import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 
 export async function findSearchPost(key: string, value: string | number, isPrivate: string) {

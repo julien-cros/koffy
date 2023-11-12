@@ -1,7 +1,7 @@
 "use server";
 
 import { FormState } from "@/components/FormPage";
-import { getCurrentUser } from "@/lib/actions";
+import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 
  export async function getData() {

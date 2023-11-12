@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
-import { getCurrentUser, getUserPosts } from "@/lib/actions";
+import { getUserPosts } from "@/lib/actions";
+import { getCurrentUser } from "@/lib/session";
 import { ArrowLeftIcon, SquaresPlusIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React from "react";

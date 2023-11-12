@@ -12,7 +12,6 @@ const page = async ({ params }: PageProps) => {
 	const post = await getPostFromId(params.id);
 
 	const isMine = user ? true : false;
-	console.log(isMine);
   return (
 	<div>
 		<ExpandedCard post={post} id={params.id} isMine={isMine}/>

@@ -1,4 +1,4 @@
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions, User, getServerSession } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from "jsonwebtoken";
@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
 					await createUser(
 						user.name as string,
 						user.email as string,
-						"password",
+						user.image as string,
 					);
 				}
 
@@ -103,3 +103,11 @@ export const authOptions: NextAuthOptions = {
 		},
 	},
 };
+
+export async function getCurrentUser() {
+	const session = (await getServerSession(
+		authOptions,
+	)) as SessionInterface | null;
+
+	return session;
+}

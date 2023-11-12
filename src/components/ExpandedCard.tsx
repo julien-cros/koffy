@@ -36,12 +36,33 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<string>("update");
+  const [deleteValidation, setDeleteValidation] = useState(false);
+
+  const areYouSure = (type: string) => {
+	console.log(type);
+	console.log("delete:", deleteValidation);
+	if (type === "delete")
+	{
+		console.log("delete:", deleteValidation);
+		if (deleteValidation) {
+			console.log("delete:", deleteValidation);
+		  if (window.confirm("Are you sure you want to delete this post?")) {
+			setType("delete");
+			setSubmitting(true);
+			return true;
+		  } else {
+			setDeleteValidation(false);
+			return false;
+		  }
+		}
+	} else return true;
+  };
 
   const submitRate = (rate: number) => {
     setRate(rate);
     handleStateChange("rate", rate);
   };
-  
+
   const [form, setForm] = useState({
     title: post?.title || "",
     brand: post?.brand || "",
@@ -63,16 +84,25 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   };
 
   function isAlphanumeric(str: string) {
-    return str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null;
+    return (
+      str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null
+    );
   }
 
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const onSubmit = async () => {
-    if (!isMine) return;
+    if (!isMine) {
+      alert("You can't update this post");
+      setSubmitting(false);
+      return;
+    }
     if (form.title === "" || form.title === null) {
       alert("Title is required!");
       setSubmitting(false);
-	  return;
+      return;
     } else if (
       isAlphanumeric(form?.title) === false ||
       isAlphanumeric(form?.brand) === false ||
@@ -83,15 +113,23 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
     ) {
       alert("Only alphanumeric characters are allowed!");
       setSubmitting(false);
-	  return;
+      return;
     }
-    const updatedPost = await updatePost(id, form, type);
-	if (updatedPost) {
-	  <Link href={`/coffee-list/${id}`} />;
-	} else {
-	  alert("Failed to update");
-	}
-};
+    if (areYouSure(type)) {
+      const updatedPost = await updatePost(id, form, type);
+      if (updatedPost && type === "update") {
+        refreshPage();
+        setSubmitting(false);
+      } else if (updatedPost && type === "delete") {
+        alert("Post deleted");
+        window.location.href = "/coffee-list";
+      } else {
+        alert("Failed to update");
+      }
+    } else {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <form action={onSubmit}>
@@ -106,35 +144,34 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             </p>
           </div>
           <div className={`${isMine ? "block" : "hidden"}`}>
-			<div className="flex flex-row gap-10 justify-center items-center">
-				<div className=" flex flex-col justify-center items-center ">
-				<div className=" text-center text-xs text-slate-400">
-					{form.status ? "Public" : "Private"}
-				</div>
-				<label className="relative items-center cursor-pointer">
-					<input
-					type="checkbox"
-					className="sr-only peer"
-					disabled={!submitting}
-					checked={form.status}
-						onClick={() => handleStateChange("status", !form.status)}
-					/>
-					<div
-					className={`ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
+            <div className="flex flex-row gap-10 justify-center items-center">
+              <div className=" flex flex-col justify-center items-center ">
+                <div className=" text-center text-xs text-slate-400">
+                  {form.status ? "Public" : "Private"}
+                </div>
+                <label className="relative items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    disabled={!submitting}
+                    checked={form.status}
+                    onClick={() => handleStateChange("status", !form.status)}
+                  />
+                  <div
+                    className={`ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
 							peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-slate-400 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
 							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400`}
-					></div>
-				</label>
-				</div>
-				<div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
-				<AdjustmentsHorizontalIcon
-					className="w-10 h-10 flex justify-end text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
-					onClick={() => setSubmitting(!submitting)}
-				/>
-				</div>
-			</div>
-		  </div>
-          
+                  ></div>
+                </label>
+              </div>
+              <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
+                <AdjustmentsHorizontalIcon
+                  className="w-10 h-10 flex justify-end text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
+                  onClick={() => setSubmitting(!submitting)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
         {/* card */}
         <div className=" w-full h-full flex justify-center items-center py-20">
@@ -286,7 +323,9 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-red-400 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
-              onClick={() => setType("delete")}
+              onClick={() => {setDeleteValidation(true)
+				setType("delete")}
+			}
             >
               Delete
             </button>

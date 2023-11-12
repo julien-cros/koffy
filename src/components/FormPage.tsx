@@ -7,7 +7,8 @@ import { SessionInterface } from "@/lib/session";
 import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 type Props = {
   type: string;
@@ -27,6 +28,7 @@ export type FormState = {
 };
 
 const FormPage = ({ type, session }: Props) => {
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = useState<number>(1);
   const [status, setStatus] = useState<boolean>(true);
@@ -88,7 +90,8 @@ const FormPage = ({ type, session }: Props) => {
 	else {
       const posts = await submit(form);
       if (posts) {
-        <Link href={`/coffee-list`} />;
+		  setSubmitting(false);
+		  router.push("/coffee-list");
       } else {
         alert(
           `Failed to ${

@@ -1,9 +1,9 @@
 "use server"
 
 import { FormState } from "@/components/FormPage";
-import { SessionInterface, authOptions } from "@/lib/session";
+import { SessionInterface } from "@/lib/session";
+import { getCurrentUser } from "@/lib/session";
 import { db } from "./db";
-import { getServerSession } from "next-auth";
 import { checkUser } from "@/app/create-card/actions";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -83,15 +83,6 @@ export const getUserPosts = async (authorId: string) => {
 	} catch (err) {
 		throw err;
 	}
-}
-
-
-export async function getCurrentUser() {
-	const session = (await getServerSession(
-		authOptions,
-	)) as SessionInterface | null;
-
-	return session;
 }
 
 
