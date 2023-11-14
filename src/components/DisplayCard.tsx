@@ -30,7 +30,7 @@ const DisplayCard = () => {
 		<div className='flex h-full items-center justify-center overflow-hidden'>
 			<OwlCarousel className='owl-theme' {...options}>
 				{coffeDsisplay.map((coffee) => (
-					<div key={coffee.title}  className='flex h-full justify-center mb-10'>
+					<div key={coffee.title}  className='flex h-full justify-center mt-10 mb-10'>
 						<Card
 							key={coffee.title}
 							title={coffee.title}

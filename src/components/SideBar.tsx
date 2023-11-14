@@ -7,6 +7,8 @@ import AuthProviders from "./AuthProviders";
 import SignOutButton from "./SignOutButton";
 import { SessionInterface } from "@/lib/session";
 import HowItWorks from "./HowItWorksButton";
+import Swal from "sweetalert2";
+import { signIn } from "next-auth/react";
 
 type Props = {
   session: SessionInterface | null;
@@ -21,6 +23,24 @@ const SideBar = ({
   setIsSidebarOpen,
   setSearchClicked,
 }: Props) => {
+
+	const AlertBox = () => {
+		Swal.fire({
+			icon: "warning",
+			title: "You need to be logged in to create a card",
+			showCloseButton: true,
+			timer: 10000,
+			timerProgressBar: true,
+			showConfirmButton: true,
+			confirmButtonColor: '#c2410c',
+			confirmButtonText: "Sign in",
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				signIn("google")
+			}
+		  })
+	}
+
   return (
     <div className="flex w-full h-full z-50 ">
       <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full background-color rounded-[_0_3rem_0_0]">
@@ -58,7 +78,7 @@ const SideBar = ({
           </Link>
           <Link
             href="/create-card"
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+			onClick={!session?.user ? () => AlertBox() : () => setIsSidebarOpen(!isSideBarOpen)}
           >
             create
           </Link>

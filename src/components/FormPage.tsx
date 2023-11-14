@@ -6,9 +6,16 @@ import WeightInput from "./WeightInput";
 import { SessionInterface } from "@/lib/session";
 import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import Link from "next/link";
 
+type AlertBoxProps = {
+	message: string;
+	icon: any;
+	messageButton?: string;	
+}
 
 type Props = {
   type: string;
@@ -44,16 +51,37 @@ const FormPage = ({ type, session }: Props) => {
     status: false,
   });
 
+  const AlertBox =({message, icon, messageButton}: AlertBoxProps) => {
+	Swal.fire({
+		icon: icon,
+		title: message,
+		showCloseButton: true,
+		timer: 10000,
+		timerProgressBar: true,
+		showConfirmButton: true,
+		confirmButtonColor: '#c2410c',
+		confirmButtonText: messageButton,
+	  }).then((result) => {
+		if (result.isConfirmed) {
+			signIn("google")
+		}
+		else {
+			<Link href="/"/>
+		}
+	  })
+  }
+
   function isAlphanumeric(str: string) {
 	return str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null;
   }
 
-  if (!session?.user) {
-    alert("You must be logged in to view this page");
-    () => {
-      signIn("google");
-    };
-  }
+  useEffect(() => {
+	if (!session?.user) {
+	  AlertBox({message:"You need to sign in to create a new post!", icon:"warning", messageButton:"Sign In"});
+	  () => {
+		signIn("google");
+	  }
+  }});
 
   const submitRate = (rate: number) => {
     setRate(rate);
@@ -72,19 +100,20 @@ const FormPage = ({ type, session }: Props) => {
     const valid = await findValidPost(
       session?.user.id,
       form?.brand,
+	  form?.title,
     );
     if (valid) {
-      alert("You already tasted this coffee!");
+      AlertBox({message:"You already tasted this coffee!", icon:"warning", messageButton:"go it!"});
       setSubmitting(false);
     } 
 	else if (form.title === "" || form.title === null ) {
-		alert("Title is required!");
+		AlertBox({message:"Title is required!", icon:"warning", messageButton:"go it!"});
 		setSubmitting(false);
 	}
 	else if ( isAlphanumeric(form?.title) === false || isAlphanumeric(form?.brand) === false  
 		|| isAlphanumeric(form?.variety) === false || isAlphanumeric(form?.tasting) === false 
 		|| isAlphanumeric(form?.note) === false || isAlphanumeric(form?.weight) === false ) {
-		alert("Only alphanumeric characters are allowed!");
+		AlertBox({message:"Only alphanumeric characters are allowed!", icon:"warning", messageButton:"go it!"});
 		setSubmitting(false);
 		}
 	else {
@@ -93,10 +122,11 @@ const FormPage = ({ type, session }: Props) => {
 		  setSubmitting(false);
 		  router.push("/coffee-list");
       } else {
-        alert(
-          `Failed to ${
-            type === "create" ? "create" : "edit"
-          } a project. Try again!`,
+        AlertBox({message:`Failed to
+			${type === "create" ? "create" : "edit"} a project. Try again!`,
+			icon:"error",
+			messageButton:"ok"
+		}
         );
         setSubmitting(false);
       }

@@ -11,12 +11,12 @@ const CreateCard = async () => {
   }
 
   return (
-    <div >
+    <div>
       <Modal>
         <h3 className="flex justify-start text-2xl md:text-3xl lg:text-5xl  font-extrabold text-left max-w-5xl w-full">
           You tasted a new Coffee!
         </h3>
-        <div className="">
+        <div>
           <FormPage type="create" session={session} />
         </div>
       </Modal>

@@ -87,13 +87,14 @@ export async function updatePost(id: string, form: FormState, type: string) {
 }
 }
 
-export const findValidPost = async (userId: string, brand: string) => {
+export const findValidPost = async (userId: string, brand: string, title: string) => {
 	if (!userId) {
 		throw new Error("Unauthorized");
 	}
 	const post = await db.posts.findFirst({
 		where: {
 			authorId: userId,
+			title: title,
 			brand: brand,
 		},
 	}

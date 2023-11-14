@@ -17,19 +17,41 @@ import BaseSearchBar from "./BaseSearchBar";
 import CategorySearchBar from "./CategorySearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import ButtonPrivatePublic from "./ButtonPrivatePublic";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import { signIn } from "next-auth/react";
 
 type Props = {
   session: SessionInterface | null;
 };
 
 export default function Nav({ session }: Props) {
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [categorySearch, setCategorySearch] = useState("brand");
   const [status, setStatus] = useState(false);
   const [search, setSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
 
-
+  const AlertBox = () => {
+	Swal.fire({
+		icon: "warning",
+		title: "You need to be logged in to create a card",
+		showCloseButton: true,
+		timer: 10000,
+		timerProgressBar: true,
+		showConfirmButton: true,
+		confirmButtonColor: '#c2410c',
+		confirmButtonText: "Sign in",
+	  }).then((result) => {
+		if (result.isConfirmed) {
+			signIn("google")
+		}
+		else {
+			<Link href="/"/>
+		}
+	  })
+  }
 
   return (
     <nav className="sticky top-0 z-40">
@@ -118,9 +140,9 @@ export default function Nav({ session }: Props) {
           <Link href="/coffee-list" className="hidden lg:block text-sm">
             Coffee List
           </Link>
-          <Link href="/create-card" className="hidden lg:block text-sm">
+        <button  className="hidden lg:block text-sm" onClick={session?.user ? () => router.push("/create-card") : () => AlertBox()}>
 			Create
-		  </Link>
+		  </button>
           <div className="flex items-center">
             {session?.user ? (
               <div className="flex items-center space-x-2">

@@ -11,6 +11,8 @@ import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
 import Link from "next/link";
 import WeightInput from "./WeightInput";
+import Swal from "sweetalert2";
+
 export type PostInterface = {
   id: string;
   title: string | null;
@@ -32,31 +34,90 @@ type ExpandedCardProps = {
   isMine: boolean;
 };
 
+enum ModalAction {
+  UPDATE = "update",
+  DELETE = "delete",
+}
+
 const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
-  const [type, setType] = React.useState<string>("update");
+  const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
   const [deleteValidation, setDeleteValidation] = useState(false);
 
-  const areYouSure = (type: string) => {
-	console.log(type);
-	console.log("delete:", deleteValidation);
-	if (type === "delete")
-	{
-		console.log("delete:", deleteValidation);
-		if (deleteValidation) {
-			console.log("delete:", deleteValidation);
-		  if (window.confirm("Are you sure you want to delete this post?")) {
-			setType("delete");
-			setSubmitting(true);
-			return true;
-		  } else {
-			setDeleteValidation(false);
-			return false;
-		  }
-		}
-	} else return true;
+  type AlertProps = {
+    message: string;
+    icon: any;
+    messageButton?: string;
   };
+
+  const AlertBox = ({ message, icon, messageButton }: AlertProps) => {
+    Swal.fire({
+      icon: icon,
+      title: message,
+      showCloseButton: true,
+      timer: 10000,
+      timerProgressBar: true,
+      showConfirmButton: true,
+      confirmButtonColor: "#c2410c",
+      confirmButtonText: messageButton,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/coffee-list";
+      } else {
+        window.location.href = "/coffee-list";
+      }
+    });
+  };
+
+  const areYouSure = async (type: ModalAction): Promise<boolean> => {
+    return new Promise(async (resolve, reject) => {
+      switch (type) {
+        case ModalAction.DELETE:
+          return Swal.fire({
+            icon: "warning",
+            title: "Are you sure you want to delete this post?",
+            showCloseButton: true,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonColor: "#4ade80",
+            confirmButtonText: "Yes",
+            cancelButtonColor: "#ef4444",
+            cancelButtonText: "No",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              resolve(true);
+            } else {
+              reject(false);
+            }
+          });
+        case ModalAction.UPDATE:
+          reject(false);
+        default:
+          reject(false);
+      }
+    })
+  };
+
+  //   const areYouSure = (type: string) => {
+  // 	console.log(type);
+  // 	console.log("delete:", deleteValidation);
+  // 	if (type === "delete")
+  // 	{
+  // 		console.log("delete:", deleteValidation);
+  // 		if (deleteValidation) {
+  // 			console.log("delete:", deleteValidation);
+  // 		  if (window.confirm("Are you sure you want to delete this post?")) {
+  // 			setType("delete");
+  // 			setSubmitting(true);
+  // 			return true;
+  // 		  } else {
+  // 			setDeleteValidation(false);
+  // 			return false;
+  // 		  }
+  // 		}
+  // 	} else return true;
+  //   };
 
   const submitRate = (rate: number) => {
     setRate(rate);
@@ -95,12 +156,20 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
 
   const onSubmit = async () => {
     if (!isMine) {
-      alert("You can't update this post");
+      AlertBox({
+        message: "You can't update this post",
+        icon: "error",
+        messageButton: "Got it!",
+      });
       setSubmitting(false);
       return;
     }
     if (form.title === "" || form.title === null) {
-      alert("Title is required!");
+      AlertBox({
+        message: "Title is required!",
+        icon: "error",
+        messageButton: "Got it!",
+      });
       setSubmitting(false);
       return;
     } else if (
@@ -111,22 +180,37 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
       isAlphanumeric(form?.note) === false ||
       isAlphanumeric(form?.weight) === false
     ) {
-      alert("Only alphanumeric characters are allowed!");
+      AlertBox({
+        message: "Only alphanumeric characters are allowed!",
+        icon: "error",
+        messageButton: "Got it!",
+      });
       setSubmitting(false);
       return;
     }
-    if (areYouSure(type)) {
+
+    if (await areYouSure(type)) {
+      console.log("delete:", deleteValidation);
+      console.log("type:", type);
       const updatedPost = await updatePost(id, form, type);
       if (updatedPost && type === "update") {
         refreshPage();
         setSubmitting(false);
       } else if (updatedPost && type === "delete") {
-        alert("Post deleted");
-        window.location.href = "/coffee-list";
+        AlertBox({
+          message: "Post deleted",
+          icon: "success",
+          messageButton: "ok",
+        });
       } else {
-        alert("Failed to update");
+        AlertBox({
+          message: "Failed to update",
+          icon: "error",
+          messageButton: "ok",
+        });
       }
     } else {
+      console.log("not sure:", deleteValidation);
       setSubmitting(false);
     }
   };
@@ -323,15 +407,16 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-red-400 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
-              onClick={() => {setDeleteValidation(true)
-				setType("delete")}
-			}
+              onClick={() => {
+                setDeleteValidation(true);
+                setType(ModalAction.DELETE);
+              }}
             >
               Delete
             </button>
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
-              onClick={() => setType("update")}
+              onClick={() => setType(ModalAction.UPDATE)}
             >
               Update
             </button>

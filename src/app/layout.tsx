@@ -4,10 +4,13 @@ import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
 
 import { Metadata } from "next";
-import { Lexend } from "next/font/google";
+import { Poppins } from "next/font/google";
 
 
-const EBGaramond = Lexend({ subsets: ["latin"]  });
+const EBGaramond = Poppins({
+	weight: ['600', '700', '800', '900'],
+	subsets: ['latin'],
+});
 
 
 
@@ -44,8 +47,10 @@ export default async function RootLayout({
 			<script src="https://code.jquery.com/jquery-3.5.0.min.js" async></script>
 		</head>
       <body className={EBGaramond.className}>
-        <NavBar session={session} />
+        <div className="tracking-tight">
+		<NavBar session={session} />
         {children}
+		</div>
       </body>
     </html>
   );
