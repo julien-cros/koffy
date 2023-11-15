@@ -12,6 +12,7 @@ import HearthInput from "./HearthInput";
 import Link from "next/link";
 import WeightInput from "./WeightInput";
 import Swal from "sweetalert2";
+import ColorInput from "./ColorInput";
 
 export type PostInterface = {
   id: string;
@@ -26,6 +27,7 @@ export type PostInterface = {
   createdAt: Date;
   updatedAt: Date;
   status: boolean | null;
+  color: string | null;
 };
 
 type ExpandedCardProps = {
@@ -43,7 +45,6 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
-  const [deleteValidation, setDeleteValidation] = useState(false);
 
   type AlertProps = {
     message: string;
@@ -71,9 +72,9 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   };
 
   const areYouSure = async (type: ModalAction): Promise<boolean> => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       switch (type) {
-        case ModalAction.DELETE:
+        case ModalAction.DELETE: {
           return Swal.fire({
             icon: "warning",
             title: "Are you sure you want to delete this post?",
@@ -88,36 +89,34 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             if (result.isConfirmed) {
               resolve(true);
             } else {
-              reject(false);
+              resolve(false);
             }
           });
-        case ModalAction.UPDATE:
-          reject(false);
+        }
+        case ModalAction.UPDATE: {
+          return Swal.fire({
+            icon: "info",
+            title: "Are you sure you want to update this post?",
+            showCloseButton: true,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonColor: "#4ade80",
+            confirmButtonText: "Yes",
+            cancelButtonColor: "#ef4444",
+            cancelButtonText: "No",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          });
+        }
         default:
-          reject(false);
+          resolve(false);
       }
-    })
+    });
   };
-
-  //   const areYouSure = (type: string) => {
-  // 	console.log(type);
-  // 	console.log("delete:", deleteValidation);
-  // 	if (type === "delete")
-  // 	{
-  // 		console.log("delete:", deleteValidation);
-  // 		if (deleteValidation) {
-  // 			console.log("delete:", deleteValidation);
-  // 		  if (window.confirm("Are you sure you want to delete this post?")) {
-  // 			setType("delete");
-  // 			setSubmitting(true);
-  // 			return true;
-  // 		  } else {
-  // 			setDeleteValidation(false);
-  // 			return false;
-  // 		  }
-  // 		}
-  // 	} else return true;
-  //   };
 
   const submitRate = (rate: number) => {
     setRate(rate);
@@ -135,6 +134,7 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
     weight: post?.weight || "",
     status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
+    color: post?.color || "bg-pale-red",
   });
 
   const handleStateChange = (
@@ -190,13 +190,11 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
     }
 
     if (await areYouSure(type)) {
-      console.log("delete:", deleteValidation);
-      console.log("type:", type);
       const updatedPost = await updatePost(id, form, type);
-      if (updatedPost && type === "update") {
+      if (updatedPost && type === ModalAction.UPDATE) {
         refreshPage();
         setSubmitting(false);
-      } else if (updatedPost && type === "delete") {
+      } else if (updatedPost && type === ModalAction.DELETE) {
         AlertBox({
           message: "Post deleted",
           icon: "success",
@@ -210,7 +208,6 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
         });
       }
     } else {
-      console.log("not sure:", deleteValidation);
       setSubmitting(false);
     }
   };
@@ -259,7 +256,9 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
         </div>
         {/* card */}
         <div className=" w-full h-full flex justify-center items-center py-20">
-          <div className="w-3/4 max-w-xl h-fit bg-pale-red  rounded-xl shadow-2xl break-words">
+          <div
+            className={`${form.color} w-3/4 max-w-xl h-fit  rounded-xl shadow-2xl break-words`}
+          >
             <div className="flex flex-col pl-10 pr-10">
               {/* title */}
               <div className="flex justify-start pt-10 text-3xl font-bold">
@@ -408,12 +407,17 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-red-400 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
               onClick={() => {
-                setDeleteValidation(true);
                 setType(ModalAction.DELETE);
               }}
             >
               Delete
             </button>
+			<div>
+				<ColorInput
+				color={form?.color}
+				setState={(value) => handleStateChange("color", value)}
+				/>
+			</div>
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
               onClick={() => setType(ModalAction.UPDATE)}

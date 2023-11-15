@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
+import ColorInput from "./ColorInput";
 
 type AlertBoxProps = {
 	message: string;
@@ -32,6 +33,7 @@ export type FormState = {
   price: string | null;
   weight: string | null;
   status: boolean;
+  color: string | null;
 };
 
 const FormPage = ({ type, session }: Props) => {
@@ -49,6 +51,7 @@ const FormPage = ({ type, session }: Props) => {
     price: "",
 	weight: "150g",
     status: false,
+	color: "bg-pale-red"
   });
 
   const AlertBox =({message, icon, messageButton}: AlertBoxProps) => {
@@ -219,10 +222,15 @@ const FormPage = ({ type, session }: Props) => {
 					}}
               ></div>
             </label>
-          </div>
         </div>
-
-        <div className="flex  justify-center pt-10">
+          </div>
+			<div className="flex items-center">
+				<ColorInput
+					color={form.color}
+					setState={(value) => handleStateChange("color", value)}
+				/>
+			</div>
+        <div className="flex justify-center pt-10">
           <button
             type="submit"
             className="px-32 py-4 bg-amber-800 text-pale-red text-lg rounded-full"

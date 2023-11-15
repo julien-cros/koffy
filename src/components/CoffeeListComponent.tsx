@@ -71,6 +71,7 @@ const CoffeeListComponent = ({posts, isLogged} : Props) => {
 			  tasting={post?.tasting}
 			  createdAt={post?.createdAt}
 			  rate={post?.rate}
+			  color={post?.color}
 			/>
 		</div>
 	  ))}
@@ -82,6 +83,7 @@ const CoffeeListComponent = ({posts, isLogged} : Props) => {
 		  tasting="Taste a  coffe and rate it"
 		  rate={4}
 		  createdAt={new Date()}
+		  color="bg-pale-red"
 		/>
 	  )}
 	</div>

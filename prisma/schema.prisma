@@ -30,6 +30,7 @@ model Posts {
 	note		String?
 	status		Boolean?
 	weight		String?
+	color		String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
 	author		User?	@relation(fields: [authorId], references: [id])
