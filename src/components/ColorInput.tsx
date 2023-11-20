@@ -19,7 +19,7 @@ type Props = {
 const ColorInput = ({setState, color}: Props) => {
 	const [selected, setSelected] = useState({ name: color })
   return (
-	<div className='w-full h-20 flex flex-row items-center justify-start gap-2'>
+	<div className='w-52 h-20 flex flex-row items-center justify-start gap-2'>
 			{colors.map((color) => (
 				<div key={color.id} 
 					 className={`w-[29px] h-[29px] flex justify-center items-center border-2 ${color.name === selected.name ? "border-slate-400" : "border-slate-300"} rounded-lg hover:border-slate-400`}>

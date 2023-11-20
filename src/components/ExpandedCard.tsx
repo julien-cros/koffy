@@ -402,6 +402,14 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             </div>
           </div>
         </div>
+		{submitting && (
+			  <div className="flex justify-center items-center">
+				  <ColorInput
+				  color={form?.color}
+				  setState={(value) => handleStateChange("color", value)}
+				  />
+			  </div>
+		)}
         {submitting && (
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
@@ -412,12 +420,6 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             >
               Delete
             </button>
-			<div>
-				<ColorInput
-				color={form?.color}
-				setState={(value) => handleStateChange("color", value)}
-				/>
-			</div>
             <button
               className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
               onClick={() => setType(ModalAction.UPDATE)}
