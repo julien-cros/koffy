@@ -114,11 +114,9 @@ export const checkUser = async (id: string, userId: string) => {
 		},
 	});
 	if (!post) {
-		// throw new Error("Post not found");
 		return null;
 	}
 	if (post.authorId !== userId) {
-		// throw new Error("Unauthorized");
 		return null;
 	}
 	return post;

@@ -21,8 +21,6 @@ const SearchPage  = async ({ params } : PageProps) => {
 	return(
 
 		<div className='w-full h-full items-cneter'>
-
-			{/* header page */}
 			<div className='flex flex-row justify-between items-center p-10'>
 			<div className="flex flex-row items-center gap-2">
 				<Link href={"/coffee-list"}>
@@ -35,8 +33,6 @@ const SearchPage  = async ({ params } : PageProps) => {
 				</p>
 				</div>
 			</div>
-
-			{/* body page */}
 			<div className='mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10 pb-10'>
 				{posts?.map((post) => (
 					<Link href={`/coffee-list/${post.id}`} key={post.id}>
