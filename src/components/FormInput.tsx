@@ -12,7 +12,15 @@ type Props = {
   isRequierd?: boolean;
 };
 
-const FormInput = ({ type, title, placeholder, textArea, setState, maxLength, isRequierd }: Props) => {
+const FormInput = ({
+  type,
+  title,
+  placeholder,
+  textArea,
+  setState,
+  maxLength,
+  isRequierd,
+}: Props) => {
   return (
     <div className="flex flex-start flex-col gap-4">
       <label className="w-full text-gray-400">{title}</label>
@@ -24,7 +32,7 @@ const FormInput = ({ type, title, placeholder, textArea, setState, maxLength, is
 		focus-visible:ring-offset-2 focus-visible:ring-slate-400 sm:text-sm pl-4 pt-4"
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}
-		  maxLength={maxLength}
+          maxLength={maxLength}
         />
       ) : (
         <input
@@ -34,8 +42,8 @@ const FormInput = ({ type, title, placeholder, textArea, setState, maxLength, is
           type={type || "text"}
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}
-		  maxLength={maxLength}
-		  required={isRequierd}
+          maxLength={maxLength}
+          required={isRequierd}
         />
       )}
     </div>

@@ -34,24 +34,23 @@ export default function Nav({ session }: Props) {
   const [searchClicked, setSearchClicked] = useState(false);
 
   const AlertBox = () => {
-	Swal.fire({
-		icon: "warning",
-		title: "You need to be logged in to create a card",
-		showCloseButton: true,
-		timer: 10000,
-		timerProgressBar: true,
-		showConfirmButton: true,
-		confirmButtonColor: '#c2410c',
-		confirmButtonText: "Sign in",
-	  }).then((result) => {
-		if (result.isConfirmed) {
-			signIn("google")
-		}
-		else {
-			<Link href="/"/>
-		}
-	  })
-  }
+    Swal.fire({
+      icon: "warning",
+      title: "You need to be logged in to create a card",
+      showCloseButton: true,
+      timer: 10000,
+      timerProgressBar: true,
+      showConfirmButton: true,
+      confirmButtonColor: "#c2410c",
+      confirmButtonText: "Sign in",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signIn("google");
+      } else {
+        <Link href="/" />;
+      }
+    });
+  };
 
   return (
     <nav className="sticky top-0 z-40">
@@ -87,18 +86,21 @@ export default function Nav({ session }: Props) {
         <div className="flex flex-col justify-center items-center gap-4 z-40">
           <div className="flex flex-row items-center justify-center gap-2">
             <BaseSearchBar session={session} setSearch={setSearch} />
-            <Link href={`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`}>
+            <Link
+              href={`/search-page/${categorySearch}-${search}-${
+                status ? "public" : "private"
+              }`}
+            >
               <ChevronRightIcon
                 className="w-6 h-6 pl-1 "
-				onClick={() => setSearchClicked(false)}
+                onClick={() => setSearchClicked(false)}
               />
             </Link>
           </div>
-		  <div className=" flex gap-[26px]  justify-center pr-[32px] "> 
-		  <ButtonPrivatePublic  status={status}
-			setStatus={setStatus}/>
-          <CategorySearchBar setCategorySearch={setCategorySearch} />
-		  </div>
+          <div className=" flex gap-[26px]  justify-center pr-[32px] ">
+            <ButtonPrivatePublic status={status} setStatus={setStatus} />
+            <CategorySearchBar setCategorySearch={setCategorySearch} />
+          </div>
         </div>
       </div>
       <div
@@ -124,15 +126,15 @@ export default function Nav({ session }: Props) {
         </div>
         <div className="hidden lg:block">
           <div className="flex gap-2">
-			<ButtonPrivatePublic
-			status={status}
-			setStatus={setStatus}/>
+            <ButtonPrivatePublic status={status} setStatus={setStatus} />
             <CategorySearchBar setCategorySearch={setCategorySearch} />
             <BaseSearchBar session={session} setSearch={setSearch} />
-            <Link href={`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`}>
-              <MagnifyingGlassIcon
-                className="w-5 h-5 mt-2"
-              />
+            <Link
+              href={`/search-page/${categorySearch}-${search}-${
+                status ? "public" : "private"
+              }`}
+            >
+              <MagnifyingGlassIcon className="w-5 h-5 mt-2" />
             </Link>
           </div>
         </div>
@@ -140,9 +142,16 @@ export default function Nav({ session }: Props) {
           <Link href="/coffee-list" className="hidden lg:block text-sm">
             Coffee List
           </Link>
-        <button  className="hidden lg:block text-sm" onClick={session?.user ? () => router.push("/create-card") : () => AlertBox()}>
-			Create
-		  </button>
+          <button
+            className="hidden lg:block text-sm"
+            onClick={
+              session?.user
+                ? () => router.push("/create-card")
+                : () => AlertBox()
+            }
+          >
+            Create
+          </button>
           <div className="flex items-center">
             {session?.user ? (
               <div className="flex items-center space-x-2">

@@ -22,11 +22,11 @@ export async function findSearchPost(key: string, value: string | number, isPriv
 	else if (isPrivate === "public") {
 		const posts = await db.posts.findMany({
 			where: {
-						[key]: {
-							contains: value,
-							mode: 'insensitive',
-						},
-						status: true,
+				[key]: {
+					contains: value,
+					mode: 'insensitive',
+				},
+				status: true,
 			}
 		}
 		)

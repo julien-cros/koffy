@@ -402,14 +402,14 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
             </div>
           </div>
         </div>
-		{submitting && (
-			  <div className="flex justify-center items-center">
-				  <ColorInput
-				  color={form?.color}
-				  setState={(value) => handleStateChange("color", value)}
-				  />
-			  </div>
-		)}
+        {submitting && (
+          <div className="flex justify-center items-center">
+            <ColorInput
+              color={form?.color}
+              setState={(value) => handleStateChange("color", value)}
+            />
+          </div>
+        )}
         {submitting && (
           <div className="flex justify-between px-20 pb-20 items-center">
             <button

@@ -1,53 +1,52 @@
-'use client'
+"use client";
 
-import Card from './Card'
-import React from 'react'
-import dynamic from 'next/dynamic'
+import Card from "./Card";
+import React from "react";
+import dynamic from "next/dynamic";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { coffeDsisplay } from '@/constant';
+import { coffeDsisplay } from "@/constant";
 
 const DisplayCard = () => {
-	const OwlCarousel = dynamic(
-		() => import('react-owl-carousel'),
-		{ ssr: false }
-	);
+  const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
+    ssr: false,
+  });
 
-	const options = {
-		loop: true,
-		nav: false,
-		dots: true,
-		autoplay: true,
-		autoplayTimeout: 5000,
-		autoplayHoverPause: true,
-		items: 1,
-		touchDrag: true,
-	};
-
+  const options = {
+    loop: true,
+    nav: false,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplayHoverPause: true,
+    items: 1,
+    touchDrag: true,
+  };
 
   return (
-	<div className='h-[500px] lg:h-[100%] w-full'>
-		<div className='flex h-full items-center justify-center overflow-hidden'>
-			<OwlCarousel className='owl-theme' {...options}>
-				{coffeDsisplay.map((coffee) => (
-					<div key={coffee.title}  className='flex h-full justify-center mt-10 mb-10'>
-						<Card
-							key={coffee.title}
-							title={coffee.title}
-							brand={coffee.brand}
-							tasting={coffee.tasting}
-							rate={coffee.rate}
-							createdAt={coffee.createdAt}
-							shadow={"shadow-xl"}
-						/>
-					</div>
-				))}
-				</OwlCarousel>
-		</div>
-	</div>
-  )
-}
+    <div className="h-[500px] lg:h-[100%] w-full">
+      <div className="flex h-full items-center justify-center overflow-hidden">
+        <OwlCarousel className="owl-theme" {...options}>
+          {coffeDsisplay.map((coffee) => (
+            <div
+              key={coffee.title}
+              className="flex h-full justify-center mt-10 mb-10"
+            >
+              <Card
+                key={coffee.title}
+                title={coffee.title}
+                brand={coffee.brand}
+                tasting={coffee.tasting}
+                rate={coffee.rate}
+                createdAt={coffee.createdAt}
+                shadow={"shadow-xl"}
+              />
+            </div>
+          ))}
+        </OwlCarousel>
+      </div>
+    </div>
+  );
+};
 
-
-
-export default DisplayCard
+export default DisplayCard;

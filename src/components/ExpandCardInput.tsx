@@ -32,7 +32,7 @@ const ExpandCardInput = ({
           className="ml-2 mt-1 w-full h-[75px] bg-slate-100 pl-2 shadow-md placeholder-gray-400 text-sm rounded-lg px-5 py-2 outline-none"
           placeholder={text ? text : placeholder}
           onChange={(e) => setChange(type, e.target.value)}
-		  maxLength={maxLength}
+          maxLength={maxLength}
         />
       ) : (
         <input
@@ -40,8 +40,8 @@ const ExpandCardInput = ({
           className="w-[100px] h-[50px] bg-slate-100 pl-2 placeholder-gray-400 text-sm shadow-md rounded-lg px-5 py-2 outline-none"
           placeholder={text ? text : placeholder}
           onChange={(e) => setChange(type, e.target.value)}
-		  maxLength={maxLength}
-		  required={isRequierd}
+          maxLength={maxLength}
+          required={isRequierd}
         />
       )}
     </div>

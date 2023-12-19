@@ -21,10 +21,13 @@ const AuthProviders = ({
   borderColor,
   border,
 }: SignInButtonProps) => {
-	  const Router = useRouter();
+  const Router = useRouter();
   return (
     <button
-      onClick={() => {signIn("google"); Router.push("/")}}
+      onClick={() => {
+        signIn("google");
+        Router.push("/");
+      }}
       className={`rounded-full tracking-wide px-4 py-2
  						${bgColor ? bgColor : "bg-amber-800"}
  						${textColor ? textColor : "text-white"}

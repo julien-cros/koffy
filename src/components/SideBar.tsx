@@ -23,23 +23,22 @@ const SideBar = ({
   setIsSidebarOpen,
   setSearchClicked,
 }: Props) => {
-
-	const AlertBox = () => {
-		Swal.fire({
-			icon: "warning",
-			title: "You need to be logged in to create a card",
-			showCloseButton: true,
-			timer: 10000,
-			timerProgressBar: true,
-			showConfirmButton: true,
-			confirmButtonColor: '#c2410c',
-			confirmButtonText: "Sign in",
-		  }).then((result) => {
-			if (result.isConfirmed) {
-				signIn("google")
-			}
-		  })
-	}
+  const AlertBox = () => {
+    Swal.fire({
+      icon: "warning",
+      title: "You need to be logged in to create a card",
+      showCloseButton: true,
+      timer: 10000,
+      timerProgressBar: true,
+      showConfirmButton: true,
+      confirmButtonColor: "#c2410c",
+      confirmButtonText: "Sign in",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signIn("google");
+      }
+    });
+  };
 
   return (
     <div className="flex w-full h-full z-50 ">
@@ -78,7 +77,11 @@ const SideBar = ({
           </Link>
           <Link
             href="/create-card"
-			onClick={!session?.user ? () => AlertBox() : () => setIsSidebarOpen(!isSideBarOpen)}
+            onClick={
+              !session?.user
+                ? () => AlertBox()
+                : () => setIsSidebarOpen(!isSideBarOpen)
+            }
           >
             create
           </Link>
@@ -91,12 +94,15 @@ const SideBar = ({
           >
             About
           </a>
-          <div onClick={() => setIsSidebarOpen(!isSideBarOpen)} className="space-y-6 flex flex-col items-center">
-            <HowItWorks/>
+          <div
+            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            className="space-y-6 flex flex-col items-center"
+          >
+            <HowItWorks />
             {!session?.user ? <AuthProviders /> : <SignOutButton />}
           </div>
         </div>
-      </div>
+		</div>
       <div
         className="h-full w-1/4  md:w-2/3 lg:w-3/4 xl:w-4/5"
         onClick={() => setIsSidebarOpen(!isSideBarOpen)}

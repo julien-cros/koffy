@@ -6,30 +6,27 @@ import { getCurrentUser } from "@/lib/session";
 import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
-
 const EBGaramond = Poppins({
-	weight: ['600', '700', '800', '900'],
-	subsets: ['latin'],
+  weight: ["600", "700", "800", "900"],
+  subsets: ["latin"],
 });
 
-
-
 export const metadata: Metadata = {
-	metadataBase: new URL('https://koffy.app/'),
+  metadataBase: new URL('https://koffy.app/'),
   openGraph: {
-	title: "Koffy",
-	description: "A coffee list app",
-	type: "website",
-	url: "https://koffy.app/",
-	locale: "en_US",
-	images: [
-	  {
-		url: "https://koffy.app/coffee.png",
-		width: 800,
-		height: 600,
-		alt: "Koffy",
-	  },
-	],
+    title: "Koffy",
+    description: "A coffee list app",
+    type: "website",
+    url: "https://koffy.app/",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://koffy.app/coffee.png",
+        width: 980,
+        height: 980,
+        alt: "Koffy",
+      },
+    ],
   },
 };
 
@@ -42,15 +39,23 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-		<head>
-			<link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico"/>
-			<script src="https://code.jquery.com/jquery-3.5.0.min.js" async></script>
-		</head>
+      <head>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          sizes="32x32"
+          href="/images/favicon.ico"
+        />
+        <script
+          src="https://code.jquery.com/jquery-3.5.0.min.js"
+          async
+        ></script>
+      </head>
       <body className={EBGaramond.className}>
         <div className="tracking-tight">
-		<NavBar session={session} />
-        {children}
-		</div>
+          <NavBar session={session} />
+          {children}
+        </div>
       </body>
     </html>
   );

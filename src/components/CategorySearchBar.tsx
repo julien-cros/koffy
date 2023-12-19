@@ -1,26 +1,26 @@
 "use client";
 
 type Props = {
-	setCategorySearch: (type: string) => void;
-}
+  setCategorySearch: (type: string) => void;
+};
 
-import { Fragment, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { Fragment, useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const category = [
-  { name: 'brand' },
-  { name: 'title' },
-  { name: 'variety' },
-  { name: 'rate' },
-  { name: 'price' },
-  { name: 'tasting' },
-  { name: 'note' },
-]
+  { name: "brand" },
+  { name: "title" },
+  { name: "variety" },
+  { name: "rate" },
+  { name: "price" },
+  { name: "tasting" },
+  { name: "note" },
+];
 
-export default function CategorySearchBar({setCategorySearch}: Props) {
-  const [selected, setSelected] = useState(category[0])
- 
+export default function CategorySearchBar({ setCategorySearch }: Props) {
+  const [selected, setSelected] = useState(category[0]);
+
   return (
     <div className="w-32">
       <Listbox value={selected} onChange={setSelected}>
@@ -46,17 +46,17 @@ export default function CategorySearchBar({setCategorySearch}: Props) {
                   key={categotyIndex}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-5 ${
-                      active ? 'bg-pale-red text-amber-900' : 'text-gray-900'
+                      active ? "bg-pale-red text-amber-900" : "text-gray-900"
                     }`
                   }
-				  onClick={() => setCategorySearch(categoryItem.name)}
+                  onClick={() => setCategorySearch(categoryItem.name)}
                   value={categoryItem}
                 >
                   {({ selected }) => (
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
+                          selected ? "font-medium" : "font-normal"
                         }`}
                       >
                         {categoryItem.name}
@@ -75,5 +75,5 @@ export default function CategorySearchBar({setCategorySearch}: Props) {
         </div>
       </Listbox>
     </div>
-  )
+  );
 }
