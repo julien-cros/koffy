@@ -12,6 +12,9 @@ const EBGaramond = Poppins({
 });
 
 export const metadata: Metadata = {
+  title: "Koffy",
+  description: "A coffee list app",
+  keywords: "coffee, list, app, koffy",
   metadataBase: new URL('https://koffy.app/'),
   openGraph: {
     title: "Koffy",
