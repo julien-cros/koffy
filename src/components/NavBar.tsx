@@ -29,7 +29,7 @@ export default function Nav({ session }: Props) {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [categorySearch, setCategorySearch] = useState("brand");
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
   const [search, setSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
 

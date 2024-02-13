@@ -23,10 +23,10 @@ const Center = async () => {
           {!session?.user ? (
             <>
               <Link
-                href={`/coffee-list`}
+                href={`/search-page/brand--public`}
                 className="rounded-full tracking-wide px-4 py-2 text-pale-red bg-amber-800  hover:text-amber-800 border-amber-800 border-none hover:scale-105 transition duration-105 ease-out active:scale-95 shadow-lg hover:bg-pale-red  active:shadow-xl  text-xs md:text-sm"
               >
-                coffee list
+              	all coffee
               </Link>
               <AuthProviders
                 bgColor="bg-pale-red"
@@ -44,7 +44,7 @@ const Center = async () => {
 				 hover:bg-pale-red hover:text-amber-800  hover:scale-105 transition duration-105
 				 	 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
               >
-                coffee list
+                your coffee list
               </Link>
               <HowItWorks />
             </>
