@@ -1,5 +1,4 @@
 import "./globals.css";
-// import { Inter } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
 
@@ -14,13 +13,13 @@ const EBGaramond = Poppins({
 export const metadata: Metadata = {
   title: "Koffy",
   description: "A coffee list app",
-  keywords: "coffee, list, app, koffy",
+  keywords: "coffee, list, app, koffy, coffee beans",
   metadataBase: new URL('https://koffy.app/'),
   openGraph: {
     title: "Koffy",
     description: "A coffee list app",
     type: "website",
-    url: "https://koffy.app/",
+    url: "https://koffy.app",
     locale: "en_US",
     images: [
       {
@@ -31,6 +30,21 @@ export const metadata: Metadata = {
       },
     ],
   },
+	robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+	},
+	twitter: {
+		title: "Koffy",
+		description: "A coffee listing app",
+		site: "@koffyapp",
+		card: "summary_large_image",
+
+	},
 };
 
 export default async function RootLayout({
