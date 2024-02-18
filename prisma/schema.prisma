@@ -21,12 +21,12 @@ model User {
 
 model Posts {
 	id			String	 @id @default(cuid()) 
-	title		String?
-	brand		String?
+	title		String
+	brand		String
 	price		String?
 	tasting		String?
-	variety		String?
-	rate		Int?
+	variety		String
+	rate		Int
 	note		String?
 	status		Boolean?
 	weight		String?
