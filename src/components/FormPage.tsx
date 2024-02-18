@@ -178,7 +178,7 @@ const FormPage = ({ type, session }: Props) => {
           placeholder="Noir"
           maxLength={30}
           setState={(value) => handleStateChange("brand", value)}
-          isRequierd={false}
+          isRequierd={true}
         />
         <FormInput
           type="text"
@@ -186,7 +186,7 @@ const FormPage = ({ type, session }: Props) => {
           placeholder="Arabica"
           maxLength={30}
           setState={(value) => handleStateChange("variety", value)}
-          isRequierd={false}
+          isRequierd={true}
         />
         <FormInput
           type="text"
