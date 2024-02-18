@@ -66,11 +66,11 @@ const CoffeeListComponent = ({ posts, isLogged }: Props) => {
           >
             <Card
               key={post.id}
-              title={post?.title}
-              brand={post?.brand}
+              title={post.title}
+              brand={post.brand}
               tasting={post?.tasting}
               createdAt={post?.createdAt}
-              rate={post?.rate}
+              rate={post.rate}
               color={post?.color}
             />
           </div>

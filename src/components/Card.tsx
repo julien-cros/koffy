@@ -2,11 +2,11 @@ import React from "react";
 import HearthRate from "./HearthRate";
 
 type CardProps = {
-  title: string | null;
-  brand: string | null;
+  title: string;
+  brand: string;
   tasting: string | null;
   createdAt: Date | null;
-  rate: number | null;
+  rate: number;
   shadow?: string;
   color?: string | null;
 };

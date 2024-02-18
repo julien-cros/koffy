@@ -35,11 +35,11 @@ const SearchPage = async ({ params }: PageProps) => {
           <Link href={`/coffee-list/${post.id}`} key={post.id}>
             <Card
               key={post.id}
-              title={post?.title}
-              brand={post?.brand}
+              title={post.title}
+              brand={post.brand}
               tasting={post?.tasting}
               createdAt={post?.createdAt}
-              rate={post?.rate}
+              rate={post.rate}
             />
           </Link>
         ))}

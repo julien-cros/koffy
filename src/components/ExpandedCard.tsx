@@ -16,11 +16,11 @@ import ColorInput from "./ColorInput";
 
 export type PostInterface = {
   id: string;
-  title: string | null;
-  brand: string | null;
-  variety: string | null;
+  title: string;
+  brand: string;
+  variety: string;
   tasting: string | null;
-  rate: number | null;
+  rate: number;
   note: string | null;
   price: string | null;
   weight: string | null;

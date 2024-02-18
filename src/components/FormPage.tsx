@@ -108,8 +108,8 @@ const FormPage = ({ type, session }: Props) => {
     setSubmitting(true);
     const valid = await findValidPost(
       session?.user.id,
-      form?.brand,
-      form?.title,
+      form.brand,
+      form.title,
     );
     if (valid) {
       AlertBox({
