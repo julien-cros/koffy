@@ -26,9 +26,9 @@ type Props = {
 export type FormState = {
   title: string;
   brand: string;
-  variety: string | null;
+  variety: string;
   tasting: string | null;
-  rate: number | null;
+  rate: number;
   note: string | null;
   price: string | null;
   weight: string | null;
