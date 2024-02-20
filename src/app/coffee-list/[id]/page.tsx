@@ -25,20 +25,20 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL("https://koffy.app"),
-    title: post.title.replace('&', '&amp'),
-    ...{ keywords: (post.title.replace('&', '&amp'), post.brand.replace('&', '&amp'), post.variety.replace('&', '&amp')) },
-		description: (post.tasting?.replace('&', '&amp') || ''),
+    title: "test title",
+    ...{ keywords: "test keywords"},
+		description: ("test description"),
     openGraph: {
-      title: post.title.replace('&', '&amp'),
-			description: (post.tasting?.replace('&', '&amp') || ''),
+      title: "test title",
+			description: "test description",
       url: `https://koffy.app/${post.id}`,
       type: "article",
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
     },
     twitter: {
-      title: post.title.replace('&', '&amp'),
-      description: post.tasting?.replace('&', '&amp') || '',
+      title: "test title",
+      description: "test description",
       card: "summary_large_image",
     },
   };
