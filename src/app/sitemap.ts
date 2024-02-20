@@ -7,9 +7,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	
 		return [
 			{
-				url: BASE_URL,
+				url: `${URL}/coffee-list`,
 				lastModified: new Date().toISOString().split("T")[0],
-				priority: 0.7,
+				priority: 0.5,
 			},
 		];
 	}
