@@ -10,12 +10,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	if (!allPost) return [
 		{
-			url: `${URL}/coffee-list`,
+			url: `${BASE_URL}/coffee-list`,
 			lastModified: new Date(),
 			priority: 0.5,
 		},
 		{
-			url: `${URL}/search-page/brand--public`,
+			url: `${BASE_URL}/search-page/brand--public`,
 			lastModified: new Date(),
 			priority: 1,
 		}
@@ -34,12 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 				priority: 1,
 			},
 			{
-				url: `${URL}/coffee-list`,
+				url: `${BASE_URL}/coffee-list`,
 				lastModified: new Date().toISOString().split("T")[0],
 				priority: 0.5,
 			},
 			{
-				url: `${URL}/search-page/brand--public`,
+				url: `${BASE_URL}/search-page/brand--public`,
 				lastModified: new Date().toISOString().split("T")[0],
 				priority: 1,
 			},
