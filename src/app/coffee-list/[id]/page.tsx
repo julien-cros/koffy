@@ -21,24 +21,24 @@ export async function generateMetadata({
 
   if (!post) {
     return;
-  }
+  } 
 
   return {
     metadataBase: new URL("https://koffy.app"),
-    title: post.title,
-    ...{ keywords: (post.title, post.brand, post.variety) },
-		description: (post.tasting || ''),
+    title: post.title.replace('&', '&amp'),
+    ...{ keywords: (post.title.replace('&', '&amp'), post.brand.replace('&', '&amp'), post.variety.replace('&', '&amp')) },
+		description: (post.tasting?.replace('&', '&amp') || ''),
     openGraph: {
-      title: post.title,
-			description: (post.tasting || ''),
+      title: post.title.replace('&', '&amp'),
+			description: (post.tasting?.replace('&', '&amp') || ''),
       url: `https://koffy.app/${post.id}`,
       type: "article",
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
     },
     twitter: {
-      title: post.title,
-      description: post.tasting || '',
+      title: post.title.replace('&', '&amp'),
+      description: post.tasting?.replace('&', '&amp') || '',
       card: "summary_large_image",
     },
   };
