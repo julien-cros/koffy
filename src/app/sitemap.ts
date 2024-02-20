@@ -17,12 +17,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		{
 			url: `${BASE_URL}/search-page/brand--public`,
 			lastModified: new Date(),
-			priority: 1,
+			priority: 0.8,
 		}
 	];
 
 		const posts = allPost.map((post) => ({
-			url: `${BASE_URL}/${post.id}`,
+			url: `${BASE_URL}/coffee-list/${post.id}`,
 			lastModified: new Date(post.updatedAt),
 			priority: 0.7,
 		}));
@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			{
 				url: `${BASE_URL}/search-page/brand--public`,
 				lastModified: new Date().toISOString().split("T")[0],
-				priority: 1,
+				priority: 0.8,
 			},
 			...posts,
 		];
