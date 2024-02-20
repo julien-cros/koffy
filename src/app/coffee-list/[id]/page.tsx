@@ -24,14 +24,14 @@ export async function generateMetadata({
   }
 
   return {
-    metadataBase: new URL("https://espressive.fr"),
+    metadataBase: new URL("https://koffy.app"),
     title: post.title,
     ...{ keywords: (post.title, post.brand, post.variety) },
 		description: (post.tasting || ''),
     openGraph: {
       title: post.title,
 			description: (post.tasting || ''),
-      url: `https://espressive.fr/post/${post.id}`,
+      url: `https://koffy.app/${post.id}`,
       type: "article",
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
