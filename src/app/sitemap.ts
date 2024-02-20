@@ -12,13 +12,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		{
 			url: `${URL}/coffee-list`,
 			lastModified: new Date(),
-			changeFrequency: 'monthly',
 			priority: 0.5,
 		},
 		{
 			url: `${URL}/search-page/brand--public`,
 			lastModified: new Date(),
-			changeFrequency: 'weekly',
 			priority: 1,
 		}
 	];
@@ -32,47 +30,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		return [
 			{
 				url: BASE_URL,
-				lastModified: new Date(),
+				lastModified: new Date().toISOString().split("T")[0],
 				priority: 1,
 			},
 			{
 				url: `${URL}/coffee-list`,
-				lastModified: new Date(),
-				changeFrequency: 'monthly',
+				lastModified: new Date().toISOString().split("T")[0],
 				priority: 0.5,
 			},
 			{
 				url: `${URL}/search-page/brand--public`,
-				lastModified: new Date(),
-				changeFrequency: 'weekly',
+				lastModified: new Date().toISOString().split("T")[0],
 				priority: 1,
 			},
 			...posts,
 		];
 	}
-
-
-
-
-// export default function sitemap(): MetadataRoute.Sitemap {
-//   return [
-//     {
-//       url: 'https://acme.com',
-//       lastModified: new Date(),
-//       changeFrequency: 'yearly',
-//       priority: 1,
-//     },
-//     {
-//       url: 'https://acme.com/about',
-//       lastModified: new Date(),
-//       changeFrequency: 'monthly',
-//       priority: 0.8,
-//     },
-//     {
-//       url: 'https://acme.com/blog',
-//       lastModified: new Date(),
-//       changeFrequency: 'weekly',
-//       priority: 0.5,
-//     },
-//   ]
-// }
