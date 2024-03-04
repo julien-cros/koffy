@@ -1,7 +1,7 @@
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
-
+import { PenkleAnalytics } from "@/components/PenkleAnalytics";
 import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
@@ -57,6 +57,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
+				<PenkleAnalytics domain="koffy.app" />
         <link
           rel="icon"
           type="image/x-icon"
