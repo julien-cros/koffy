@@ -75,7 +75,7 @@ const FormPage = ({ type, session }: Props) => {
 
   function isAlphanumeric(str: string) {
     return (
-      str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null
+      str.match(/(^[A-Za-z0-9- @$€#%&.,<>"';:!?()/\n\tà-üÀ-Ü]*$)/) !== null
     );
   }
 

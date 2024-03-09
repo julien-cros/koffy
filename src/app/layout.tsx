@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 const EBGaramond = Poppins({
-  weight: ["600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
 
