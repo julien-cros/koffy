@@ -1,8 +1,8 @@
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import Link from "next/link";
 import { findSearchPost } from "../actions";
 import Card from "@/components/Card";
+import PushBackButton from "@/components/PushBackButton";
 
 type PageProps = {
   params: {
@@ -20,13 +20,11 @@ const SearchPage = async ({ params }: PageProps) => {
 
   return (
     <div className="w-full h-full items-cneter">
-      <div className="flex flex-row justify-between items-center p-10">
+      <div className="flex flex-row justify-between items-center m-10">
         <div className="flex flex-row items-center gap-2">
-          <Link href={"/coffee-list"}>
-            <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
-          </Link>
-          <p className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
-            Results
+         	<PushBackButton />
+          <p className="text-2xl md:text-3xl lg:text-5xl font-light">
+            results
           </p>
         </div>
       </div>

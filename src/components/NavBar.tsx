@@ -54,9 +54,6 @@ export default function Nav({ session }: Props) {
 
   return (
     <nav className="sticky top-0 z-40 ">
-			<div className="border-b-[1px] border-black dark:border-white">
-
-			
       <div
         className={`${
           isSidebarOpen
@@ -109,65 +106,69 @@ export default function Nav({ session }: Props) {
       <div
         className={`
 		  ${isSidebarOpen ? "relative" : ""} 
-		  flex justify-between items-center py-5 px-3 backdrop-blur-sm`}
+		    backdrop-blur-sm  px-5 md:px-10`}
       >
-        <div className="flex items-center space-x-4">
-          <ListBulletIcon
-            className="w-6 h-6 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
-          <Link href="/" className="flex flex-row items-center gap-1">
-            <Image
-              src="/coffee.png"
-              alt="coffe logo"
-              width={25}
-              height={25}
-              className="rounded-full dark:filter dark:invert"
+        <div className="border-b-[1px] border-black dark:border-white py-5 px-3 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <ListBulletIcon
+              className="w-6 h-6 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             />
-            <p className="text-xl lg:text-2xl font-light">koffy</p>
-          </Link>
-        </div>
-        <div className="hidden lg:block">
-          <div className="flex gap-2">
-            <ButtonPrivatePublic status={status} setStatus={setStatus} />
-            <CategorySearchBar setCategorySearch={setCategorySearch} />
-            <BaseSearchBar session={session} setSearch={setSearch} />
-            <Link
-              href={`/search-page/${categorySearch}-${search}-${
-                status ? "public" : "private"
-              }`}
-            >
-              <MagnifyingGlassIcon className="w-5 h-5 mt-2" />
+            <Link href="/" className="flex flex-row items-center gap-1">
+              <Image
+                src="/coffee.png"
+                alt="coffe logo"
+                width={25}
+                height={25}
+                className="rounded-full dark:filter dark:invert"
+              />
+              <p className="text-xl lg:text-2xl font-light">koffy</p>
             </Link>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href="/coffee-list" className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2">
-            coffee list
-          </Link>
-          <button
-            className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"
-            onClick={
-              session?.user
-                ? () => router.push("/create-card")
-                : () => AlertBox()
-            }
-          >
-            create
-          </button>
-          <div className="flex items-center">
-            {session?.user ? (
-              <div className="flex items-center space-x-2">
-                <p className="text-sm">{session?.user?.name}</p>
-                <SignOutButton />
-              </div>
-            ) : (
-              <AuthProviders />
-            )}
+          <div className="hidden lg:block">
+            <div className="flex gap-2">
+              <ButtonPrivatePublic status={status} setStatus={setStatus} />
+              <CategorySearchBar setCategorySearch={setCategorySearch} />
+              <BaseSearchBar session={session} setSearch={setSearch} />
+              <Link
+                href={`/search-page/${categorySearch}-${search}-${
+                  status ? "public" : "private"
+                }`}
+              >
+                <MagnifyingGlassIcon className="w-5 h-5 mt-2" />
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/coffee-list"
+              className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"
+            >
+              coffee list
+            </Link>
+            <button
+              className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"
+              onClick={
+                session?.user
+                  ? () => router.push("/create-card")
+                  : () => AlertBox()
+              }
+            >
+              create
+            </button>
+            <div className="flex items-center">
+              {session?.user ? (
+                <div className="flex items-center space-x-2">
+                  <p className="text-sm">{session?.user?.name}</p>
+                  <SignOutButton />
+                </div>
+              ) : (
+                <AuthProviders />
+              )}
+            </div>
           </div>
         </div>
       </div>
-			</div>
     </nav>
   );
 }
