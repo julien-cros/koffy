@@ -1,7 +1,7 @@
 import React from "react";
 import { findSearchPost } from "../actions";
 import PushBackButton from "@/components/PushBackButton";
-import DisplayCards from "@/components/DisplayCards";
+import DisplayCards from "@/components/RenderCards";
 
 type PageProps = {
   params: {

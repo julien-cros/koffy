@@ -13,7 +13,6 @@ type CardProps = {
   shadow?: string;
   color?: string | null;
   id: string;
-  setState: (value: boolean) => void;
 };
 
 const Card = ({
@@ -23,7 +22,6 @@ const Card = ({
   createdAt,
   rate,
   id,
-  setState,
 }: CardProps) => {
 
   return (
@@ -43,14 +41,12 @@ const Card = ({
         </p>
         <div className="border-b-[1px] border-black dark:border-white my-4 absolutw w-12/12 px-10" />
         <div
-          onClick={() => setState(true)}
           className="absolute bottom-5 left-5"
         >
           <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
         </div>
         <div
           className="absolute bottom-5 right-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
-          onClick={() => setState(true)}
         >
           <CopyBlipboardButton cardId={id} />
         </div>

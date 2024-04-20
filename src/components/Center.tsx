@@ -28,13 +28,7 @@ const Center = async () => {
               >
                 all coffee
               </Link>
-              <AuthProviders
-                bgColor="bg-pale-red"
-                textColor="text-amber-800"
-                hoverBgColor="hover:bg-amber-800"
-                hoverTextColor="hover:text-pale-red"
-                borderColor="border-amber-800"
-              />
+              <AuthProviders/>
 							 <Link
                 href={`/search-page/brand--public`}
                 className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"

@@ -15,8 +15,8 @@ const DisplayCards = ({ post }: DisplayCardsProps) => {
 	const router = useRouter();
 	const [State, setState] = useState(false);
 
+	setState(false);
 	const handleClick = (id: string, setState: boolean) => {
-		console.log(setState);
 		if (!setState)
 			router.push(`/coffee-list/${id}`);
 	}
@@ -34,7 +34,6 @@ const DisplayCards = ({ post }: DisplayCardsProps) => {
 						createdAt={post?.createdAt}
 						rate={post.rate}
 						id={post.id}
-						setState={(value: boolean) => setState(value)}
 					/>
 				</div>
 			))}

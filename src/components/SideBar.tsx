@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ListBulletIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import AuthProviders from "./AuthProviders";
 import SignOutButton from "./SignOutButton";
@@ -103,7 +103,7 @@ const SideBar = ({
             className="space-y-6 flex flex-col items-center"
           >
             <HowItWorks />
-            {!session?.user ? <AuthProviders /> : <SignOutButton />}
+            {!session?.user ? <AuthProviders /> : <SignOutButton  name={session.user.name}/>}
           </div>
         </div>
       </div>

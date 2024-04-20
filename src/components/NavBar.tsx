@@ -158,9 +158,8 @@ export default function Nav({ session }: Props) {
             </button>
             <div className="flex items-center">
               {session?.user ? (
-                <div className="flex items-center space-x-2">
-                  <p className="text-sm">{session?.user?.name}</p>
-                  <SignOutButton />
+                <div className="flex items-center space-x-2 ">
+                  <SignOutButton name={session?.user?.name}/>
                 </div>
               ) : (
                 <AuthProviders />

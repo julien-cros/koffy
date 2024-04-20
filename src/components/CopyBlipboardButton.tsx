@@ -4,10 +4,8 @@ import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 type CopyBlipboardButtonProps = {
-	cardId: string;
+	cardId: string | null;
 };
-
-// const BaseURL = "https://koffy.app/";
 
 export default function CopyBlipboardButton({ cardId } : CopyBlipboardButtonProps) {
 	

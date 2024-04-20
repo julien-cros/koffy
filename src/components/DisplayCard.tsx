@@ -40,6 +40,7 @@ const DisplayCard = () => {
                 rate={coffee.rate}
                 createdAt={coffee.createdAt}
                 shadow={"shadow-xl"}
+								id=""
               />
             </div>
           ))}

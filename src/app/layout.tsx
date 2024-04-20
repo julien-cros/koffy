@@ -3,15 +3,9 @@ import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
 import { PenkleAnalytics } from "@/components/PenkleAnalytics";
 import { Metadata } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import {Poppins } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import SwitchDarkLightMode from "@/components/SwitchDarkLightMode";
-// import DarkLightButton from "@/components/DarkLightButton";
-
-// const EBGaramond = Montserrat({
-// 	weight: ["400", "500", "600", "700", "800", "900"],
-// 	subsets: ["latin"],
-// });
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],

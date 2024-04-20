@@ -2,7 +2,6 @@ import {
   AdjustmentsHorizontalIcon,
   ArrowRightIcon,
   PlusIcon,
-  SquaresPlusIcon,
 } from "@heroicons/react/24/solid";
 import React from "react";
 import Card from "./Card";
@@ -42,6 +41,7 @@ const GetStarted = () => {
           tasting="what does the coffee taste like"
           rate={4}
           createdAt={new Date()}
+					id=""
         />
       </div>
 
@@ -49,13 +49,13 @@ const GetStarted = () => {
         <div className="">
           <p className="text-md md:text-xl">New thoughts?</p>
           <p className="pb-4 text-md md:text-xl"> update it with this button</p>
-          <button className="text-xs md:text-sm text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
+          <button className="text-xs md:text-sm  py-2 px-4 border-[1px] border-black dark:border-white rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
             Update
           </button>
         </div>
         <div className="space-y-4">
           <p className="text-md md:text-xl">You can also delete a Card here</p>
-          <button className="text-xs md:text-sm text-pale-red py-2 px-4 bg-red-400 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
+          <button className="text-xs md:text-sm py-2 px-4 border-[1px] border-black dark:border-white rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150">
             Delete
           </button>
         </div>
