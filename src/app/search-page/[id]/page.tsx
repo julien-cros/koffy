@@ -1,8 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import { findSearchPost } from "../actions";
-import Card from "@/components/Card";
 import PushBackButton from "@/components/PushBackButton";
+import DisplayCards from "@/components/DisplayCards";
 
 type PageProps = {
   params: {
@@ -28,26 +27,7 @@ const SearchPage = async ({ params }: PageProps) => {
           </p>
         </div>
       </div>
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10 pb-10">
-        {posts?.map((post) => (
-          <Link href={`/coffee-list/${post.id}`} key={post.id}>
-					<Card
-              key={post.id}
-              title={post.title}
-              brand={post.brand}
-              tasting={post?.tasting}
-              createdAt={post?.createdAt}
-              rate={post.rate}
-            />
-          </Link>
-        ))}
-        {!posts && (
-          <p className="flex justify-center items-center text-lg md:text-xl lg:text-2xl">
-            Nothing Found
-          </p>
-        )}
-      </div>
-      <div></div>
+				<DisplayCards	post={posts} />
     </div>
   );
 };

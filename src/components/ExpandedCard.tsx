@@ -5,14 +5,13 @@ import HearthRate from "./HearthRate";
 import ExpandCardInput from "./ExpandCardInput";
 import {
   AdjustmentsHorizontalIcon,
-  ArrowLeftIcon,
 } from "@heroicons/react/24/solid";
 import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
-import Link from "next/link";
 import WeightInput from "./WeightInput";
 import Swal from "sweetalert2";
 import ColorInput from "./ColorInput";
+import PushBackButton from "./PushBackButton";
 
 export type PostInterface = {
   id: string;
@@ -43,6 +42,7 @@ enum ModalAction {
 
 const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
+	const [isPushBack, setPushBack] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
 
@@ -155,6 +155,11 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   }
 
   const onSubmit = async () => {
+
+		if (!isMine && isPushBack) {
+      return;
+    }
+
     if (!isMine) {
       AlertBox({
         message: "You can't update this post",
@@ -216,11 +221,9 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
     <form action={onSubmit}>
       <div className=" w-full h-full items-center">
         <div className="flex flex-row justify-between items-center p-10">
-          <div className="flex flex-row items-center gap-2">
-            <Link href={"/coffee-list"}>
-              <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
-            </Link>
-            <p className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-yellow-900 from-50% to-rose-300">
+          <div className="flex flex-row items-center gap-2" onClick={() => setPushBack(true)}>
+            <PushBackButton />
+            <p className="text-2xl md:text-3xl lg:text-5xl flex flex-grow font-light">
               Details
             </p>
           </div>

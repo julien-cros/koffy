@@ -63,7 +63,7 @@ const Center = async () => {
       </div>
       <div className=" flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 border-black dark:border-white border-t-[1px] md:border-none mt-5 ">
         <div
-          className="h-[300px] lg:h-[100%] w-full
+          className="h-[300px] lg:h-[100%] w-full mt-5
 		 				flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none"
         >
           <DisplayCard />
