@@ -54,15 +54,15 @@ export default function Nav({ session }: Props) {
 
   return (
     <nav className="sticky top-0 z-40 ">
-			<div className="border-b-[1px] border-black dark:border-white  mx-6 md:mx-8 lg:mx-10">
+			<div className="border-b-[1px] border-black dark:border-white">
 
 			
       <div
         className={`${
           isSidebarOpen
-            ? "opacity-50 z-10 absolute w-screen h-screen"
+            ? "opacity-50 z-10 absolute w-screen h-screen bg-black dark:bg-neutral-700 bg-opacity-50 transition-opacity"
             : "opacity-0 w-0 h-0"
-        }   bg-opacity-50 transition-opacity  bg-black`}
+        }   `}
       />
       <div
         className={`w-screen h-screen top-0 left-0 fixed flex justify-center items-center ease-in-out z-40 duration-300 ${

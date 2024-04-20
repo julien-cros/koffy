@@ -19,7 +19,7 @@ const Center = async () => {
           </p>
         </div>
 
-        <div className="flex flex-row gap-4 pt-2 md:pt-5 pl-0 md:pl-10 justify-center lg:justify-start">
+        <div className="flex flex-row gap-2 pt-2 md:pt-5 pl-0 md:pl-10 justify-center lg:justify-start">
           {!session?.user ? (
             <>
               <Link
@@ -44,16 +44,16 @@ const Center = async () => {
             </>
           ) : (
             <>
+							<HowItWorks />
 							<Link
                 href={`/search-page/brand--public`}
-                className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
+                className="rounded-full flex items-center tracking-wide px-3 py-2 bg-orange-500 dark:text-black text-xs md:text-sm"
               >
                 all coffee
               </Link>
-							<HowItWorks />
               <Link
                 href={`/coffee-list`}
-                className="rounded-full flex items-center tracking-wide px-2 py-1 border-black border-[1px] text-xs md:text-sm"
+                className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
               >
                 your coffee list
               </Link>
@@ -64,7 +64,7 @@ const Center = async () => {
       <div className=" flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 border-black dark:border-white border-t-[1px] md:border-none mt-5 ">
         <div
           className="h-[300px] lg:h-[100%] w-full
-		 				flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none "
+		 				flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none"
         >
           <DisplayCard />
         </div>

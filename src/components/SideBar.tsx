@@ -42,9 +42,8 @@ const SideBar = ({
 
   return (
     <div className="flex w-full h-full z-50 ">
-      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full bg-white rounded-[_0_3rem_0_0]">
-        <div className="flex justify-start items-start">
-        </div>
+      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full bg-white dark:bg-black rounded-[_0_3rem_0_0]">
+        <div className="flex justify-start items-start"></div>
         <div className="flex justify-center items-center pt-10">
           <Link href={"/"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}>
             <p className="flex justify-center text-2xl font-light ">koffy</p>
@@ -67,8 +66,17 @@ const SideBar = ({
             href="/coffee-list"
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
           >
-            <p>coffe Lists</p>
+            <p className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs">
+              coffe Lists
+            </p>
           </Link>
+					<Link
+						href="/search-page/brand--public"
+						onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+						className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
+					>
+						all coffee
+					</Link>
           <Link
             href="/create-card"
             onClick={
@@ -76,6 +84,7 @@ const SideBar = ({
                 ? () => AlertBox()
                 : () => setIsSidebarOpen(!isSideBarOpen)
             }
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
           >
             create
           </Link>
@@ -85,6 +94,7 @@ const SideBar = ({
           <a
             href="https://www.juliencros.com"
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
           >
             About
           </a>
@@ -96,7 +106,7 @@ const SideBar = ({
             {!session?.user ? <AuthProviders /> : <SignOutButton />}
           </div>
         </div>
-		</div>
+      </div>
       <div
         className="h-full w-1/4  md:w-2/3 lg:w-3/4 xl:w-4/5"
         onClick={() => setIsSidebarOpen(!isSideBarOpen)}

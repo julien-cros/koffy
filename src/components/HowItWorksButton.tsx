@@ -19,10 +19,10 @@ const HowItWorks = () => {
     <div className="flex justify-center">
       <Link
         href="#section-1"
-        className="bg-orange-500 dark:text-black text-xs md:text-sm"
+        className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
         onClick={handleScroll}
       >
-        How it works?
+        how it works
       </Link>
     </div>
   );
