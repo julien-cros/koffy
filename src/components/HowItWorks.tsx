@@ -1,6 +1,7 @@
 import {
   AdjustmentsHorizontalIcon,
   ArrowRightIcon,
+  PlusIcon,
   SquaresPlusIcon,
 } from "@heroicons/react/24/solid";
 import React from "react";
@@ -9,8 +10,9 @@ import Link from "next/link";
 
 const GetStarted = () => {
   return (
-    <div className="h-screen w-full pt-32  items-center gap-6">
-      <h1 className="flex justify-center text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-900">
+    <div className="w-full  items-center gap-6">
+			<div className=" border-black border-t-[1px] m-10 mx-6 md:mx-8 lg:mx-10"/>
+      <h1 className="flex justify-center text-3xl md:text-4xl lg:text-5xl ">
         How does this work
       </h1>
       <h2 className="flex justify-center text-center text-md md:text-xl mt-10">
@@ -23,7 +25,7 @@ const GetStarted = () => {
           <ArrowRightIcon className="h-34 w-4" />
         </p>
         <Link href="/create-card">
-          <SquaresPlusIcon className="h-10 w-10 text-amber-800 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
+          <PlusIcon className="h-10 w-10 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
         </Link>
       </div>
       <div className="flex flex-row justify-center items-center space-x-10">
@@ -31,9 +33,9 @@ const GetStarted = () => {
           you can modify your Cards here
           <ArrowRightIcon className="h-34 w-4" />
         </p>
-        <AdjustmentsHorizontalIcon className="h-10 w-10 text-amber-800 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
+        <AdjustmentsHorizontalIcon className="h-10 w-10 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
       </div>
-      <div className="mt-20 px-10  gap-10 flex justify-center">
+      <div className="mt-20 px-10 gap-10 flex justify-center">
         <Card
           title="Coffe Name"
           brand="Coffe Brand"

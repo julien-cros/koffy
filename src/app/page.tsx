@@ -3,7 +3,7 @@ import GetStarted from "@/components/HowItWorks";
 
 export default function HomePage() {
   return (
-    <section className="w-full h-full background-color">
+    <section className="w-full h-full ">
       <section id="section-0">
         <Center />
       </section>

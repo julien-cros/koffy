@@ -53,7 +53,10 @@ export default function Nav({ session }: Props) {
   };
 
   return (
-    <nav className="sticky top-0 z-40">
+    <nav className="sticky top-0 z-40 ">
+			<div className="border-b-[1px] border-black dark:border-white  mx-6 md:mx-8 lg:mx-10">
+
+			
       <div
         className={`${
           isSidebarOpen
@@ -106,22 +109,22 @@ export default function Nav({ session }: Props) {
       <div
         className={`
 		  ${isSidebarOpen ? "relative" : ""} 
-		  flex justify-between items-center py-5 px-3 md:px-4 lg:px-2 xl:px-6  backdrop-blur-sm `}
+		  flex justify-between items-center py-5 px-3 backdrop-blur-sm`}
       >
         <div className="flex items-center space-x-4">
           <ListBulletIcon
-            className="w-8 h-8 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
+            className="w-6 h-6 hidden max-lg:block active:scale-90 transition duration-150 ease-in-out cursor-pointer"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           />
           <Link href="/" className="flex flex-row items-center gap-1">
             <Image
               src="/coffee.png"
               alt="coffe logo"
-              width={40}
-              height={40}
-              className="rounded-full"
+              width={25}
+              height={25}
+              className="rounded-full dark:filter dark:invert"
             />
-            <p className="text-3xl font-light">koffy</p>
+            <p className="text-xl lg:text-2xl font-light">koffy</p>
           </Link>
         </div>
         <div className="hidden lg:block">
@@ -138,19 +141,19 @@ export default function Nav({ session }: Props) {
             </Link>
           </div>
         </div>
-        <div className="flex items-center space-x-8">
-          <Link href="/coffee-list" className="hidden lg:block text-sm">
-            Coffee List
+        <div className="flex items-center gap-2">
+          <Link href="/coffee-list" className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2">
+            coffee list
           </Link>
           <button
-            className="hidden lg:block text-sm"
+            className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"
             onClick={
               session?.user
                 ? () => router.push("/create-card")
                 : () => AlertBox()
             }
           >
-            Create
+            create
           </button>
           <div className="flex items-center">
             {session?.user ? (
@@ -164,6 +167,7 @@ export default function Nav({ session }: Props) {
           </div>
         </div>
       </div>
+			</div>
     </nav>
   );
 }

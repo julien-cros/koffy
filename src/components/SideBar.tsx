@@ -42,16 +42,10 @@ const SideBar = ({
 
   return (
     <div className="flex w-full h-full z-50 ">
-      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full background-color rounded-[_0_3rem_0_0]">
+      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full bg-white rounded-[_0_3rem_0_0]">
         <div className="flex justify-start items-start">
-          <ListBulletIcon
-            className="flex mt-6 ml-3"
-            width={40}
-            height={32}
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-          />
         </div>
-        <div className="flex justify-center items-center pt-10]">
+        <div className="flex justify-center items-center pt-10">
           <Link href={"/"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}>
             <p className="flex justify-center text-2xl font-light ">koffy</p>
           </Link>

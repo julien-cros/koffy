@@ -15,7 +15,7 @@ const BaseSearchBar = ({ session, setSearch }: Props) => {
       <input
         type="text"
         placeholder="Search..."
-        className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none sm:text-sm"
+        className="relative w-full cursor-default rounded-full  py-1 pl-3 pr-10 text-left focus:outline-none sm:text-sm border-black dark:border-white dark:bg-black border-[1px]"
         onChange={(e) => {
           setSearch(e.target.value);
         }}

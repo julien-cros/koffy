@@ -19,7 +19,7 @@ const HowItWorks = () => {
     <div className="flex justify-center">
       <Link
         href="#section-1"
-        className="bg-pale-red text-amber-800 px-4 py-2 rounded-full hover:bg-amber-800 hover:text-pale-red transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+        className="bg-orange-500 dark:text-black text-xs md:text-sm"
         onClick={handleScroll}
       >
         How it works?
