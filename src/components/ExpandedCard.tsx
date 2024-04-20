@@ -3,15 +3,17 @@
 import React, { useState } from "react";
 import HearthRate from "./HearthRate";
 import ExpandCardInput from "./ExpandCardInput";
-import {
-  AdjustmentsHorizontalIcon,
-} from "@heroicons/react/24/solid";
+import { AdjustmentsHorizontalIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
 import WeightInput from "./WeightInput";
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import ColorInput from "./ColorInput";
-import PushBackButton from "./PushBackButton";
+import {
+  ArrowUpOnSquareIcon,
+  CheckIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/outline";
 
 export type PostInterface = {
   id: string;
@@ -42,9 +44,10 @@ enum ModalAction {
 
 const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   const [submitting, setSubmitting] = useState(false);
-	const [isPushBack, setPushBack] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
+  const [clicked, setClicked] = useState(false);
+	const router = useRouter();
 
   type AlertProps = {
     message: string;
@@ -94,26 +97,11 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
           });
         }
         case ModalAction.UPDATE: {
-          return Swal.fire({
-            icon: "info",
-            title: "Are you sure you want to update this post?",
-            showCloseButton: true,
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonColor: "#4ade80",
-            confirmButtonText: "Yes",
-            cancelButtonColor: "#ef4444",
-            cancelButtonText: "No",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-          });
+          resolve(true);
         }
-        default:
-          resolve(false);
+				default: {
+					resolve(false);
+				}
       }
     });
   };
@@ -155,10 +143,6 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   }
 
   const onSubmit = async () => {
-
-		if (!isMine && isPushBack) {
-      return;
-    }
 
     if (!isMine) {
       AlertBox({
@@ -217,20 +201,40 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
     }
   };
 
+  const copyClipboard = (id: string) => {
+    setClicked(true);
+
+    navigator.clipboard.writeText(
+      `${window.location.origin}` + `/coffee-list/${id}`,
+    );
+    () => {
+      handleStateChange("status", !form.status);
+    };
+    () => copyClipboard(id);
+    setClicked(true);
+    setTimeout(() => {
+      setClicked(false);
+    }, 1000);
+  };
+
+	const pushBack = () => {
+		router.back();
+	}
+
   return (
     <form action={onSubmit}>
       <div className=" w-full h-full items-center">
         <div className="flex flex-row justify-between items-center p-10">
-          <div className="flex flex-row items-center gap-2" onClick={() => setPushBack(true)}>
-            <PushBackButton />
-            <p className="text-2xl md:text-3xl lg:text-5xl flex flex-grow font-light">
-              Details
-            </p>
-          </div>
+          <label onClick={() => pushBack()} className="flex items-center gap-2">
+						<ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
+					<p className="text-2xl md:text-3xl lg:text-5xl font-light">
+            details
+          </p>
+					</label>
           <div className={`${isMine ? "block" : "hidden"}`}>
             <div className="flex flex-row gap-10 justify-center items-center">
               <div className=" flex flex-col justify-center items-center ">
-                <div className=" text-center text-xs text-slate-400">
+                <div className=" text-center text-xs ">
                   {form.status ? "Public" : "Private"}
                 </div>
                 <label className="relative items-center cursor-pointer">
@@ -242,15 +246,15 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
                     onClick={() => handleStateChange("status", !form.status)}
                   />
                   <div
-                    className={`ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
-							peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-slate-400 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
-							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400`}
+                    className={`rounded-full outline-none duration-1000 after:duration-300 w-16 h-8 border-[1px] border-black
+							peer-focus:outline-none  after:content-[''] after:rounded-full peer-checked:border-none after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
+							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-orange-500`}
                   ></div>
                 </label>
               </div>
               <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
                 <AdjustmentsHorizontalIcon
-                  className="w-10 h-10 flex justify-end text-yellow-800 cursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
+                  className="w-10 h-10 flex justify-end tcursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
                   onClick={() => setSubmitting(!submitting)}
                 />
               </div>
@@ -258,165 +262,178 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
           </div>
         </div>
         {/* card */}
-        <div className=" w-full h-full flex justify-center items-center py-20">
+        <div className=" w-full h-full flex justify-center items-center py-20 relative">
           <div
-            className={`${form.color} w-3/4 max-w-xl h-fit  rounded-xl shadow-2xl break-words`}
+            className={`w-3/4 max-w-xl h-fit rounded-xl break-words dark:bg-gradient-to-br border-black border-[1px] dark:from-neutral-700 dark:to-black p-px`}
           >
-            <div className="flex flex-col pl-10 pr-10">
-              {/* title */}
-              <div className="flex justify-start pt-10 text-3xl font-bold">
-                {submitting ? (
-                  <ExpandCardInput
-                    placeholder="Title"
-                    type="title"
-                    isTextArea={false}
-                    submitting={submitting}
-                    text={post?.title}
-                    setChange={handleStateChange}
-                    maxLength={30}
-                    isRequierd={false}
-                  />
-                ) : (
-                  <p className="">{post?.title}</p>
-                )}
-              </div>
-
-              {/* brand and variety */}
-              <div className="text-xl pt-5 font-normal flex justify-between">
-                {submitting ? (
-                  <ExpandCardInput
-                    placeholder="Brand"
-                    type="brand"
-                    isTextArea={false}
-                    submitting={submitting}
-                    text={post?.brand}
-                    setChange={handleStateChange}
-                    maxLength={30}
-                    isRequierd={false}
-                  />
-                ) : (
-                  <p>{post?.brand}</p>
-                )}
-                {submitting ? (
-                  <ExpandCardInput
-                    placeholder="Variety"
-                    type="variety"
-                    isTextArea={false}
-                    text={post?.variety}
-                    submitting={submitting}
-                    setChange={handleStateChange}
-                    maxLength={30}
-                    isRequierd={false}
-                  />
-                ) : (
-                  <p>{post?.variety}</p>
-                )}
-              </div>
-
-              {/* tasting */}
-              <p className="pt-10">Tasting: </p>
-              {submitting ? (
-                <ExpandCardInput
-                  placeholder="There is no tasting"
-                  type="tasting"
-                  isTextArea={true}
-                  text={post?.tasting}
-                  submitting={submitting}
-                  setChange={handleStateChange}
-                  maxLength={400}
-                  isRequierd={false}
-                />
-              ) : (
-                <p className="pl-2 break-words">{post?.tasting}</p>
-              )}
-
-              {/* note */}
-              <p className="pt-10">Note: </p>
-              {submitting ? (
-                <ExpandCardInput
-                  placeholder="There is no note"
-                  type="note"
-                  isTextArea={true}
-                  text={post?.note}
-                  submitting={submitting}
-                  setChange={handleStateChange}
-                  maxLength={400}
-                  isRequierd={false}
-                />
-              ) : (
-                <p className="pl-3 pt-3">{post?.note}</p>
-              )}
-
-              {/* price */}
-              <div className="flex flex-row  items-center pt-10">
-                {submitting ? (
-                  <div className="flex">
+            <div
+              className={`w-full h-full bg-white dark:bg-black rounded-xl p-4 md:p-6 relative`}
+            >
+              <div className="flex flex-col pl-10 pr-10">
+                {/* title */}
+                <div className="flex justify-start pt-10 text-3xl font-bold">
+                  {submitting ? (
                     <ExpandCardInput
-                      placeholder="$"
-                      type="price"
+                      placeholder="Title"
+                      type="title"
                       isTextArea={false}
-                      text={post?.price}
                       submitting={submitting}
+                      text={post?.title}
                       setChange={handleStateChange}
-                      maxLength={5}
+                      maxLength={30}
                       isRequierd={false}
                     />
-                    <WeightInput
-                      isUpdate={true}
-                      setState={(value) => handleStateChange("weight", value)}
+                  ) : (
+                    <p className="">{post?.title}</p>
+                  )}
+                </div>
+
+                {/* brand and variety */}
+                <div className="text-xl pt-5 font-normal flex justify-between">
+                  {submitting ? (
+                    <ExpandCardInput
+                      placeholder="Brand"
+                      type="brand"
+                      isTextArea={false}
+                      submitting={submitting}
+                      text={post?.brand}
+                      setChange={handleStateChange}
+                      maxLength={30}
+                      isRequierd={false}
                     />
-                  </div>
-                ) : (
-                  <p className="pl-1">
-                    {post?.price} / {post?.weight}
-                  </p>
-                )}
-              </div>
-              <div className="flex justify-center items-center py-10 ">
-                <div className="w-1/2 border-b-[1px] border-slate-400"></div>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between items-center ">
+                  ) : (
+                    <p>{post?.brand}</p>
+                  )}
+                  {submitting ? (
+                    <ExpandCardInput
+                      placeholder="Variety"
+                      type="variety"
+                      isTextArea={false}
+                      text={post?.variety}
+                      submitting={submitting}
+                      setChange={handleStateChange}
+                      maxLength={30}
+                      isRequierd={false}
+                    />
+                  ) : (
+                    <p>{post?.variety}</p>
+                  )}
+                </div>
+
+                {/* tasting */}
+                <p className="pt-10">Tasting: </p>
                 {submitting ? (
-                  <HearthInput rate={rate} setRate={submitRate} />
+                  <ExpandCardInput
+                    placeholder="There is no tasting"
+                    type="tasting"
+                    isTextArea={true}
+                    text={post?.tasting}
+                    submitting={submitting}
+                    setChange={handleStateChange}
+                    maxLength={400}
+                    isRequierd={false}
+                  />
                 ) : (
-                  <HearthRate rate={post?.rate} />
+                  <p className="pl-2 break-words">{post?.tasting}</p>
                 )}
-                <h2 className="py-10 sm:pt-10">
-                  <p>
-                    Last Update:{" "}
-                    {post?.updatedAt
-                      ?.toJSON()
-                      .slice(0, 10)
-                      .split("-")
-                      .reverse()
-                      .join("/")}
-                  </p>
-                  <p>
-                    Created the:{" "}
-                    {post?.createdAt
-                      ?.toJSON()
-                      .slice(0, 10)
-                      .split("-")
-                      .reverse()
-                      .join("/")}
-                  </p>
-                </h2>
+
+                {/* note */}
+                <p className="pt-10">Note: </p>
+                {submitting ? (
+                  <ExpandCardInput
+                    placeholder="There is no note"
+                    type="note"
+                    isTextArea={true}
+                    text={post?.note}
+                    submitting={submitting}
+                    setChange={handleStateChange}
+                    maxLength={400}
+                    isRequierd={false}
+                  />
+                ) : (
+                  <p className="pl-3 pt-3">{post?.note}</p>
+                )}
+
+                {/* price */}
+                <div className="flex flex-row  items-center pt-10">
+                  {submitting ? (
+                    <div className="flex">
+                      <ExpandCardInput
+                        placeholder="$"
+                        type="price"
+                        isTextArea={false}
+                        text={post?.price}
+                        submitting={submitting}
+                        setChange={handleStateChange}
+                        maxLength={5}
+                        isRequierd={false}
+                      />
+                      <WeightInput
+                        isUpdate={true}
+                        setState={(value) => handleStateChange("weight", value)}
+                      />
+                    </div>
+                  ) : (
+                    <p className="pl-1">
+                      {post?.price} / {post?.weight}
+                    </p>
+                  )}
+                </div>
+                <div className="flex justify-center items-center py-10 ">
+                  <div className="w-1/2 border-b-[1px] border-black dark:border-white"></div>
+                </div>
+                <div className="flex flex-col md:flex-row justify-between items-center ">
+                  {submitting ? (
+                    <HearthInput rate={rate} setRate={submitRate} />
+                  ) : (
+                    <HearthRate rate={post?.rate} />
+                  )}
+                  <h2 className="py-10 sm:pt-10">
+                    <p>
+                      Last Update:{" "}
+                      {post?.updatedAt
+                        ?.toJSON()
+                        .slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                    </p>
+                    <p>
+                      Created the:{" "}
+                      {post?.createdAt
+                        ?.toJSON()
+                        .slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                    </p>
+                  </h2>
+                </div>
               </div>
+						<div className="border-b-[1px] border-black dark:border-white w-full mb-16"/>
+          <label
+					 className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
+          // TODO: add to account
+          >
+            <PlusCircleIcon className="h-6 w-6 md:w-8 md:h-8 hover:scale-105" />
+          </label>
+          <label onClick={() => copyClipboard(id)}
+						className="absolute bottom-5 right-5 md:bottom-10 md:right-10 h-6 w-6 z-10 dark:text-white hover:scale-105"
+					>
+            
+              {clicked ? (
+                <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
+              ) : (
+                <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
+              )}
+          </label>
+          </div>
             </div>
-          </div>
         </div>
-        {submitting && (
-          <div className="flex justify-center items-center">
-            <ColorInput
-              color={form?.color}
-              setState={(value) => handleStateChange("color", value)}
-            />
-          </div>
-        )}
         {submitting && (
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
-              className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-red-400 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
+              className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2 rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => {
                 setType(ModalAction.DELETE);
               }}
@@ -424,7 +441,7 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
               Delete
             </button>
             <button
-              className="text-sm md:text-lg lg:text-lg text-pale-red py-2 px-4 bg-amber-800 rounded-full shadow-md hover:scale-105 active:scale-95 active:shadow-lg transition duration-150"
+              className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2  rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => setType(ModalAction.UPDATE)}
             >
               Update
