@@ -13,9 +13,8 @@ type DisplayCardsProps = {
 // TODO: Implement the DisplayCards componentwith the button because it is not working
 const DisplayCards = ({ post }: DisplayCardsProps) => {
 	const router = useRouter();
-	const [State, setState] = useState(false);
+	const [State] = useState(false);
 
-	setState(false);
 	const handleClick = (id: string, setState: boolean) => {
 		if (!setState)
 			router.push(`/coffee-list/${id}`);

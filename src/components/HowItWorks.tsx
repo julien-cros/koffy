@@ -9,9 +9,9 @@ import Link from "next/link";
 
 const GetStarted = () => {
   return (
-    <div className="w-full  items-center gap-6">
-			<div className=" border-black border-t-[1px] m-10 mx-6 md:mx-8 lg:mx-10"/>
-      <h1 className="flex justify-center text-3xl md:text-4xl lg:text-5xl ">
+    <div className="w-full items-center gap-6">
+			<div className=" border-black dark:border-white md:border-t-[1px] m-10 mx-6 md:mx-8 lg:mx-10"/>
+      <h1 className="flex justify-center text-3xl md:text-4xl lg:text-5xl pt-4">
         How does this work
       </h1>
       <h2 className="flex justify-center text-center text-md md:text-xl mt-10">

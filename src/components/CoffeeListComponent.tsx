@@ -39,14 +39,16 @@ const CoffeeListComponent = ({ posts, isLogged }: Props) => {
 
   return (
     <div className="flex flex-col justify-center m-10">
-      <div className="flex  justify-between items-center">
+      <div className="flex justify-between items-center">
         <div className="flex flex-row items-center gap-2">
           <PushBackButton	/>
           <p className="text-2xl md:text-3xl lg:text-5xl flex flex-grow font-light">
-            My coffee list
+            my coffee list
           </p>
         </div>
-        <div className="flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10">
+				
+        <div className="flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10 gap-2">
+					<Link href={`/search-page/brand--public`} className="border-[1px] border-black dark:border-white px-3 py-2 rounded-full text-sm cursor-pointer">see all</Link>
           <button
             onClick={
               !isLogged ? () => AlertBox() : () => router.push("/create-card")

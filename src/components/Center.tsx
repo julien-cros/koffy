@@ -9,11 +9,25 @@ const Center = async () => {
   const session = await getCurrentUser();
   return (
     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-4">
-      <div className="flex flex-col justify-center h-full md:h-screen">
+      <div className="flex flex-col justify-center h-full ">
         <div className="flex flex-col lg:items-start gap-4">
+					<h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start">
+						koffy
+					</h1>
+					{/* <div className="flex ">
           <h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start	">
-            Koffy
+            k
           </h1>
+					<div className="pt-[88px]">
+					<img
+							src="/coffee.png"
+							className="dark:filter dark:invert w-32 h-32"
+							alt="coffe logo"/>
+					</div>
+					<h1 className="text-8xl lg:text-[250px] font-thin flex text-start	">
+						ffy
+          </h1>
+					</div> */}
           <p className="text-3xl md:text-4xl lg:text-5xl pl-5 md:pl-10 text-start lg:text-left mr-3">
             always keep a record of your coffee
           </p>
