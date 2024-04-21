@@ -62,7 +62,7 @@ const FormPage = ({ type, session }: Props) => {
       timer: 10000,
       timerProgressBar: true,
       showConfirmButton: true,
-      confirmButtonColor: "#c2410c",
+      confirmButtonColor: "#3085d6",
       confirmButtonText: messageButton,
     }).then((result) => {
       if (result.isConfirmed) {
