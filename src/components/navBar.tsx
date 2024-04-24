@@ -97,7 +97,7 @@ export default function Nav({ session }: Props) {
           className="w-8 h-8 absolute top-5 right-5 cursor-pointer"
           onClick={() => setSearchClicked(false)}
         />
-        <div className="flex flex-col justify-center gap-4 z-40">
+        <div className="flex flex-col justify-center gap-4 z-40 px-20">
           <div className="flex flex-row items-center justify-center gap-2">
             <BaseSearchBar
               session={session}
@@ -116,7 +116,7 @@ export default function Nav({ session }: Props) {
             </Link>
           </div>
           <h2 className="text-xs tracking-wide pl-2">filter</h2>
-          <div className="flex flex-row items-start gap-[26px] justify-between">
+          <div className="flex flex-row items-start gap-2 ">
             <ButtonPrivatePublic status={status} setStatus={setStatus} />
             <CategorySearchBar setCategorySearch={setCategorySearch} />
           </div>

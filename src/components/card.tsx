@@ -10,7 +10,7 @@ import {
 import type { SessionInterface } from "@/lib/session";
 import { DuplicatePost } from "@/lib/actions";
 import { useState } from "react";
-import copy from 'clipboard-copy';
+import copy from "clipboard-copy";
 
 export type CardProps = {
   title: string;
@@ -46,7 +46,7 @@ export default function Card({
 
   const handleDuplicate = async (
     id: string,
-    session: SessionInterface | null,
+    session: SessionInterface | null
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {
@@ -61,15 +61,14 @@ export default function Card({
   };
 
   const handleCopyClipboard = () => {
-		if (!navigator.clipboard) {
-			copy(`${window.location.origin}` + `/coffee-list/${id}`);
-		}
-		else {
-			navigator.clipboard.writeText(
-      `${window.location.origin}` + `/coffee-list/${id}`,
-    );
+    if (!navigator.clipboard) {
+      copy(`${window.location.origin}` + `/coffee-list/${id}`);
+    } else {
+      navigator.clipboard.writeText(
+        `${window.location.origin}` + `/coffee-list/${id}`
+      );
+    }
   };
-};
 
   return (
     <div
@@ -106,7 +105,7 @@ export default function Card({
         </div>
 
         {/* copy link of post */}
-        <div className="absolute bottom-5 right-5 h-6 w-6 dark:text-white hover:scale-105 ">
+        <div className="absolute bottom-5 right-5 dark:text-white hover:scale-105 ">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -120,7 +119,10 @@ export default function Card({
             className="flex items-center justify-center "
           >
             {clicked ? (
-              <CheckIcon className="h-6 w-6" />
+              <div className="dark:text-white flex flex-row items-center justify-center">
+                <p className="text-xs">link copied</p>
+                <CheckIcon className="h-6 w-6" />
+              </div>
             ) : (
               <ArrowUpOnSquareIcon className="h-6 w-6" />
             )}

@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import DuplicateButton from "./duplicateButton";
 import type { SessionInterface } from "@/lib/session";
+import copy from "clipboard-copy";
 
 export type PostInterface = {
   id: string;
@@ -205,9 +206,13 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   const copyClipboard = (id: string) => {
     setClicked(true);
 
-    navigator.clipboard.writeText(
-      `${window.location.origin}` + `/coffee-list/${id}`,
-    );
+		if (!navigator.clipboard) {
+      copy(`${window.location.origin}` + `/coffee-list/${id}`);
+    } else {
+      navigator.clipboard.writeText(
+        `${window.location.origin}` + `/coffee-list/${id}`
+      );
+    }
     () => {
       handleStateChange("status", !form.status);
     };
