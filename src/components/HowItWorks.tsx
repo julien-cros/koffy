@@ -42,6 +42,8 @@ const GetStarted = () => {
           rate={4}
           createdAt={new Date()}
 					id=""
+					session={null}
+					clickable={false}
         />
       </div>
 

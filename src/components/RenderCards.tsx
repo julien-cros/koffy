@@ -5,13 +5,15 @@ import Card from './Card'
 import { useRouter } from 'next/navigation';
 import { PostInterface } from './ExpandedCard';
 import { useState } from 'react';
+import { SessionInterface } from '@/lib/session';
 
 type DisplayCardsProps = {
 	post: PostInterface[] | undefined | null;
+	session: SessionInterface | null;
 }
 
 // TODO: Implement the DisplayCards componentwith the button because it is not working
-const DisplayCards = ({ post }: DisplayCardsProps) => {
+const DisplayCards = ({ post, session }: DisplayCardsProps) => {
 	const router = useRouter();
 	const [State] = useState(false);
 
@@ -33,6 +35,8 @@ const DisplayCards = ({ post }: DisplayCardsProps) => {
 						createdAt={post?.createdAt}
 						rate={post.rate}
 						id={post.id}
+						session={session}
+						clickable={true}
 					/>
 				</div>
 			))}

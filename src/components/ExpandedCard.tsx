@@ -12,8 +12,9 @@ import Swal from "sweetalert2";
 import {
   ArrowUpOnSquareIcon,
   CheckIcon,
-  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
+import DuplicateButton from "./DuplicateButton";
+import { SessionInterface } from "@/lib/session";
 
 export type PostInterface = {
   id: string;
@@ -31,10 +32,11 @@ export type PostInterface = {
   color: string | null;
 };
 
-type ExpandedCardProps = {
+type Props = {
   post: PostInterface | null;
   id: string;
   isMine: boolean;
+	session: SessionInterface | null;
 };
 
 enum ModalAction {
@@ -42,7 +44,7 @@ enum ModalAction {
   DELETE = "delete",
 }
 
-const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
+const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
@@ -143,7 +145,9 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
   }
 
   const onSubmit = async () => {
-
+		
+		// if (clicked)
+			// return;
     if (!isMine) {
       AlertBox({
         message: "You can't update this post",
@@ -219,7 +223,7 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
 
 	const pushBack = () => {
 		router.back();
-	}
+	}	
 
   return (
     <form action={onSubmit}>
@@ -411,12 +415,16 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
                 </div>
               </div>
 						<div className="border-b-[1px] border-black dark:border-white w-full mb-16"/>
-          <label
+          <div
 					 className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
-          // TODO: add to account
-          >
-            <PlusCircleIcon className="h-6 w-6 md:w-8 md:h-8 hover:scale-105" />
-          </label>
+					// //  onClick={() => {
+					// // 	setClicked(true);
+					// // 	// copyClipboard(id);
+					// // 	}
+					// 	}
+					>
+            < DuplicateButton id={id} session={session}/>
+					</div>
           <label onClick={() => copyClipboard(id)}
 						className="absolute bottom-5 right-5 md:bottom-10 md:right-10 h-6 w-6 z-10 dark:text-white hover:scale-105"
 					>
@@ -433,6 +441,7 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
         {submitting && (
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
+							type="submit"
               className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2 rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => {
                 setType(ModalAction.DELETE);
@@ -441,6 +450,7 @@ const ExpandedCard = ({ post, id, isMine }: ExpandedCardProps) => {
               Delete
             </button>
             <button
+							type="submit"
               className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2  rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => setType(ModalAction.UPDATE)}
             >

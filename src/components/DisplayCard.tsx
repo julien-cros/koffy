@@ -41,6 +41,8 @@ const DisplayCard = () => {
                 createdAt={coffee.createdAt}
                 shadow={"shadow-xl"}
 								id=""
+								session={null}
+								clickable={false}
               />
             </div>
           ))}

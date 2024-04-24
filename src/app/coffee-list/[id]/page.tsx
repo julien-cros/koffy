@@ -1,5 +1,6 @@
 import ExpandedCard from "@/components/ExpandedCard";
 import { getPostFromId, getUserFromId } from "@/lib/actions";
+import { getCurrentUser } from "@/lib/session";
 import { Metadata } from "next";
 
 
@@ -45,13 +46,14 @@ export async function generateMetadata({
 }
 
 const page = async ({ params }: PageProps) => {
+	const session = await getCurrentUser();
   const user = await getUserFromId(params.id);
   const post = await getPostFromId(params.id);
 
   const isMine = user ? true : false;
   return (
     <div>
-      <ExpandedCard post={post} id={params.id} isMine={isMine} />
+      <ExpandedCard post={post} id={params.id} isMine={isMine} session={session} />
     </div>
   );
 };

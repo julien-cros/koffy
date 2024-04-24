@@ -14,7 +14,7 @@
     "@heroicons/react": "^2.0.18",
     "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@nextui-org/react": "^2.3.5",
-    "@prisma/client": "^5.2.0",
+    "@prisma/client": "^5.12.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
@@ -22,13 +22,13 @@
     "autoprefixer": "10.4.15",
     "encoding": "^0.1.13",
     "eslint": "8.48.0",
-    "eslint-config-next": "^14.0.1",
+    "eslint-config-next": "^14.2.2",
     "framer-motion": "^10.18.0",
     "jquery": "^3.7.1",
     "jsonwebtoken": "^9.0.2",
     "net": "^1.0.2",
-    "next": "^14.0.1",
-    "next-auth": "^4.24.4",
+    "next": "^14.2.2",
+    "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "next-transition": "^1.0.0",
     "owl.carousel": "^2.3.4",
@@ -36,12 +36,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-owl-carousel": "^2.3.3",
-    "sweetalert2": "^11.6.13",
+    "sweetalert2": "^11.10.8",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.25",
-    "prisma": "^5.2.0"
+    "prisma": "^5.12.1"
   }
 }

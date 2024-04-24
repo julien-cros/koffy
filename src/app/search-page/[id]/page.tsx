@@ -2,6 +2,7 @@ import React from "react";
 import { findSearchPost } from "../actions";
 import PushBackButton from "@/components/PushBackButton";
 import DisplayCards from "@/components/RenderCards";
+import { getCurrentUser } from "@/lib/session";
 
 type PageProps = {
   params: {
@@ -10,6 +11,8 @@ type PageProps = {
 };
 
 const SearchPage = async ({ params }: PageProps) => {
+	const session = await getCurrentUser();
+	
   const key = params.id.split("-")[0];
   const value = params.id.split("-")[1];
   const isPrivate = params.id.split("-")[2];
@@ -27,7 +30,7 @@ const SearchPage = async ({ params }: PageProps) => {
           </p>
         </div>
       </div>
-				<DisplayCards	post={posts} />
+				<DisplayCards	post={posts} session={session}/>
     </div>
   );
 };

@@ -97,7 +97,11 @@ export default async function findPosts(key: string, value: string | number, aut
 			authorId: authorId,
 		}
 	})
-	if (posts.length > 0) return posts;
+	console.log("the post is equal to:", posts);
+	if (posts.length > 0) {
+		console.log("Post already exists while searching by " + key + " and " + value);
+		return posts;
+	}
 	else return null;
 }
 
@@ -106,6 +110,44 @@ export async function getUserFromId(id: string) {
 	if (!user?.user.id) return null;
 	const response = checkUser(id, user.user.id);
 	if (response) return response;
+	else return null;
+}
+
+export async function DuplicatePost(id: string, user: SessionInterface) {
+
+	if (!user?.user.id) {
+		console.log("No user found");
+		return null;
+	}
+	const post = await getPostFromId(id);
+	if (!post) return null;
+
+	if (post.authorId === user.user.id) {
+		console.log("User is the author");
+		return null;
+	}
+	else if (await findPosts("title", post.title, user.user.id) === null
+		&& await findPosts("brand", post.brand, user.user.id) === null) {
+		await db.posts.create({
+			data: {
+				title: post.title,
+				brand: post.brand,
+				variety: post.variety,
+				tasting: post.tasting,
+				rate: post.rate,
+				note: post.note,
+				price: post.price,
+				status: post.status,
+				color: post.color,
+				author: {
+					connect: {
+						id: user.user.id,
+					},
+				},
+			},
+		});
+		return post;
+	}
 	else return null;
 }
 

@@ -9,13 +9,15 @@ import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import PushBackButton from "./PushBackButton";
+import { SessionInterface } from "@/lib/session";
 
 type Props = {
   posts?: PostInterface[] | null;
   isLogged: boolean;
+	session: SessionInterface | null;
 };
 
-const CoffeeListComponent = ({ posts, isLogged }: Props) => {
+const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
   const router = useRouter();
 
   const AlertBox = () => {
@@ -62,7 +64,6 @@ const CoffeeListComponent = ({ posts, isLogged }: Props) => {
         {posts?.map((post) => (
           <div
             key={post.id}
-            onClick={() => router.push(`/coffee-list/${post.id}`)}
           >
             <Card
               key={post.id}
@@ -73,6 +74,8 @@ const CoffeeListComponent = ({ posts, isLogged }: Props) => {
               rate={post.rate}
               color={post?.color}
 							id={post.id}
+							session={session}
+							clickable={true}
             />
           </div>
         ))}
@@ -86,6 +89,8 @@ const CoffeeListComponent = ({ posts, isLogged }: Props) => {
             createdAt={new Date()}
             color="bg-pale-red"
 						id=""
+						// session={session}
+						clickable={false}
           />
         )}
       </div>
