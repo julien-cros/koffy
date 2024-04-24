@@ -10,6 +10,7 @@ import {
 import type { SessionInterface } from "@/lib/session";
 import { DuplicatePost } from "@/lib/actions";
 import { useState } from "react";
+import copy from 'clipboard-copy';
 
 export type CardProps = {
   title: string;
@@ -60,23 +61,28 @@ export default function Card({
   };
 
   const handleCopyClipboard = () => {
-    navigator.clipboard.writeText(
+		if (!navigator.clipboard) {
+			copy(`${window.location.origin}` + `/coffee-list/${id}`);
+		}
+		else {
+			navigator.clipboard.writeText(
       `${window.location.origin}` + `/coffee-list/${id}`,
     );
   };
+};
 
   return (
     <div
-      className="dark:bg-gradient-to-br border-black border-[1px]  dark:from-neutral-700 dark:to-black rounded-2xl p-[2px] w-56 h-64 md:w-72 md:h-80 cursor-pointer hover:scale-105 transition duration-150"
+      className="dark:bg-gradient-to-br border-black border-[1px]  dark:from-neutral-700 dark:to-black rounded-2xl p-[2px] w-56 h-64 lg:w-72 lg:h-80 cursor-pointer hover:scale-105 transition duration-150"
       key={id}
       onClick={() => redirectToCard()}
     >
-      <div className="bg-white dark:bg-black rounded-[14px] w-full h-full p-4 md:p-6 relative">
-        <p className="text-lg font-medium md:text-xl  text-clip truncate">
+      <div className="bg-white dark:bg-black rounded-[14px] w-full h-full p-4 lg:p-6 relative">
+        <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
         </p>
         <p className="font-light  text-lg  text-clip truncate">{brand}</p>
-        <p className="font-light text-md  truncate pt-6 md:pt-10">{tasting}</p>
+        <p className="font-light text-md  truncate pt-6 lg:pt-10">{tasting}</p>
         <div className="absolute bottom-20 left-5">
           <HearthRate rate={rate} />
         </div>
@@ -84,7 +90,7 @@ export default function Card({
           {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
         </p>
         <div className="border-b-[1px] border-black dark:border-white my-4 absolutw w-12/12 px-10" />
-        <div className="absolute bottom-5 left-5 z-40">
+        <div className="absolute bottom-5 left-5 ">
           {/* duplicate to post to account */}
           <button
             onClick={(e) => {
@@ -100,7 +106,7 @@ export default function Card({
         </div>
 
         {/* copy link of post */}
-        <div className="absolute bottom-5 right-5 h-6 w-6 dark:text-white hover:scale-105 z-40">
+        <div className="absolute bottom-5 right-5 h-6 w-6 dark:text-white hover:scale-105 ">
           <button
             onClick={(e) => {
               e.preventDefault();

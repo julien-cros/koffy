@@ -11,7 +11,7 @@ const Center = async () => {
     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-4">
       <div className="flex flex-col justify-center h-full ">
         <div className="flex flex-col lg:items-start gap-4">
-          <h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start">
+          <h1 className="pl-5 lg:pl-10  text-8xl md:text-[150px] lg:text-[250px] font-thin flex text-start">
             koffy
           </h1>
           {/* <div className="flex ">
@@ -69,7 +69,7 @@ const Center = async () => {
           )}
         </div>
       </div>
-      <div className=" flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 border-black dark:border-white border-t-[1px] md:border-none mt-5 ">
+      <div className="flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 border-black dark:border-white border-t-[1px] lg:border-none mt-5 ">
         <div
           className="h-[300px] lg:h-[100%] w-full mt-5
 		 				flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none"
