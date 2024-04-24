@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "./Card";
+import Card from "./card";
 import React from "react";
 import dynamic from "next/dynamic";
 import "owl.carousel/dist/assets/owl.carousel.css";

@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import HearthRate from "./HearthRate";
-import ExpandCardInput from "./ExpandCardInput";
+import HearthRate from "./hearthRate";
+import ExpandCardInput from "./expandCardInput";
 import {
   AdjustmentsHorizontalIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/solid";
 import { updatePost } from "@/app/create-card/actions";
-import HearthInput from "./HearthInput";
-import WeightInput from "./WeightInput";
+import HearthInput from "./hearthInput";
+import WeightInput from "./weightInput";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
-import DuplicateButton from "./DuplicateButton";
-import { SessionInterface } from "@/lib/session";
+import DuplicateButton from "./duplicateButton";
+import type { SessionInterface } from "@/lib/session";
 
 export type PostInterface = {
   id: string;
@@ -412,9 +412,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                 </div>
               </div>
               <div className="border-b-[1px] border-black dark:border-white w-full mb-16" />
-              <div
-                className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
-              >
+              <div className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105">
                 <DuplicateButton id={id} session={session} />
               </div>
               <label

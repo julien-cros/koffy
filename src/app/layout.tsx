@@ -1,11 +1,11 @@
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/navBar";
 import { getCurrentUser } from "@/lib/session";
-import { PenkleAnalytics } from "@/components/PenkleAnalytics";
-import { Metadata } from "next";
+import { PenkleAnalytics } from "@/components/penkleAnalytics";
+import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Providers } from "@/components/Providers";
-import SwitchDarkLightMode from "@/components/SwitchDarkLightMode";
+import { Providers } from "@/components/providers";
+import SwitchDarkLightMode from "@/components/switchDarkLightMode";
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],

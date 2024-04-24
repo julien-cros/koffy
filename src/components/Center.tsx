@@ -1,8 +1,8 @@
 import React from "react";
-import AuthProviders from "./AuthProviders";
+import AuthProviders from "./authProviders";
 import Link from "next/link";
-import HowItWorks from "./HowItWorksButton";
-import DisplayCard from "./DisplayCard";
+import HowItWorks from "./howItWorksButton";
+import DisplayCard from "./displayCard";
 import { getCurrentUser } from "@/lib/session";
 
 const Center = async () => {

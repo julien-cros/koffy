@@ -8,15 +8,15 @@ import {
   ListBulletIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import AuthProviders from "./AuthProviders";
-import SignOutButton from "./SignOutButton";
-import SideBar from "./SideBar";
-import { SessionInterface } from "@/lib/session";
+import AuthProviders from "./authProviders";
+import SignOutButton from "./signOutButton";
+import SideBar from "./sideBar";
+import type { SessionInterface } from "@/lib/session";
 import { useState } from "react";
-import BaseSearchBar from "./BaseSearchBar";
-import CategorySearchBar from "./CategorySearchBar";
+import BaseSearchBar from "./baseSearchBar";
+import CategorySearchBar from "./categorySearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import ButtonPrivatePublic from "./ButtonPrivatePublic";
+import ButtonPrivatePublic from "./buttonPrivatePublic";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";

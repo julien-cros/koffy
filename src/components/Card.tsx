@@ -1,13 +1,13 @@
 "use client";
 
-import HearthRate from "./HearthRate";
+import HearthRate from "./hearthRate";
 import { useRouter } from "next/navigation";
 import {
   ArrowUpOnSquareIcon,
   CheckIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
-import { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/lib/session";
 import { DuplicatePost } from "@/lib/actions";
 import { useState } from "react";
 

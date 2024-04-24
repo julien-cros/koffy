@@ -1,7 +1,7 @@
-import ExpandedCard from "@/components/ExpandedCard";
+import ExpandedCard from "@/components/expandedCard";
 import { getPostFromId, getUserFromId } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/session";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 // TODO: change id to title, brand, author, or something concret and unique
 type PageProps = {

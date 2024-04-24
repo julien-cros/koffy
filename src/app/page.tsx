@@ -1,5 +1,5 @@
-import Center from "@/components/Center";
-import GetStarted from "@/components/HowItWorks";
+import Center from "@/components/center";
+import GetStarted from "@/components/howItWorks";
 
 export default function HomePage() {
   return (

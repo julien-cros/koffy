@@ -4,7 +4,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/solid";
 import React from "react";
-import Card from "./Card";
+import Card from "./card";
 import Link from "next/link";
 
 const GetStarted = () => {

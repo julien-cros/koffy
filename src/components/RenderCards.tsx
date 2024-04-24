@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import Card from "./Card";
+import Card from "./card";
 import { useRouter } from "next/navigation";
-import { PostInterface } from "./ExpandedCard";
+import type { PostInterface } from "./expandedCard";
 import { useState } from "react";
-import { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/lib/session";
 
 type DisplayCardsProps = {
   post: PostInterface[] | undefined | null;

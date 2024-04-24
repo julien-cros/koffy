@@ -1,16 +1,16 @@
 "use client";
 
-import FormInput from "./FormInput";
-import HearthInput from "./HearthInput";
-import WeightInput from "./WeightInput";
-import { SessionInterface } from "@/lib/session";
+import FormInput from "./formInput";
+import HearthInput from "./hearthInput";
+import WeightInput from "./weightInput";
+import type { SessionInterface } from "@/lib/session";
 import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
-import ColorInput from "./ColorInput";
+import ColorInput from "./colorInput";
 
 type AlertBoxProps = {
   message: string;

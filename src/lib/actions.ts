@@ -1,7 +1,7 @@
-"use server"
+"use server";
 
-import { FormState } from "@/components/FormPage";
-import { SessionInterface } from "@/lib/session";
+import type { FormState } from "@/components/formPage";
+import type { SessionInterface } from "@/lib/session";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "./db";
 import { checkUser } from "@/app/create-card/actions";
@@ -10,145 +10,147 @@ const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
 
 export const createUser = async (
-	name: string,
-	email: string,
-	avatar: string,
+  name: string,
+  email: string,
+  avatar: string,
 ) => {
-	await db.user.create({
-		data: {
-			name,
-			email,
-			avatar,
-		},
-	});
+  await db.user.create({
+    data: {
+      name,
+      email,
+      avatar,
+    },
+  });
 };
 
 export const getUser = async (email: string) => {
-	const user = await db.user.findUnique({
-		where: {
-			email,
-		},
-	});
-	return user;
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user;
 };
 
 export const fetchToken = async () => {
-	try {
-		const response = await fetch(`${serverUrl}/api/auth/token`);
-		return response.json();
-	} catch (err) {
-		throw err;
-	}
+  try {
+    const response = await fetch(`${serverUrl}/api/auth/token`);
+    return response.json();
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const CreatePost = async (form: FormState, user: SessionInterface) => {
-	await db.posts.create({
-		data: {
-			title: form.title,
-			brand: form.brand,
-			variety: form.variety,
-			tasting: form.tasting,
-			rate: form.rate,
-			note: form.note,
-			price: form.price,
-			status: form.status,
-			color: form.color,
-			author: {
-				connect: {
-					id: user.user.id,
-				},
-			},
-		},
-	});
+  await db.posts.create({
+    data: {
+      title: form.title,
+      brand: form.brand,
+      variety: form.variety,
+      tasting: form.tasting,
+      rate: form.rate,
+      note: form.note,
+      price: form.price,
+      status: form.status,
+      color: form.color,
+      author: {
+        connect: {
+          id: user.user.id,
+        },
+      },
+    },
+  });
 };
 
-
 export const getPostFromId = async (id: string) => {
-	const post = await db.posts.findUnique({
-		where: {
-			id,
-		},
-	});
-	return post;
-}
+  const post = await db.posts.findUnique({
+    where: {
+      id,
+    },
+  });
+  return post;
+};
 
 export const getUserPosts = async (authorId: string) => {
-	try {
-		const posts = await db.posts.findMany({
-			where: {
-				authorId,
-			}
-		})
-		if (posts.length > 0) return posts;
-		else return null;
-	} catch (err) {
-		throw err;
-	}
-}
+  try {
+    const posts = await db.posts.findMany({
+      where: {
+        authorId,
+      },
+    });
+    if (posts.length > 0) return posts;
+    else return null;
+  } catch (err) {
+    throw err;
+  }
+};
 
-
-export default async function findPosts(key: string, value: string | number, authorId: string) {
-	const posts = await db.posts.findMany({
-		where: {
-			[key]: {
-				contains: value,
-				mode: 'insensitive',
-			},
-			authorId: authorId,
-		}
-	})
-	console.log("the post is equal to:", posts);
-	if (posts.length > 0) {
-		console.log("Post already exists while searching by " + key + " and " + value);
-		return posts;
-	}
-	else return null;
+export default async function findPosts(
+  key: string,
+  value: string | number,
+  authorId: string,
+) {
+  const posts = await db.posts.findMany({
+    where: {
+      [key]: {
+        contains: value,
+        mode: "insensitive",
+      },
+      authorId: authorId,
+    },
+  });
+  console.log("the post is equal to:", posts);
+  if (posts.length > 0) {
+    console.log(
+      "Post already exists while searching by " + key + " and " + value,
+    );
+    return posts;
+  } else return null;
 }
 
 export async function getUserFromId(id: string) {
-	const user = await getCurrentUser();
-	if (!user?.user.id) return null;
-	const response = checkUser(id, user.user.id);
-	if (response) return response;
-	else return null;
+  const user = await getCurrentUser();
+  if (!user?.user.id) return null;
+  const response = checkUser(id, user.user.id);
+  if (response) return response;
+  else return null;
 }
 
 export async function DuplicatePost(id: string, user: SessionInterface) {
+  if (!user?.user.id) {
+    console.log("No user found");
+    return null;
+  }
+  const post = await getPostFromId(id);
+  if (!post) return null;
 
-	if (!user?.user.id) {
-		console.log("No user found");
-		return null;
-	}
-	const post = await getPostFromId(id);
-	if (!post) return null;
-
-	if (post.authorId === user.user.id) {
-		console.log("User is the author");
-		return null;
-	}
-	else if (await findPosts("title", post.title, user.user.id) === null
-		&& await findPosts("brand", post.brand, user.user.id) === null) {
-		await db.posts.create({
-			data: {
-				title: post.title,
-				brand: post.brand,
-				variety: post.variety,
-				tasting: post.tasting,
-				rate: post.rate,
-				note: post.note,
-				price: post.price,
-				status: post.status,
-				color: post.color,
-				author: {
-					connect: {
-						id: user.user.id,
-					},
-				},
-			},
-		});
-		return post;
-	}
-	else return null;
+  if (post.authorId === user.user.id) {
+    console.log("User is the author");
+    return null;
+  } else if (
+    (await findPosts("title", post.title, user.user.id)) === null &&
+    (await findPosts("brand", post.brand, user.user.id)) === null
+  ) {
+    await db.posts.create({
+      data: {
+        title: post.title,
+        brand: post.brand,
+        variety: post.variety,
+        tasting: post.tasting,
+        rate: post.rate,
+        note: post.note,
+        price: post.price,
+        status: post.status,
+        color: post.color,
+        author: {
+          connect: {
+            id: user.user.id,
+          },
+        },
+      },
+    });
+    return post;
+  } else return null;
 }
 
 // export const getWishlist = async (authorId: string) => {

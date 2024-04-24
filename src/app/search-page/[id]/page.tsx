@@ -1,7 +1,7 @@
 import React from "react";
 import { findSearchPost } from "../actions";
-import PushBackButton from "@/components/PushBackButton";
-import DisplayCards from "@/components/RenderCards";
+import PushBackButton from "@/components/pushBackButton";
+import DisplayCards from "@/components/renderCards";
 import { getCurrentUser } from "@/lib/session";
 
 type PageProps = {
@@ -17,7 +17,7 @@ const SearchPage = async ({ params }: PageProps) => {
   const value = params.id.split("-")[1];
   const isPrivate = params.id.split("-")[2];
 
-  const MyValue = key === "rate" ? parseInt(value) : value;
+  const MyValue = key === "rate" ? Number.parseInt(value) : value;
   const posts = await findSearchPost(key, MyValue, isPrivate);
 
   return (

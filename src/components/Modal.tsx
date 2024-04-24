@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { ReactNode, useCallback, useRef } from "react";
+import type React from "react";
+import { type ReactNode, useCallback, useRef } from "react";
 import Image from "next/image";
 
 const Modal = ({ children }: { children: ReactNode }) => {
