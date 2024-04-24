@@ -8,7 +8,7 @@ export const packWeight = [
 			"1kg",
 			"2kg",
 		],
-	}, 
+	},
 ]
 
 export const searchCategory = [
@@ -21,7 +21,7 @@ export const searchCategory = [
 			"note",
 			"price"
 		],
-	}, 
+	},
 ]
 
 export const coffeDsisplay = [
@@ -31,7 +31,7 @@ export const coffeDsisplay = [
 		rate: 5,
 		price: "14",
 		tasting: "fruity with a hint of cocoa",
-		createdAt:  new Date(),
+		createdAt: new Date(),
 	},
 	{
 		title: 'Chateau Belleville',
@@ -48,7 +48,7 @@ export const coffeDsisplay = [
 		rate: 4,
 		price: "16",
 		tasting: "powerful and creamy",
-		createdAt:  new Date(),
+		createdAt: new Date(),
 	},
 	{
 		title: 'Bob-o-Link',
@@ -56,6 +56,6 @@ export const coffeDsisplay = [
 		rate: 4,
 		price: "17",
 		tasting: "smooth and chocolate",
-		createdAt:  new Date(),
+		createdAt: new Date(),
 	},
 ]

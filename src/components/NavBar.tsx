@@ -32,7 +32,7 @@ export default function Nav({ session }: Props) {
   const [status, setStatus] = useState(true);
   const [search, setSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
-	const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const AlertBox = () => {
     Swal.fire({
@@ -53,14 +53,17 @@ export default function Nav({ session }: Props) {
     });
   };
 
-	useEffect(() => {
-		if(clicked){
-			router.push(`/search-page/${categorySearch}-${search}-${status ? "public" : "private"}`)
-			setClicked(false);
-			setSearchClicked(false);
-		}
-	}
-	, [clicked])
+  useEffect(() => {
+    if (clicked) {
+      router.push(
+        `/search-page/${categorySearch}-${search}-${
+          status ? "public" : "private"
+        }`,
+      );
+      setClicked(false);
+      setSearchClicked(false);
+    }
+  }, [clicked]);
 
   return (
     <nav className="sticky top-0 z-40 ">
@@ -89,16 +92,18 @@ export default function Nav({ session }: Props) {
           searchClicked ? "block" : "hidden"
         } w-screen h-screen flex flex-col items-center justify-center gap-10 absolute bg-white dark:bg-black z-10`}
       >
-				<h1 className="text-5xl font-light">
-					koffy
-				</h1>
+        <h1 className="text-5xl font-light">koffy</h1>
         <XMarkIcon
           className="w-8 h-8 absolute top-5 right-5 cursor-pointer"
           onClick={() => setSearchClicked(false)}
         />
         <div className="flex flex-col justify-center items-start gap-4 z-40">
           <div className="flex flex-row items-center justify-center gap-2">
-            <BaseSearchBar session={session} setSearch={setSearch} setClicked={setClicked}/>
+            <BaseSearchBar
+              session={session}
+              setSearch={setSearch}
+              setClicked={setClicked}
+            />
             <Link
               href={`/search-page/${categorySearch}-${search}-${
                 status ? "public" : "private"
@@ -110,7 +115,7 @@ export default function Nav({ session }: Props) {
               />
             </Link>
           </div>
-						<h2 className="text-xs tracking-wide pl-2">filter</h2>
+          <h2 className="text-xs tracking-wide pl-2">filter</h2>
           <div className=" flex flex-row items-start gap-[26px] justify-center pr-[32px] ">
             <ButtonPrivatePublic status={status} setStatus={setStatus} />
             <CategorySearchBar setCategorySearch={setCategorySearch} />
@@ -143,7 +148,11 @@ export default function Nav({ session }: Props) {
             <div className="flex gap-2">
               <ButtonPrivatePublic status={status} setStatus={setStatus} />
               <CategorySearchBar setCategorySearch={setCategorySearch} />
-              <BaseSearchBar session={session} setSearch={setSearch} setClicked={setClicked}/>
+              <BaseSearchBar
+                session={session}
+                setSearch={setSearch}
+                setClicked={setClicked}
+              />
               <Link
                 href={`/search-page/${categorySearch}-${search}-${
                   status ? "public" : "private"
@@ -173,7 +182,7 @@ export default function Nav({ session }: Props) {
             <div className="flex items-center">
               {session?.user ? (
                 <div className="flex items-center space-x-2 ">
-                  <SignOutButton name={session?.user?.name}/>
+                  <SignOutButton name={session?.user?.name} />
                 </div>
               ) : (
                 <AuthProviders />

@@ -2,11 +2,10 @@
 
 import { SessionInterface } from "@/lib/session";
 
-
 type Props = {
   session: SessionInterface | null;
   setSearch: (search: string) => void;
-	setClicked: (clicked: boolean) => void;
+  setClicked: (clicked: boolean) => void;
 };
 
 const BaseSearchBar = ({ session, setSearch, setClicked }: Props) => {
@@ -21,7 +20,9 @@ const BaseSearchBar = ({ session, setSearch, setClicked }: Props) => {
         onChange={(e) => {
           setSearch(e.target.value);
         }}
-				onKeyDown={(e) => { if (e.key === 'Enter' || e.key === "Return") setClicked(true); }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === "Return") setClicked(true);
+        }}
       />
     </div>
   );

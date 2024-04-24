@@ -4,7 +4,7 @@ import { FormState } from "@/components/FormPage";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 
- export async function getData() {
+export async function getData() {
 	const user = await getCurrentUser();
 
 	if (!user?.user.id) {
@@ -82,11 +82,11 @@ export async function updatePost(id: string, form: FormState, type: string) {
 				},
 			});
 			return true;
-	} catch (error) {
-		console.log(error)
-		return error;
+		} catch (error) {
+			console.log(error)
+			return error;
+		}
 	}
-}
 }
 
 export const findValidPost = async (userId: string, brand: string, title: string) => {

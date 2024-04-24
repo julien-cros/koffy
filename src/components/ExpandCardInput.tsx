@@ -34,11 +34,11 @@ const ExpandCardInput = ({
           onChange={(e) => setChange(type, e.target.value)}
           maxLength={maxLength}
         >
-					{text}
-				</textarea>
+          {text}
+        </textarea>
       ) : (
         <input
-					defaultValue={text ? text : ""}
+          defaultValue={text ? text : ""}
           disabled={!submitting}
           className="w-[130px] md:w-[200px] h-[50px] pl-4 text-xs md:text-sm border-[1px] border-black dark:border-none  rounded-full px-5 py-2 outline-none"
           placeholder={text ? text : placeholder}

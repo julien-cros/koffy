@@ -70,13 +70,13 @@ const SideBar = ({
               coffe Lists
             </p>
           </Link>
-					<Link
-						href="/search-page/brand--public"
-						onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-						className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
-					>
-						all coffee
-					</Link>
+          <Link
+            href="/search-page/brand--public"
+            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
+          >
+            all coffee
+          </Link>
           <Link
             href="/create-card"
             onClick={
@@ -103,7 +103,11 @@ const SideBar = ({
             className="space-y-6 flex flex-col items-center"
           >
             <HowItWorks />
-            {!session?.user ? <AuthProviders /> : <SignOutButton  name={session.user.name}/>}
+            {!session?.user ? (
+              <AuthProviders />
+            ) : (
+              <SignOutButton name={session.user.name} />
+            )}
           </div>
         </div>
       </div>

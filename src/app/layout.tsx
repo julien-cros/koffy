@@ -3,7 +3,7 @@ import NavBar from "@/components/NavBar";
 import { getCurrentUser } from "@/lib/session";
 import { PenkleAnalytics } from "@/components/PenkleAnalytics";
 import { Metadata } from "next";
-import {Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import SwitchDarkLightMode from "@/components/SwitchDarkLightMode";
 
@@ -71,13 +71,13 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={EBGaramond.className}>
-				<Providers>
+        <Providers>
           <div className="tracking-tight">
             <NavBar session={session} />
             {children}
           </div>
-					<SwitchDarkLightMode />
-				</Providers>
+          <SwitchDarkLightMode />
+        </Providers>
       </body>
     </html>
   );

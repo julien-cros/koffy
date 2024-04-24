@@ -46,7 +46,9 @@ export default function CategorySearchBar({ setCategorySearch }: Props) {
                   key={categotyIndex}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-5 ${
-                      active ? "bg-pale-red dark:bg-gray-800 text-orange-500" : "text-gray-900 dark:text-white"
+                      active
+                        ? "bg-pale-red dark:bg-gray-800 text-orange-500"
+                        : "text-gray-900 dark:text-white"
                     }`
                   }
                   onClick={() => setCategorySearch(categoryItem.name)}

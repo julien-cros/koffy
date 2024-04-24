@@ -21,28 +21,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		}
 	];
 
-		const posts = allPost.map((post) => ({
-			url: `${BASE_URL}/coffee-list/${post.id}`,
-			lastModified: new Date(post.updatedAt),
-			priority: 0.7,
-		}));
-	
-		return [
-			{
-				url: BASE_URL,
-				lastModified: new Date().toISOString().split("T")[0],
-				priority: 1,
-			},
-			{
-				url: `${BASE_URL}/coffee-list`,
-				lastModified: new Date().toISOString().split("T")[0],
-				priority: 0.5,
-			},
-			{
-				url: `${BASE_URL}/search-page/brand--public`,
-				lastModified: new Date().toISOString().split("T")[0],
-				priority: 0.8,
-			},
-			...posts,
-		];
-	}
+	const posts = allPost.map((post) => ({
+		url: `${BASE_URL}/coffee-list/${post.id}`,
+		lastModified: new Date(post.updatedAt),
+		priority: 0.7,
+	}));
+
+	return [
+		{
+			url: BASE_URL,
+			lastModified: new Date().toISOString().split("T")[0],
+			priority: 1,
+		},
+		{
+			url: `${BASE_URL}/coffee-list`,
+			lastModified: new Date().toISOString().split("T")[0],
+			priority: 0.5,
+		},
+		{
+			url: `${BASE_URL}/search-page/brand--public`,
+			lastModified: new Date().toISOString().split("T")[0],
+			priority: 0.8,
+		},
+		...posts,
+	];
+}

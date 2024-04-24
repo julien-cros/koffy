@@ -27,16 +27,15 @@ const handleDuplicate = async (
 
 const DuplicateButton = ({ session, id }: Props) => {
   return (
-      <button
-				
-        onClick={() => {
-          handleDuplicate(id, session);
-        }}
-      >
-        {session?.user.id ? (
-          <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
-        ) : null}
-      </button>
+    <button
+      onClick={() => {
+        handleDuplicate(id, session);
+      }}
+    >
+      {session?.user.id ? (
+        <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
+      ) : null}
+    </button>
   );
 };
 

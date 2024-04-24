@@ -10,7 +10,7 @@ import Link from "next/link";
 const GetStarted = () => {
   return (
     <div className="w-full items-center gap-6">
-			<div className=" border-black dark:border-white md:border-t-[1px] m-10 mx-6 md:mx-8 lg:mx-10"/>
+      <div className=" border-black dark:border-white md:border-t-[1px] m-10 mx-6 md:mx-8 lg:mx-10" />
       <h1 className="flex justify-center text-3xl md:text-4xl lg:text-5xl pt-4">
         How does this work
       </h1>
@@ -41,9 +41,9 @@ const GetStarted = () => {
           tasting="what does the coffee taste like"
           rate={4}
           createdAt={new Date()}
-					id=""
-					session={null}
-					clickable={false}
+          id=""
+          session={null}
+          clickable={false}
         />
       </div>
 

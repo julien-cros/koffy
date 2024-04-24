@@ -11,10 +11,10 @@ const Center = async () => {
     <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 py-4">
       <div className="flex flex-col justify-center h-full ">
         <div className="flex flex-col lg:items-start gap-4">
-					<h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start">
-						koffy
-					</h1>
-					{/* <div className="flex ">
+          <h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start">
+            koffy
+          </h1>
+          {/* <div className="flex ">
           <h1 className="pl-5 lg:pl-10  text-8xl lg:text-[250px] font-thin flex text-start	">
             k
           </h1>
@@ -42,18 +42,18 @@ const Center = async () => {
               >
                 all coffee
               </Link>
-              <AuthProviders/>
-							 <Link
+              <AuthProviders />
+              <Link
                 href={`/search-page/brand--public`}
                 className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
               >
-              	coffee list
+                coffee list
               </Link>
             </>
           ) : (
             <>
-							<HowItWorks />
-							<Link
+              <HowItWorks />
+              <Link
                 href={`/search-page/brand--public`}
                 className="rounded-full flex items-center tracking-wide px-3 py-2 bg-orange-500 dark:text-black text-xs md:text-sm"
               >

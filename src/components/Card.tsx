@@ -85,8 +85,7 @@ export default function Card({
         </p>
         <div className="border-b-[1px] border-black dark:border-white my-4 absolutw w-12/12 px-10" />
         <div className="absolute bottom-5 left-5 z-40">
-
-						{/* duplicate to post to account */}
+          {/* duplicate to post to account */}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -99,8 +98,8 @@ export default function Card({
             ) : null}
           </button>
         </div>
-				
-						{/* copy link of post */}
+
+        {/* copy link of post */}
         <div className="absolute bottom-5 right-5 h-6 w-6 dark:text-white hover:scale-105 z-40">
           <button
             onClick={(e) => {

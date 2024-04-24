@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import HearthRate from "./HearthRate";
 import ExpandCardInput from "./ExpandCardInput";
-import { AdjustmentsHorizontalIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
+import {
+  AdjustmentsHorizontalIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/solid";
 import { updatePost } from "@/app/create-card/actions";
 import HearthInput from "./HearthInput";
 import WeightInput from "./WeightInput";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import {
-  ArrowUpOnSquareIcon,
-  CheckIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import DuplicateButton from "./DuplicateButton";
 import { SessionInterface } from "@/lib/session";
 
@@ -36,7 +36,7 @@ type Props = {
   post: PostInterface | null;
   id: string;
   isMine: boolean;
-	session: SessionInterface | null;
+  session: SessionInterface | null;
 };
 
 enum ModalAction {
@@ -49,7 +49,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   const [rate, setRate] = React.useState<number>(1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
   const [clicked, setClicked] = useState(false);
-	const router = useRouter();
+  const router = useRouter();
 
   type AlertProps = {
     message: string;
@@ -101,9 +101,9 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
         case ModalAction.UPDATE: {
           resolve(true);
         }
-				default: {
-					resolve(false);
-				}
+        default: {
+          resolve(false);
+        }
       }
     });
   };
@@ -145,9 +145,6 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   }
 
   const onSubmit = async () => {
-		
-		// if (clicked)
-			// return;
     if (!isMine) {
       AlertBox({
         message: "You can't update this post",
@@ -221,20 +218,20 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     }, 1000);
   };
 
-	const pushBack = () => {
-		router.back();
-	}	
+  const pushBack = () => {
+    router.back();
+  };
 
   return (
     <form action={onSubmit}>
       <div className=" w-full h-full items-center">
         <div className="flex flex-row justify-between items-center p-10">
           <label onClick={() => pushBack()} className="flex items-center gap-2">
-						<ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
-					<p className="text-2xl md:text-3xl lg:text-5xl font-light">
-            details
-          </p>
-					</label>
+            <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
+            <p className="text-2xl md:text-3xl lg:text-5xl font-light">
+              details
+            </p>
+          </label>
           <div className={`${isMine ? "block" : "hidden"}`}>
             <div className="flex flex-row gap-10 justify-center items-center">
               <div className=" flex flex-col justify-center items-center ">
@@ -414,34 +411,29 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                   </h2>
                 </div>
               </div>
-						<div className="border-b-[1px] border-black dark:border-white w-full mb-16"/>
-          <div
-					 className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
-					// //  onClick={() => {
-					// // 	setClicked(true);
-					// // 	// copyClipboard(id);
-					// // 	}
-					// 	}
-					>
-            < DuplicateButton id={id} session={session}/>
-					</div>
-          <label onClick={() => copyClipboard(id)}
-						className="absolute bottom-5 right-5 md:bottom-10 md:right-10 h-6 w-6 z-10 dark:text-white hover:scale-105"
-					>
-            
-              {clicked ? (
-                <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
-              ) : (
-                <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
-              )}
-          </label>
-          </div>
+              <div className="border-b-[1px] border-black dark:border-white w-full mb-16" />
+              <div
+                className="absolute bottom-5 md:bottom-10 md:left-10 left-5 h-6 w-6 z-10 dark:text-white hover:scale-105"
+              >
+                <DuplicateButton id={id} session={session} />
+              </div>
+              <label
+                onClick={() => copyClipboard(id)}
+                className="absolute bottom-5 right-5 md:bottom-10 md:right-10 h-6 w-6 z-10 dark:text-white hover:scale-105"
+              >
+                {clicked ? (
+                  <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
+                ) : (
+                  <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
+                )}
+              </label>
             </div>
+          </div>
         </div>
         {submitting && (
           <div className="flex justify-between px-20 pb-20 items-center">
             <button
-							type="submit"
+              type="submit"
               className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2 rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => {
                 setType(ModalAction.DELETE);
@@ -450,7 +442,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
               Delete
             </button>
             <button
-							type="submit"
+              type="submit"
               className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2  rounded-full hover:scale-105 active:scale-95 transition duration-150"
               onClick={() => setType(ModalAction.UPDATE)}
             >

@@ -11,8 +11,8 @@ type PageProps = {
 };
 
 const SearchPage = async ({ params }: PageProps) => {
-	const session = await getCurrentUser();
-	
+  const session = await getCurrentUser();
+
   const key = params.id.split("-")[0];
   const value = params.id.split("-")[1];
   const isPrivate = params.id.split("-")[2];
@@ -24,13 +24,11 @@ const SearchPage = async ({ params }: PageProps) => {
     <div className="w-full h-full items-cneter">
       <div className="flex flex-row justify-between items-center m-10">
         <div className="flex flex-row items-center gap-2">
-         	<PushBackButton />
-          <p className="text-2xl md:text-3xl lg:text-5xl font-light">
-            results
-          </p>
+          <PushBackButton />
+          <p className="text-2xl md:text-3xl lg:text-5xl font-light">results</p>
         </div>
       </div>
-				<DisplayCards	post={posts} session={session}/>
+      <DisplayCards post={posts} session={session} />
     </div>
   );
 };

@@ -106,11 +106,7 @@ const FormPage = ({ type, session }: Props) => {
 
   const handleFormSubmit = async () => {
     setSubmitting(true);
-    const valid = await findValidPost(
-      session?.user.id,
-      form.brand,
-      form.title,
-    );
+    const valid = await findValidPost(session?.user.id, form.brand, form.title);
     if (valid) {
       AlertBox({
         message: "You already tasted this coffee!",
