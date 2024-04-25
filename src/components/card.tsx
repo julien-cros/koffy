@@ -19,7 +19,6 @@ export type CardProps = {
   createdAt: Date | null;
   rate: number;
   shadow?: string;
-  color?: string | null;
   id: string;
   session?: any;
   clickable?: boolean;

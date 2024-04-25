@@ -6,7 +6,6 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 type Props = {
   setState: (value: string) => void;
-  isUpdate: boolean;
 };
 
 type WeightProp = {
@@ -23,7 +22,7 @@ const weightList = [
   { id: 6, value: "2kg" },
 ];
 
-export default function WeightInput({ setState, isUpdate }: Props) {
+export default function WeightInput({ setState }: Props) {
   const [selected, setSelected] = useState(weightList[0]);
   const [query, setQuery] = useState("");
 
@@ -38,18 +37,17 @@ export default function WeightInput({ setState, isUpdate }: Props) {
         );
 
   return (
-    <div className="flex justify-start pl-10 z-10 items-end pb-2 w-full">
+    <div className="flex justify-start pl-10 z-10 items-end w-full">
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <div
-            className="relative w-full cursor-default overflow-hidden rounded-lg bg-slate-100 
-		  	text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 
+            className="relative w-full cursor-default overflow-hidden rounded-full px-3 py-2 border-[1px] border-black dark:border-white pl-3 pr-10
+		  	text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 
 			focus-visible:ring-offset-2 focus-visible:ring-slate-900 sm:text-sm"
           >
             <Combobox.Input
-              className={`w-24 md:w-32 text-sm  border-none  ${
-                isUpdate ? " dark:text-white   " : "bg-blue-500"
-              } py-2 pl-3 pr-10 leading-5 text-gray-900 outline-none `}
+              className={`w-24 md:w-32 text-sm  border-none
+              } py-2 pl-3 pr-10 leading-5 outline-none bg-white dark:bg-black dark:placeholder-white`}
               displayValue={(weight: WeightProp) => weight.value}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -64,7 +62,7 @@ export default function WeightInput({ setState, isUpdate }: Props) {
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}
           >
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-black dark:border-[1px] dark:border-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
               {filteredWeightList.length === 0 && query !== "" ? (
                 <div className="relative cursor-default  select-none py-2 px-4 text-gray-700">
                   Nothing found.
@@ -75,7 +73,9 @@ export default function WeightInput({ setState, isUpdate }: Props) {
                     key={weight.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-pale-red text-orange-500" : "text-gray-900"
+                        active
+                          ? "bg-pale-red dark:bg-gray-800 text-orange-500"
+                          : ""
                       }`
                     }
                     onClick={() => setState(weight.value)}

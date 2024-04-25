@@ -96,7 +96,7 @@ const SideBar = ({
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
             className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
           >
-            About
+            about
           </a>
           <div
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}

@@ -75,7 +75,6 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
               tasting={post?.tasting}
               createdAt={post?.createdAt}
               rate={post.rate}
-              color={post?.color}
               id={post.id}
               session={session}
               clickable={true}
@@ -90,7 +89,6 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
             tasting="Taste a  coffe and rate it"
             rate={4}
             createdAt={new Date()}
-            color="bg-pale-red"
             id=""
             clickable={false}
           />

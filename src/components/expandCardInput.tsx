@@ -29,7 +29,8 @@ const ExpandCardInput = ({
         <textarea
           name={type}
           disabled={!submitting}
-          className="ml-2 mt-1 w-full h-[75px]  pl-2 border-[1px] border-black dark:border-none text-sm rounded-lg px-5 py-2 outline-none"
+          className="ml-2 mt-1 w-full h-[75px]  pl-2 border-[1px] border-black dark:border-white 
+						text-sm rounded-lg px-5 py-2 outline-none dark:bg-black dark:text-white dark:placeholder-white"
           placeholder={text ? text : placeholder}
           onChange={(e) => setChange(type, e.target.value)}
           maxLength={maxLength}
@@ -40,7 +41,8 @@ const ExpandCardInput = ({
         <input
           defaultValue={text ? text : ""}
           disabled={!submitting}
-          className="w-[130px] md:w-[200px] h-[50px] pl-4 text-xs md:text-sm border-[1px] border-black dark:border-none  rounded-full px-5 py-2 outline-none"
+          className="w-[130px] md:w-[200px] h-[50px] pl-4 text-xs md:text-sm border-[1px] border-black
+						dark:border-white  rounded-full px-5 py-2 outline-none dark:bg-black dark:text-white dark:placeholder-white"
           placeholder={text ? text : placeholder}
           onChange={(e) => setChange(type, e.target.value)}
           maxLength={maxLength}

@@ -52,7 +52,6 @@ export const CreatePost = async (form: FormState, user: SessionInterface) => {
       note: form.note,
       price: form.price,
       status: form.status,
-      color: form.color,
       author: {
         connect: {
           id: user.user.id,
@@ -141,7 +140,6 @@ export async function DuplicatePost(id: string, user: SessionInterface) {
         note: post.note,
         price: post.price,
         status: post.status,
-        color: post.color,
         author: {
           connect: {
             id: user.user.id,

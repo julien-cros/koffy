@@ -28,7 +28,6 @@ export default async function submit(form: FormState) {
         price: form?.price,
         weight: form?.weight,
         status: form?.status,
-        color: form?.color,
         author: {
           connect: {
             id: user.user.id,
@@ -77,7 +76,6 @@ export async function updatePost(id: string, form: FormState, type: string) {
           price: form?.price,
           weight: form?.weight,
           status: form?.status,
-          color: form?.color,
         },
       });
       return true;

@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
-import ColorInput from "./colorInput";
 
 type AlertBoxProps = {
   message: string;
@@ -33,7 +32,6 @@ export type FormState = {
   price: string | null;
   weight: string | null;
   status: boolean;
-  color: string | null;
 };
 
 const FormPage = ({ type, session }: Props) => {
@@ -51,7 +49,6 @@ const FormPage = ({ type, session }: Props) => {
     price: "",
     weight: "150g",
     status: false,
-    color: "bg-pale-red",
   });
 
   const AlertBox = ({ message, icon, messageButton }: AlertBoxProps) => {
@@ -213,7 +210,6 @@ const FormPage = ({ type, session }: Props) => {
             isRequierd={false}
           />
           <WeightInput
-            isUpdate={false}
             setState={(value) => handleStateChange("weight", value)}
           />
         </div>
@@ -226,9 +222,9 @@ const FormPage = ({ type, session }: Props) => {
             <label className="relative items-center cursor-pointer">
               <input type="checkbox" className="sr-only peer" />
               <div
-                className="ring-0 bg-slate-200 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  shadow-md  
-							peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-slate-400 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
-							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-emerald-400 "
+                className="ring-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8
+							peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
+							peer-checked:after:translate-x-8 peer-hover:after:scale-95"
                 onClick={() => {
                   setStatus(!status);
                   handleStateChange("status", status);
@@ -237,16 +233,10 @@ const FormPage = ({ type, session }: Props) => {
             </label>
           </div>
         </div>
-        <div className="flex items-center">
-          <ColorInput
-            color={form.color}
-            setState={(value) => handleStateChange("color", value)}
-          />
-        </div>
         <div className="flex justify-center pt-10">
           <button
             type="submit"
-            className="px-32 py-4 bg-amber-800 text-pale-red text-lg rounded-full"
+            className="px-32 py-4 bg-orange-500 text-black text-lg rounded-full"
             disabled={submitting || false}
             onClick={handleFormSubmit}
           >

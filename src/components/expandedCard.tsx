@@ -30,7 +30,6 @@ export type PostInterface = {
   createdAt: Date;
   updatedAt: Date;
   status: boolean | null;
-  color: string | null;
 };
 
 type Props = {
@@ -125,7 +124,6 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     weight: post?.weight || "",
     status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
-    color: post?.color || "bg-pale-red",
   });
 
   const handleStateChange = (
@@ -252,9 +250,9 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                     onClick={() => handleStateChange("status", !form.status)}
                   />
                   <div
-                    className={`rounded-full outline-none duration-1000 after:duration-300 w-16 h-8 border-[1px] border-black
-							peer-focus:outline-none  after:content-[''] after:rounded-full peer-checked:border-none after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
-							peer-checked:after:translate-x-8 peer-hover:after:scale-95 peer-checked:bg-orange-500`}
+                    className={`ing-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  
+										peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
+										peer-checked:after:translate-x-8 peer-hover:after:scale-95`}
                   ></div>
                 </label>
               </div>
@@ -375,7 +373,6 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                         isRequierd={false}
                       />
                       <WeightInput
-                        isUpdate={true}
                         setState={(value) => handleStateChange("weight", value)}
                       />
                     </div>
