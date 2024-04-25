@@ -67,7 +67,7 @@ const SideBar = ({
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
           >
             <p className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs">
-              coffe Lists
+              my coffe List
             </p>
           </Link>
           <Link

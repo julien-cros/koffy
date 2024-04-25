@@ -28,7 +28,7 @@ type Props = {
 export default function Nav({ session }: Props) {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [categorySearch, setCategorySearch] = useState("brand");
+  const [categorySearch, setCategorySearch] = useState("all");
   const [status, setStatus] = useState(true);
   const [search, setSearch] = useState("");
   const [searchClicked, setSearchClicked] = useState(false);
@@ -167,7 +167,7 @@ export default function Nav({ session }: Props) {
               href="/coffee-list"
               className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"
             >
-              coffee list
+              my coffee list
             </Link>
             <button
               className="hidden lg:block text-sm border-[1px] border-black dark:border-white rounded-full px-3 py-2"

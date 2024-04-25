@@ -9,6 +9,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const category = [
+  { name: "all" },
   { name: "brand" },
   { name: "title" },
   { name: "variety" },

@@ -11,9 +11,9 @@ const ButtonPrivatePublic = ({ setStatus, status }: Props) => {
   const [clicked, setClicked] = useState(status);
 
   return (
-    <div className="">
+    <div className="w-20">
       <button
-        className={`relative w-full cursor-default rounded-full px-3 py-2 text-center focus:outline-none sm:text-sm border-black border-[1px] dark:border-white`}
+        className={`relative w-full cursor-default rounded-full py-2 text-center focus:outline-none sm:text-sm border-black border-[1px] dark:border-white`}
         onClick={() => {
           setClicked(!clicked);
           setStatus(!clicked);

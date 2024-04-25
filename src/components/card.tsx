@@ -116,7 +116,7 @@ export default function Card({
                 setClicked(false);
               }, 1000);
             }}
-            className="flex items-center justify-center "
+            className="flex items-center justify-center"
           >
             {clicked ? (
               <div className="dark:text-white flex flex-row items-center justify-center">

@@ -24,7 +24,7 @@ const DisplayCard = () => {
   };
 
   return (
-    <div className="h-[500px] lg:h-[100%] w-full">
+    <div className="h-[350px] lg:h-[100%] w-full">
       <div className="flex h-full items-center justify-center overflow-hidden">
         <OwlCarousel className="owl-theme" {...options}>
           {coffeDsisplay.map((coffee) => (
