@@ -73,8 +73,13 @@ export default async function RootLayout({
       <body className={EBGaramond.className}>
         <Providers>
           <div className="tracking-tight">
-            <NavBar session={session} />
-            {children}
+						<div className="fixed inset-0 justify-center flex -z-20 items-center">
+							<div className="big-shape w-96 h-96 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-50 blur-[100px]"/>
+							<div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-50 blur-[100px]"/>
+							<div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-50 blur-[100px]"/>
+						</div>
+            	<NavBar session={session} />
+            	{children}
           </div>
           <SwitchDarkLightMode />
         </Providers>
