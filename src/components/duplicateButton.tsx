@@ -31,7 +31,7 @@ const DuplicateButton = ({ session, id }: Props) => {
       onClick={() => {
         handleDuplicate(id, session);
       }}
-			className="flex justify-center items-center"
+      className="flex justify-center items-center"
     >
       {session?.user.id ? (
         <PlusCircleIcon className=" h-6 w-6 md:h-8 md:w-8 dark:text-white hover:scale-105" />

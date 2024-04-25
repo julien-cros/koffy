@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/24/solid";
 import React from "react";
 import Card from "./card";
-import Link from "next/link";
 
 const GetStarted = () => {
   return (
@@ -15,7 +14,8 @@ const GetStarted = () => {
         how does this work
       </h1>
       <h2 className="flex justify-center text-center text-md md:text-xl mt-10">
-        go to your coffee list and create a new <br className="block lg:hidden" />
+        go to your coffee list and create a new{" "}
+        <br className="block lg:hidden" />
         coffee card, then you can rate it.
       </h2>
       <div className="flex space-x-10 pt-10 justify-center items-center ">
@@ -23,7 +23,7 @@ const GetStarted = () => {
           click here to create
           <ArrowRightIcon className="h-34 w-4" />
         </p>
-          <PlusIcon className="h-10 w-10 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
+        <PlusIcon className="h-10 w-10 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
       </div>
       <div className="flex flex-row justify-center items-center space-x-10">
         <p className="flex text-md md:text-xl items-center gap-2">

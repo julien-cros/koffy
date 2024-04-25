@@ -206,11 +206,11 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   const copyClipboard = (id: string) => {
     setClicked(true);
 
-		if (!navigator.clipboard) {
+    if (!navigator.clipboard) {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
     () => {
@@ -417,21 +417,21 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                 </div>
               </div>
               <div className="border-b-[1px] border-black dark:border-white w-full mb-16" />
-								<div className="absolute bottom-5 left-5 md:bottom-8 md:left-10 z-10 dark:text-white hover:scale-105">
-									<DuplicateButton id={id} session={session} />
-								</div>
+              <div className="absolute bottom-5 left-5 md:bottom-8 md:left-10 z-10 dark:text-white hover:scale-105">
+                <DuplicateButton id={id} session={session} />
+              </div>
               <label
                 onClick={() => copyClipboard(id)}
                 className="absolute bottom-5 right-5 md:bottom-10 md:right-10 z-10 dark:text-white hover:scale-105"
               >
                 {clicked ? (
-									// <div className="flex items-center justify-center">
+                  // <div className="flex items-center justify-center">
 
-                   <div className="dark:text-white flex flex-row items-center justify-center">
-									 <p className="text-xs">link copied</p>
-									 <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
-								 </div>
-									// </div>
+                  <div className="dark:text-white flex flex-row items-center justify-center">
+                    <p className="text-xs">link copied</p>
+                    <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
+                  </div>
+                  // </div>
                 ) : (
                   <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
                 )}
