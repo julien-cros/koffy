@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 .background-color {
-	background-color: #FCF9F6;
+	/* background-color: #FCF9F6; */
 }
 :root{
-	background-color: #FCF9F6;
+	/* background-color: #FCF9F6; */
 }
 
 ::-webkit-scrollbar {

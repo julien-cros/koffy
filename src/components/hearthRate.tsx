@@ -12,27 +12,27 @@ const HearthRate = ({ rate }: HearthRateProps) => {
       <HeartIcon
         width={20}
         height={20}
-        className={`${rate >= 1 ? "text-red-500" : "text-gray-400"}`}
+        className={`${rate >= 1 ? "text-orange-500" : "hidden"}`}
       />
       <HeartIcon
         width={20}
         height={20}
-        className={`${rate >= 2 ? "text-red-500" : "text-gray-400"}`}
+        className={`${rate >= 2 ? "text-orange-500" : "hidden"}`}
       />
       <HeartIcon
         width={20}
         height={20}
-        className={`${rate >= 2 ? "text-red-500" : "text-gray-400"}`}
+        className={`${rate >= 2 ? "text-orange-500" : "hidden"}`}
       />
       <HeartIcon
         width={20}
         height={20}
-        className={`${rate >= 4 ? "text-red-500" : "text-gray-400"}`}
+        className={`${rate >= 4 ? "text-orange-500" : "hidden"}`}
       />
       <HeartIcon
         width={20}
         height={20}
-        className={`${rate >= 5 ? "text-red-500" : "text-gray-400"}`}
+        className={`${rate >= 5 ? "text-orange-500" : "hidden"}`}
       />
     </div>
   );

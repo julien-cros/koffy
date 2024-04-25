@@ -1,9 +1,9 @@
-import Center from "@/components/Center";
-import GetStarted from "@/components/HowItWorks";
+import Center from "@/components/center";
+import GetStarted from "@/components/howItWorks";
 
 export default function HomePage() {
   return (
-    <section className="w-full h-full background-color">
+    <section className="w-full h-full ">
       <section id="section-0">
         <Center />
       </section>

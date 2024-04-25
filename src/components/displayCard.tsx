@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "./Card";
+import Card from "./card";
 import React from "react";
 import dynamic from "next/dynamic";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -24,7 +24,7 @@ const DisplayCard = () => {
   };
 
   return (
-    <div className="h-[500px] lg:h-[100%] w-full">
+    <div className="h-[350px] lg:h-[100%] w-full">
       <div className="flex h-full items-center justify-center overflow-hidden">
         <OwlCarousel className="owl-theme" {...options}>
           {coffeDsisplay.map((coffee) => (
@@ -40,6 +40,9 @@ const DisplayCard = () => {
                 rate={coffee.rate}
                 createdAt={coffee.createdAt}
                 shadow={"shadow-xl"}
+                id=""
+                session={null}
+                clickable={false}
               />
             </div>
           ))}

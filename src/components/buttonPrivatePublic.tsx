@@ -13,7 +13,7 @@ const ButtonPrivatePublic = ({ setStatus, status }: Props) => {
   return (
     <div className="w-20">
       <button
-        className={`relative w-full cursor-default rounded-lg bg-white py-2 text-center shadow-md focus:outline-none focus-visible:border-amber-800 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-slare-300 sm:text-sm`}
+        className={`relative w-full cursor-default rounded-full py-2 text-center focus:outline-none sm:text-sm border-black border-[1px] dark:border-white`}
         onClick={() => {
           setClicked(!clicked);
           setStatus(!clicked);

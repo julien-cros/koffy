@@ -16,7 +16,7 @@ const HearthInput = ({ rate, setRate }: Props) => (
       onClick={() => {
         setRate(1);
       }}
-      className="text-red-500"
+      className="text-orange-500"
     />
     <HeartIcon
       width={20}
@@ -24,7 +24,7 @@ const HearthInput = ({ rate, setRate }: Props) => (
       onClick={() => {
         setRate(2);
       }}
-      className={`${rate >= 2 ? "text-red-500" : "text-gray-400"}`}
+      className={`${rate >= 2 ? "text-orange-500" : "text-gray-400"}`}
     />
     <HeartIcon
       width={20}
@@ -32,7 +32,7 @@ const HearthInput = ({ rate, setRate }: Props) => (
       onClick={() => {
         setRate(3);
       }}
-      className={`${rate >= 3 ? "text-red-500" : "text-gray-400"}`}
+      className={`${rate >= 3 ? "text-orange-500" : "text-gray-400"}`}
     />
     <HeartIcon
       width={20}
@@ -40,7 +40,7 @@ const HearthInput = ({ rate, setRate }: Props) => (
       onClick={() => {
         setRate(4);
       }}
-      className={`${rate >= 4 ? "text-red-500" : "text-gray-400"}`}
+      className={`${rate >= 4 ? "text-orange-500" : "text-gray-400"}`}
     />
     <HeartIcon
       width={20}
@@ -48,7 +48,7 @@ const HearthInput = ({ rate, setRate }: Props) => (
       onClick={() => {
         setRate(5);
       }}
-      className={`${rate >= 5 ? "text-red-500" : "text-gray-400"}`}
+      className={`${rate >= 5 ? "text-orange-500" : "text-gray-400"}`}
     />
   </div>
 );

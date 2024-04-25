@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import type React from "react";
 
 const HowItWorks = () => {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -19,10 +19,10 @@ const HowItWorks = () => {
     <div className="flex justify-center">
       <Link
         href="#section-1"
-        className="bg-pale-red text-amber-800 px-4 py-2 rounded-full hover:bg-amber-800 hover:text-pale-red transition duration-105 ease-out active:scale-95 shadow-lg active:shadow-xl text-xs md:text-sm"
+        className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
         onClick={handleScroll}
       >
-        How it works?
+        how it works
       </Link>
     </div>
   );

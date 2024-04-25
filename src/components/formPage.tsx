@@ -1,16 +1,16 @@
 "use client";
 
-import FormInput from "./FormInput";
-import HearthInput from "./HearthInput";
-import WeightInput from "./WeightInput";
-import { SessionInterface } from "@/lib/session";
+import FormInput from "./formInput";
+import HearthInput from "./hearthInput";
+import WeightInput from "./weightInput";
+import type { SessionInterface } from "@/lib/session";
 import submit, { findValidPost } from "@/app/create-card/actions";
 import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Link from "next/link";
-import ColorInput from "./ColorInput";
+import ColorInput from "./colorInput";
 
 type AlertBoxProps = {
   message: string;
@@ -62,7 +62,7 @@ const FormPage = ({ type, session }: Props) => {
       timer: 10000,
       timerProgressBar: true,
       showConfirmButton: true,
-      confirmButtonColor: "#c2410c",
+      confirmButtonColor: "#3085d6",
       confirmButtonText: messageButton,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -106,11 +106,7 @@ const FormPage = ({ type, session }: Props) => {
 
   const handleFormSubmit = async () => {
     setSubmitting(true);
-    const valid = await findValidPost(
-      session?.user.id,
-      form.brand,
-      form.title,
-    );
+    const valid = await findValidPost(session?.user.id, form.brand, form.title);
     if (valid) {
       AlertBox({
         message: "You already tasted this coffee!",

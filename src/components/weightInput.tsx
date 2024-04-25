@@ -48,16 +48,13 @@ export default function WeightInput({ setState, isUpdate }: Props) {
           >
             <Combobox.Input
               className={`w-24 md:w-32 text-sm  border-none  ${
-                isUpdate ? "bg-slate-100 text-slate-400" : "bg-slate-100"
+                isUpdate ? " dark:text-white   " : "bg-blue-500"
               } py-2 pl-3 pr-10 leading-5 text-gray-900 outline-none `}
               displayValue={(weight: WeightProp) => weight.value}
               onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
+              <ChevronUpDownIcon className="h-5 w-5" aria-hidden="true" />
             </Combobox.Button>
           </div>
           <Transition
@@ -78,7 +75,7 @@ export default function WeightInput({ setState, isUpdate }: Props) {
                     key={weight.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? "bg-pale-red text-amber-800" : "text-gray-900"
+                        active ? "bg-pale-red text-orange-500" : "text-gray-900"
                       }`
                     }
                     onClick={() => setState(weight.value)}
@@ -94,7 +91,7 @@ export default function WeightInput({ setState, isUpdate }: Props) {
                           {weight.value}
                         </span>
                         {selected ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-900">
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-orange-300">
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
                         ) : null}

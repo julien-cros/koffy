@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { ListBulletIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import AuthProviders from "./AuthProviders";
-import SignOutButton from "./SignOutButton";
-import { SessionInterface } from "@/lib/session";
-import HowItWorks from "./HowItWorksButton";
+import AuthProviders from "./authProviders";
+import SignOutButton from "./signOutButton";
+import type { SessionInterface } from "@/lib/session";
+import HowItWorks from "./howItWorksButton";
 import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";
 
@@ -31,7 +31,7 @@ const SideBar = ({
       timer: 10000,
       timerProgressBar: true,
       showConfirmButton: true,
-      confirmButtonColor: "#c2410c",
+      confirmButtonColor: "#3085d6",
       confirmButtonText: "Sign in",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -42,16 +42,9 @@ const SideBar = ({
 
   return (
     <div className="flex w-full h-full z-50 ">
-      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full background-color rounded-[_0_3rem_0_0]">
-        <div className="flex justify-start items-start">
-          <ListBulletIcon
-            className="flex mt-6 ml-3"
-            width={40}
-            height={32}
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-          />
-        </div>
-        <div className="flex justify-center items-center pt-10]">
+      <div className="w-3/4 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full bg-white dark:bg-black rounded-[_0_3rem_0_0]">
+        <div className="flex justify-start items-start"></div>
+        <div className="flex justify-center items-center pt-10">
           <Link href={"/"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}>
             <p className="flex justify-center text-2xl font-light ">koffy</p>
           </Link>
@@ -73,7 +66,16 @@ const SideBar = ({
             href="/coffee-list"
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
           >
-            <p>coffe Lists</p>
+            <p className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs">
+              my coffe List
+            </p>
+          </Link>
+          <Link
+            href="/search-page/brand--public"
+            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
+          >
+            all coffee
           </Link>
           <Link
             href="/create-card"
@@ -82,6 +84,7 @@ const SideBar = ({
                 ? () => AlertBox()
                 : () => setIsSidebarOpen(!isSideBarOpen)
             }
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
           >
             create
           </Link>
@@ -91,6 +94,7 @@ const SideBar = ({
           <a
             href="https://www.juliencros.com"
             onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
           >
             About
           </a>
@@ -99,10 +103,14 @@ const SideBar = ({
             className="space-y-6 flex flex-col items-center"
           >
             <HowItWorks />
-            {!session?.user ? <AuthProviders /> : <SignOutButton />}
+            {!session?.user ? (
+              <AuthProviders />
+            ) : (
+              <SignOutButton name={session.user.name} />
+            )}
           </div>
         </div>
-		</div>
+      </div>
       <div
         className="h-full w-1/4  md:w-2/3 lg:w-3/4 xl:w-4/5"
         onClick={() => setIsSidebarOpen(!isSideBarOpen)}
