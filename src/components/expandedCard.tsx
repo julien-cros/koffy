@@ -128,16 +128,10 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
 
   const handleStateChange = (
     fieldName: string,
-    value: string | number | boolean,
+    value: string | number | boolean
   ) => {
     setForm({ ...form, [fieldName]: value });
   };
-
-  function isAlphanumeric(str: string) {
-    return (
-      str.match(/(^[A-Za-z0-9- .@$#%&.,<>"';:!?()/]*$|[à-ü]|[À-Ü]|^$)/) !== null
-    );
-  }
 
   function refreshPage() {
     window.location.reload();
@@ -161,23 +155,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       });
       setSubmitting(false);
       return;
-    } else if (
-      isAlphanumeric(form?.title) === false ||
-      isAlphanumeric(form?.brand) === false ||
-      isAlphanumeric(form?.variety) === false ||
-      isAlphanumeric(form?.tasting) === false ||
-      isAlphanumeric(form?.note) === false ||
-      isAlphanumeric(form?.weight) === false
-    ) {
-      AlertBox({
-        message: "Only alphanumeric characters are allowed!",
-        icon: "error",
-        messageButton: "Got it!",
-      });
-      setSubmitting(false);
-      return;
     }
-
     if (await areYouSure(type)) {
       const updatedPost = await updatePost(id, form, type);
       if (updatedPost && type === ModalAction.UPDATE) {
@@ -208,7 +186,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
     () => {
@@ -428,8 +406,8 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                     <p className="text-xs">link copied</p>
                     <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
                   </div>
-                  // </div>
                 ) : (
+                  // </div>
                   <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
                 )}
               </label>

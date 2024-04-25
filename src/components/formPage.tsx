@@ -70,12 +70,6 @@ const FormPage = ({ type, session }: Props) => {
     });
   };
 
-  function isAlphanumeric(str: string) {
-    return (
-      str.match(/(^[A-Za-z0-9- @$€#%&.,<>"';:!?()/\n\tà-üÀ-Ü]*$)/) !== null
-    );
-  }
-
   useEffect(() => {
     if (!session?.user) {
       AlertBox({
@@ -96,7 +90,7 @@ const FormPage = ({ type, session }: Props) => {
 
   const handleStateChange = (
     fieldName: keyof FormState,
-    value: string | number | boolean,
+    value: string | number | boolean
   ) => {
     form[fieldName] = value as never;
   };
@@ -111,23 +105,14 @@ const FormPage = ({ type, session }: Props) => {
         messageButton: "go it!",
       });
       setSubmitting(false);
-    } else if (form.title === "" || form.title === null) {
-      AlertBox({
-        message: "Title is required!",
-        icon: "warning",
-        messageButton: "go it!",
-      });
-      setSubmitting(false);
     } else if (
-      isAlphanumeric(form?.title) === false ||
-      isAlphanumeric(form?.brand) === false ||
-      isAlphanumeric(form?.variety) === false ||
-      isAlphanumeric(form?.tasting) === false ||
-      isAlphanumeric(form?.note) === false ||
-      isAlphanumeric(form?.weight) === false
+      form.title === "" ||
+      form.title === null ||
+      form.brand === "" ||
+      form.brand === null
     ) {
       AlertBox({
-        message: "Only alphanumeric characters are allowed!",
+        message: "Title and brand required!",
         icon: "warning",
         messageButton: "go it!",
       });

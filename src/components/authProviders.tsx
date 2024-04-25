@@ -14,7 +14,7 @@ const AuthProviders = () => {
       }}
       className={`rounded-full tracking-wide px-4 py-2
 			bg-orange-500 dark:text-black
-			hover:scale-105 transition duration-105 ease-out active:scale-95 text-xs md:text-sm`}
+			hover:scale-105 transition duration-105 ease-out active:scale-95 text-sm`}
     >
       sign in with google
     </button>

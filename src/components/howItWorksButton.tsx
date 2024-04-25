@@ -16,15 +16,13 @@ const HowItWorks = () => {
   };
 
   return (
-    <div className="flex justify-center">
       <Link
         href="#section-1"
-        className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs md:text-sm"
+        className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-sm"
         onClick={handleScroll}
       >
         how it works
       </Link>
-    </div>
   );
 };
 

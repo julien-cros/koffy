@@ -52,64 +52,65 @@ const SideBar = ({
         <div className="mt-5  flex justify-center items-center">
           <span className="w-1/5 border-b-[1px]" />
         </div>
-        <div className=" h-1/2 flex flex-col mt-5 gap-6 items-center justify-center">
-          <button
-            className=" px-4 py-2 hover:scale-105 active:scale-95 transition duration-150"
-            onClick={() => {
-              setSearchClicked(true);
-              setIsSidebarOpen(!isSideBarOpen);
-            }}
-          >
-            <MagnifyingGlassIcon className="w-6 h-6" />
-          </button>
-          <Link
-            href="/coffee-list"
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-          >
-            <p className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs">
-              my coffe List
-            </p>
-          </Link>
-          <Link
-            href="/search-page/brand--public"
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
-          >
-            all coffee
-          </Link>
-          <Link
-            href="/create-card"
-            onClick={
-              !session?.user
-                ? () => AlertBox()
-                : () => setIsSidebarOpen(!isSideBarOpen)
-            }
-            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
-          >
-            create
-          </Link>
-          {/* <Link href={"/wishlist"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}> 
-		 	 <p>wishlist</p>
-		  </Link> */}
-          <a
-            href="https://www.juliencros.com"
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-            className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-xs"
-          >
-            about
-          </a>
-          <div
-            onClick={() => setIsSidebarOpen(!isSideBarOpen)}
-            className="space-y-6 flex flex-col items-center"
-          >
-            <HowItWorks />
-            {!session?.user ? (
-              <AuthProviders />
-            ) : (
-              <SignOutButton name={session.user.name} />
-            )}
+          <div className="flex flex-col mt-10 gap-4 items-start justify-start pl-20 w-full ">
+            <button
+              className="px-4 py-2 hover:scale-105 active:scale-95 transition duration-150 flex items-center justify-center rounded-full border-black dark:border-white border-[1px] text-sm gap-2"
+              onClick={() => {
+                setSearchClicked(true);
+                setIsSidebarOpen(!isSideBarOpen);
+              }}
+            >
+							<p>search</p>
+              <MagnifyingGlassIcon className="w-4 h-4" />
+            </button>
+            <Link
+              href="/coffee-list"
+              onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+            >
+              <p className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-sm">
+                my coffee ist
+              </p>
+            </Link>
+            <Link
+              href="/search-page/brand--public"
+              onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+              className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-sm"
+            >
+              all coffee
+            </Link>
+            <Link
+              href="/create-card"
+              onClick={
+                !session?.user
+                  ? () => AlertBox()
+                  : () => setIsSidebarOpen(!isSideBarOpen)
+              }
+              className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-sm"
+            >
+              create
+            </Link>
+            {/* <Link href={"/wishlist"} onClick={() => setIsSidebarOpen(!isSideBarOpen)}> 
+		 			 <p>wishlist</p>
+		  			</Link> */}
+            <a
+              href="https://www.juliencros.com"
+              onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+              className="rounded-full flex items-center tracking-wide px-3 py-2 border-black dark:border-white border-[1px] text-sm"
+            >
+              about
+            </a>
+            <div
+              onClick={() => setIsSidebarOpen(!isSideBarOpen)}
+              className="space-y-6 flex flex-col items-start"
+            >
+              <HowItWorks />
+              {!session?.user ? (
+                <AuthProviders />
+              ) : (
+                <SignOutButton name={session.user.name} />
+              )}
+            </div>
           </div>
-        </div>
       </div>
       <div
         className="h-full w-1/4  md:w-2/3 lg:w-3/4 xl:w-4/5"
