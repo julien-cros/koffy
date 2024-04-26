@@ -39,7 +39,6 @@ const DisplayCard = () => {
                 tasting={coffee.tasting}
                 rate={coffee.rate}
                 createdAt={coffee.createdAt}
-                shadow={"shadow-xl"}
                 id=""
                 session={null}
                 clickable={false}
