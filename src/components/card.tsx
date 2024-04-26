@@ -18,9 +18,8 @@ export type CardProps = {
   tasting: string | null;
   createdAt: Date | null;
   rate: number;
-  shadow?: string;
   id: string;
-  session?: any;
+  session?: SessionInterface | null;
   clickable?: boolean;
 };
 
@@ -45,7 +44,7 @@ export default function Card({
 
   const handleDuplicate = async (
     id: string,
-    session: SessionInterface | null,
+    session?: SessionInterface | null,
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {
