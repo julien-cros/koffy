@@ -20,15 +20,22 @@
 	}
 
 .big-shape{
-	animation: one 15s infinite;
+	@media screen and (min-width: 768px){
+		animation: one 15s infinite;
+	}
 }
 
 .medium-shape{
-	animation: two 20s infinite;
+	@media screen and (min-width: 768px){
+		animation: two 20s infinite;
+	}
 }
 
 .littleshape{
-	animation: three 15s infinite;
+	@media screen and (min-width: 768px){
+		animation: three 15s infinite;
+	}
+
 }
 
 @keyframes one {
