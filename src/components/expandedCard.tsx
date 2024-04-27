@@ -30,6 +30,7 @@ export type PostInterface = {
   createdAt: Date;
   updatedAt: Date;
   status: boolean | null;
+  imageUrl: string | null;
 };
 
 type Props = {
@@ -124,11 +125,12 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     weight: post?.weight || "",
     status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
+    imageUrl: post?.imageUrl || "",
   });
 
   const handleStateChange = (
     fieldName: string,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     setForm({ ...form, [fieldName]: value });
   };
@@ -186,7 +188,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
     () => {

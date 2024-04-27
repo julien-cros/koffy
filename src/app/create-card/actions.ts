@@ -28,6 +28,7 @@ export default async function submit(form: FormState) {
         price: form?.price,
         weight: form?.weight,
         status: form?.status,
+        imageUrl: form?.imageUrl,
         author: {
           connect: {
             id: user.user.id,

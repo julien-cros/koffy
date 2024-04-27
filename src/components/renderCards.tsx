@@ -35,6 +35,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
             id={post.id}
             session={session}
             clickable={true}
+            imageUrl={post?.imageUrl}
           />
         </div>
       ))}

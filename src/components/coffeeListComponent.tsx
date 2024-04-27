@@ -78,6 +78,7 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
               id={post.id}
               session={session}
               clickable={true}
+              imageUrl={post?.imageUrl}
             />
           </div>
         ))}
@@ -91,6 +92,7 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
             createdAt={new Date()}
             id=""
             clickable={false}
+            imageUrl={""}
           />
         )}
       </div>

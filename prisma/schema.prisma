@@ -11,38 +11,73 @@ datasource db {
 }
 
 model User {
-	id			String  @id @default(cuid())
-	email		String  @unique
+	id				String  @id @default(cuid())
+	email			String  @unique
 	avatar		String?
-	name		String?
-	posts		Posts[]
+	name			String?
+	posts			Posts[]
+	dupicatedPosts	DupPost[]
+	comments	Comment[]
 	wishlist	Wishlist[]
 }
 
 model Posts {
-	id			String	 @id @default(cuid()) 
-	title		String
-	brand		String
-	price		String?
+	id							String	 @id @default(cuid()) 
+	title						String
+	brand						String
+	price						String?
+	tasting					String?
+	variety					String
+	rate						Int
+	note						String?
+	status					Boolean?
+	weight					String?
+	country					String?
+	domain					String?
+	region					String?
+	altitude				String?
+	way							String?
+	harvest					String?
+	type						String?
+	imageUrl				String?
+	createdAt				DateTime @default(now())
+	updatedAt				DateTime @updatedAt
+	comments				Comment[]
+	duplicatedPosts	DupPost[]
+	author					User?	@relation(fields: [authorId], references: [id])
+	authorId				String?
+}
+
+model DupPost {
+	id				String	@id @default(cuid())
+	postId		String
+	rate			Int?
 	tasting		String?
-	variety		String
-	rate		Int
-	note		String?
-	status		Boolean?
-	weight		String?
-	color		String?
+	note			String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
+	author		User?	@relation(fields: [authorId], references: [id])
+	post			Posts?	@relation(fields: [postId], references: [id])
+	authorId	String?
+}
+
+model Comment {
+	id				String	@id @default(cuid())
+	content		String
+	postId		String?
+	createdAt	DateTime @default(now())
+	updatedAt	DateTime @updatedAt
+	post			Posts?	@relation(fields: [postId], references: [id])
 	author		User?	@relation(fields: [authorId], references: [id])
 	authorId	String?
 }
 
 model Wishlist {
-	id	String	@id @default(cuid())
-	title	String?
-	brand	String?
-	price	String?
-	url		String?
+	id				String	@id @default(cuid())
+	title			String?
+	brand			String?
+	price			String?
+	url				String?
 	author		User?	@relation(fields: [authorId], references: [id])
 	authorId	String?
 }

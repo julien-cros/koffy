@@ -42,6 +42,7 @@ const GetStarted = () => {
           id=""
           session={null}
           clickable={false}
+          imageUrl={""}
         />
       </div>
 

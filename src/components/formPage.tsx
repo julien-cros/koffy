@@ -9,7 +9,7 @@ import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import Link from "next/link";
+import FileUploader from "./fileUploader";
 
 type AlertBoxProps = {
   message: string;
@@ -32,6 +32,7 @@ export type FormState = {
   price: string | null;
   weight: string | null;
   status: boolean;
+  imageUrl: string | null;
 };
 
 const FormPage = ({ type, session }: Props) => {
@@ -49,6 +50,7 @@ const FormPage = ({ type, session }: Props) => {
     price: "",
     weight: "150g",
     status: false,
+    imageUrl: "",
   });
 
   const AlertBox = ({ message, icon, messageButton }: AlertBoxProps) => {
@@ -63,9 +65,11 @@ const FormPage = ({ type, session }: Props) => {
       confirmButtonText: messageButton,
     }).then((result) => {
       if (result.isConfirmed) {
-        signIn("google");
+        {
+          session?.user ? null : signIn("google");
+        }
       } else {
-        <Link href="/" />;
+        return;
       }
     });
   };
@@ -90,7 +94,7 @@ const FormPage = ({ type, session }: Props) => {
 
   const handleStateChange = (
     fieldName: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[fieldName] = value as never;
   };
@@ -117,6 +121,7 @@ const FormPage = ({ type, session }: Props) => {
         messageButton: "go it!",
       });
       setSubmitting(false);
+      return;
     } else {
       const posts = await submit(form);
       if (posts) {
@@ -184,7 +189,10 @@ const FormPage = ({ type, session }: Props) => {
           setState={(value) => handleStateChange("note", value)}
           isRequierd={false}
         />
-
+        <FileUploader
+          setState={(value) => handleStateChange("imageUrl", value)}
+          mediaUrl={form.imageUrl}
+        />
         <div className="flex ">
           <FormInput
             type="text"

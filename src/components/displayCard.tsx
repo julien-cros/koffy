@@ -42,6 +42,7 @@ const DisplayCard = () => {
                 id=""
                 session={null}
                 clickable={false}
+                imageUrl={""}
               />
             </div>
           ))}

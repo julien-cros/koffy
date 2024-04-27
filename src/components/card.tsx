@@ -6,6 +6,7 @@ import {
   ArrowUpOnSquareIcon,
   CheckIcon,
   PlusCircleIcon,
+  PhotoIcon,
 } from "@heroicons/react/24/outline";
 import type { SessionInterface } from "@/lib/session";
 import { DuplicatePost } from "@/lib/actions";
@@ -21,6 +22,7 @@ export type CardProps = {
   id: string;
   session?: SessionInterface | null;
   clickable?: boolean;
+  imageUrl: string | null;
 };
 
 export default function Card({
@@ -32,6 +34,7 @@ export default function Card({
   id,
   session,
   clickable,
+  imageUrl,
 }: CardProps) {
   const router = useRouter();
   const [clicked, setClicked] = useState(false);
@@ -74,6 +77,17 @@ export default function Card({
       key={id}
       onClick={() => redirectToCard()}
     >
+      <div>
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="postimg"
+            className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[24px] object-cover mb-5"
+          />
+        ) : (
+          <PhotoIcon className="h-32 w-full rounded-[24px] object-cover mb-5;" />
+        )}
+      </div>
       <div className="bg-white dark:bg-black rounded-[14px] w-full h-full p-4 lg:p-6 relative">
         <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
