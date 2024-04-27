@@ -151,6 +151,21 @@ export async function DuplicatePost(id: string, user: SessionInterface) {
   } else return null;
 }
 
+export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
+  const posts = await db.posts.findMany({
+    skip: PostOffset,
+    take: NumbOfPosts,
+    orderBy: {
+      createdAt: "desc",
+    },
+    where: {
+      status: true,
+    },
+  });
+  if (posts.length > 0) return posts;
+  else return [];
+}
+
 // export const getWishlist = async (authorId: string) => {
 // 	const wishlist = await db.wishlist.findMany({
 // 		where: {

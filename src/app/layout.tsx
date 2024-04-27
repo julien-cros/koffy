@@ -74,9 +74,7 @@ export default async function RootLayout({
         <Providers>
           <div className="tracking-tight">
             <div className="fixed inset-0 justify-center flex -z-20 items-center">
-              <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500"/>
-								{/* <div className="w-56 h-56 md:hidden rounded-full absolute bottom-24 right-24 bg-neutral-300 dark:bg-neutral-500"></div>
-							</div> */}
+              <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />
               <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
               <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
             </div>

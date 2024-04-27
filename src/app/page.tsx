@@ -1,15 +1,13 @@
-import Center from "@/components/center";
-import GetStarted from "@/components/howItWorks";
+import LeftSide from "@/components/leftSide";
+import Feed from "@/components/feed";
+import RightSide from "@/components/rightSide";
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
-    <section className="w-full h-full ">
-      <section id="section-0">
-        <Center />
-      </section>
-      <section id="section-1">
-        <GetStarted />
-      </section>
-    </section>
+    <div className="w-full h-full flex flex-row justify-around">
+      <LeftSide />
+      <Feed />
+      <RightSide />
+    </div>
   );
 }
