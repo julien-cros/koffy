@@ -25,9 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://koffy.app/coffee.png",
-        width: 980,
-        height: 980,
+        url: "https://koffy.app/images/card",
         alt: "Koffy",
       },
     ],
@@ -42,9 +40,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: "Koffy",
-    description: "A coffee listing app",
+    description: "A coffee listing app to keep a record of your coffee.",
     site: "@koffyapp",
     card: "summary_large_image",
+		images:[{
+			url:"https://koffy.app/images/card",
+			alt:"Koffy",
+		},],
   },
 };
 
