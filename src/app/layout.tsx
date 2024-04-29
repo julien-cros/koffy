@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://koffy.app/images/card",
+        url: "https://koffy.app/images/card.png",
         alt: "Koffy",
       },
     ],
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     site: "@koffyapp",
     card: "summary_large_image",
 		images:[{
-			url:"https://koffy.app/images/card",
+			url:"https://koffy.app/images/card.png",
 			alt:"Koffy",
 		},],
   },
