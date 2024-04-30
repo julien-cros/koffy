@@ -43,10 +43,12 @@ export const metadata: Metadata = {
     description: "A coffee listing app to keep a record of your coffee.",
     site: "@koffyapp",
     card: "summary_large_image",
-		images:[{
-			url:"https://koffy.app/images/card.png",
-			alt:"Koffy",
-		},],
+    images: [
+      {
+        url: "https://koffy.app/images/card.png",
+        alt: "Koffy",
+      },
+    ],
   },
 };
 
@@ -74,16 +76,17 @@ export default async function RootLayout({
       </head>
       <body className={EBGaramond.className}>
         <Providers>
-          <div className="tracking-tight">
+          <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col">
+            <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-10">
             <div className="fixed inset-0 justify-center flex -z-20 items-center">
-              <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500"/>
-								{/* <div className="w-56 h-56 md:hidden rounded-full absolute bottom-24 right-24 bg-neutral-300 dark:bg-neutral-500"></div>
-							</div> */}
-              <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
-              <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
-            </div>
-            <NavBar session={session} />
-            {children}
+                  <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />
+                  <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+                  <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+                </div>
+								</div>
+            <div className="z-50">
+            	<NavBar session={session} />
+							{children}</div>
           </div>
           <SwitchDarkLightMode />
         </Providers>
