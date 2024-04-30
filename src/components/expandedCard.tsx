@@ -128,7 +128,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
 
   const handleStateChange = (
     fieldName: string,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     setForm({ ...form, [fieldName]: value });
   };
@@ -186,7 +186,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
     () => {

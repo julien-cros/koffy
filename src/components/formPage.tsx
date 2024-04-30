@@ -90,7 +90,7 @@ const FormPage = ({ type, session }: Props) => {
 
   const handleStateChange = (
     fieldName: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[fieldName] = value as never;
   };
