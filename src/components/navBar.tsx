@@ -11,7 +11,7 @@ import {
 import AuthProviders from "./authProviders";
 import SignOutButton from "./signOutButton";
 import SideBar from "./sideBar";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 import { useState } from "react";
 import BaseSearchBar from "./baseSearchBar";
 import CategorySearchBar from "./categorySearchBar";

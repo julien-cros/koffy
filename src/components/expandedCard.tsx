@@ -14,24 +14,9 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import DuplicateButton from "./duplicateButton";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
+import type { PostInterface } from "@/app/types/types";
 import copy from "clipboard-copy";
-
-export type PostInterface = {
-  id: string;
-  title: string;
-  brand: string;
-  variety: string;
-  tasting: string | null;
-  rate: number;
-  note: string | null;
-  price: string | null;
-  weight: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-  status: boolean | null;
-  imageUrl: string | null;
-};
 
 type Props = {
   post: PostInterface | null;
@@ -126,6 +111,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
     imageUrl: post?.imageUrl || "",
+		imageKey: post?.imageKey || "",
   });
 
   const handleStateChange = (

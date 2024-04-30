@@ -1,19 +1,11 @@
-import { type NextAuthOptions, type User, getServerSession } from "next-auth";
-import type { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from "jsonwebtoken";
+import type { AdapterUser } from "next-auth/adapters";
+import type { SessionInterface } from "@/app/types/types";
 import type { JWT } from "next-auth/jwt";
-import type { Session } from "next-auth";
-import { createUser, getUser } from "./actions";
+import { type NextAuthOptions, type User, getServerSession } from "next-auth";
 
-export interface SessionInterface extends Session {
-  user: User & {
-    id: number;
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}
+import { createUser, getUser } from "./actions";
 
 export interface UserProfile {
   id: number;

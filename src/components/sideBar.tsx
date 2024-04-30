@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import AuthProviders from "./authProviders";
 import SignOutButton from "./signOutButton";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 import HowItWorks from "./howItWorksButton";
 import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";

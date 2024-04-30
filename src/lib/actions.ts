@@ -1,7 +1,7 @@
 "use server";
 
-import type { FormState } from "@/components/formPage";
-import type { SessionInterface } from "@/lib/session";
+import type { FormState } from "@/app/types/types";
+import type { SessionInterface } from "@/app/types/types";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "./db";
 import { checkUser } from "@/app/create-card/actions";
@@ -61,7 +61,8 @@ export const CreatePost = async (form: FormState, user: SessionInterface) => {
   });
 };
 
-export const getPostFromId = async (id: string) => {
+export const getPostFromId = async (id: string | null) => {
+	if (!id) return null;
   const post = await db.posts.findUnique({
     where: {
       id,

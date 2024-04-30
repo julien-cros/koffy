@@ -6,6 +6,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Providers } from "@/components/providers";
 import SwitchDarkLightMode from "@/components/switchDarkLightMode";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -72,6 +75,9 @@ export default async function RootLayout({
       </head>
       <body className={EBGaramond.className}>
         <Providers>
+					<NextSSRPlugin
+					routerConfig={extractRouterConfig(ourFileRouter)}
+					/>
           <div className="tracking-tight">
             <div className="fixed inset-0 justify-center flex -z-20 items-center">
               <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />

@@ -4,12 +4,12 @@ import { SquaresPlusIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import React from "react";
 import Card from "./card";
-import type { PostInterface } from "./expandedCard";
+import type { PostInterface } from "@/app/types/types";
 import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import PushBackButton from "./pushBackButton";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 
 type Props = {
   posts?: PostInterface[] | null;

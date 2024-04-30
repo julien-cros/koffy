@@ -15,10 +15,10 @@ type Props = {
   type: string;
   session: SessionInterface;
 };
-	
+
 export const UploadButton = generateUploadButton<OurFileRouter>();
 
-export default function FormPage({ type, session }: Props) {
+export default function CreatePost({ type, session }: Props) {
   const submitType = type; // can be create or edit delete (for the delete of the image: edit)
   const [status, setStatus] = useState(false);
   const [rate, setRate] = useState<number>(1);

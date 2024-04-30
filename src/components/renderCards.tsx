@@ -3,9 +3,9 @@
 import React from "react";
 import Card from "./card";
 import { useRouter } from "next/navigation";
-import type { PostInterface } from "./expandedCard";
+import type { PostInterface } from "@/app/types/types";
 import { useState } from "react";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 
 type DisplayCardsProps = {
   post: PostInterface[] | undefined | null;

@@ -8,7 +8,7 @@ import {
   PlusCircleIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 import { DuplicatePost } from "@/lib/actions";
 import { useState } from "react";
 import copy from "clipboard-copy";
@@ -22,7 +22,7 @@ export type CardProps = {
   id: string;
   session?: SessionInterface | null;
   clickable?: boolean;
-  imageUrl: string | null;
+  imageUrl: string;
 };
 
 export default function Card({
@@ -73,27 +73,29 @@ export default function Card({
 
   return (
     <div
-      className="dark:bg-gradient-to-br border-black border-[1px]  dark:from-neutral-700 dark:to-black rounded-2xl p-[2px] w-56 h-64 lg:w-72 lg:h-80 cursor-pointer hover:scale-105 transition duration-150"
+      className="dark:bg-gradient-to-br  dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] w-56 h-64 lg:w-72 lg:h-80 cursor-pointer hover:scale-105 transition duration-150"
       key={id}
       onClick={() => redirectToCard()}
     >
-      <div>
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="postimg"
-            className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[24px] object-cover mb-5"
-          />
-        ) : (
-          <PhotoIcon className="h-32 w-full rounded-[24px] object-cover mb-5;" />
-        )}
-      </div>
-      <div className="bg-white dark:bg-black rounded-[14px] w-full h-full p-4 lg:p-6 relative">
+     
+      <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
         <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
         </p>
         <p className="font-light  text-lg  text-clip truncate">{brand}</p>
         <p className="font-light text-md  truncate pt-6 lg:pt-10">{tasting}</p>
+				<div>
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="postImage"
+            className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-[24px] object-cover mb-5"
+          />
+        ) : (
+					null
+          // <PhotoIcon className="h-32 w-full rounded-[24px] object-cover mb-5;" />
+        )}
+      </div>
         <div className="absolute bottom-20 left-5">
           <HearthRate rate={rate} />
         </div>

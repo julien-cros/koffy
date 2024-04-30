@@ -1,6 +1,6 @@
 "use Client";
 
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 
 type Props = {
   session: SessionInterface | null;

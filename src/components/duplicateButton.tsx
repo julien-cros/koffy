@@ -1,6 +1,6 @@
 "use client";
 
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { DuplicatePost } from "@/lib/actions";
