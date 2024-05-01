@@ -33,7 +33,7 @@
 
 .littleshape{
 	@media screen and (min-width: 768px){
-		animation: three 15s infinite;
+		animation: three 25s infinite;
 	}
 
 }
