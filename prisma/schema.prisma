@@ -34,10 +34,8 @@ model Posts {
 	weight					String?
 	country					String?
 	domain					String?
-	region					String?
 	altitude				String?
-	way							String?
-	harvest					String?
+	process					String?
 	type						String?
 	imageUrl				String?
 	imageKey				String?

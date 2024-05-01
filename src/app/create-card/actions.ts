@@ -58,6 +58,12 @@ export default async function submit(form: FormState) {
 				weight: form?.weight,
 				status: form?.status,
 				imageUrl: form?.imageUrl,
+				imageKey: form?.imageKey,
+				country: form?.country,
+				domain: form?.domain,
+				altitude: form?.altitude,
+				process: form?.process,
+				type: form?.type,
 				author: {
 					connect: {
 						id: user.user.id,
@@ -114,6 +120,13 @@ export async function updatePost(id: string, form: FormState , type: string) {
 					price: form?.price,
 					weight: form?.weight,
 					status: form?.status,
+					imageUrl: form?.imageUrl,
+					imageKey: form?.imageKey,
+					country: form?.country,
+					domain: form?.domain,
+					altitude: form?.altitude,
+					process: form?.process,
+					type: form?.type,
 				},
 			});
 			return true;

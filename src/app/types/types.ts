@@ -11,8 +11,13 @@ export type FormState = {
   price: string | null;
   weight: string | null;
   status: boolean;
-  imageUrl: string;
-	imageKey: string;
+  imageUrl: string | null;
+	imageKey: string | null;
+	country: string | null;
+	domain: string | null;
+	altitude: string | null;
+	process: string | null;
+	type: string | null;
 };
 
 
@@ -38,6 +43,11 @@ export type PostInterface = {
   createdAt: Date;
   updatedAt: Date;
   status: boolean | null;
+	country: string | null;
+	domain: string | null;
+	altitude: string | null;
+	process: string | null;
+	type: string | null;
   imageUrl: string;
 	imageKey: string;
 };

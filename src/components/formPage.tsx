@@ -42,6 +42,11 @@ export default function FormPage({ type, session }: Props) {
     status: false,
     imageUrl: "",
     imageKey: "",
+		country: "",
+		domain: "",
+		altitude: "",
+		process: "",
+		type: "",
   });
 
   // handle the changes of the form
@@ -117,8 +122,8 @@ export default function FormPage({ type, session }: Props) {
         handleFormSubmit(submitType);
       }}
     >
-      <div className="h-full w-full p-10 ">
-        <h3 className="flex justify-start text-2xl md:text-3xl lg:text-5xl text-black dark:text-white font-light text-left max-w-5xl w-full">
+      <div className="h-full w-full pt-24 p-10 ">
+        <h3 className="flex justify-start text-3xl text-black dark:text-white font-light text-left max-w-5xl w-full">
           Create a new coffee post
         </h3>
         <div className="p-10 justify-center items-center flex flex-col gap-5">
@@ -166,7 +171,7 @@ export default function FormPage({ type, session }: Props) {
             setState={(value) => handleFormChange("note", value)}
             isRequierd={false}
           />
-          <div className="w-full h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-white">
+          <div className="w-1/2 h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-white">
             {/* if there is an image to show, show the image */}
             {form.imageUrl ? (
               <div className="flex flex-col items-center justify-center">
@@ -175,7 +180,7 @@ export default function FormPage({ type, session }: Props) {
                   alt="image"
                   className="h-80 lg:h-[480px] w-full rounded-2xl"
                 />
-                <div className="w-3/4 border-b-[1px] border-black dark:border-white p-2" />
+                <div className="w-full border-b-[1px] border-black dark:border-white p-2" />
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
