@@ -1,5 +1,5 @@
 import "./globals.css";
-import NavBar from "@/components/navBar";
+import { NavBar } from "@/components/navBar";
 import { getCurrentUser } from "@/lib/session";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
@@ -61,7 +61,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getCurrentUser();
-
+	
   return (
     <html lang="en">
       <head>
@@ -91,7 +91,7 @@ export default async function RootLayout({
               </div>
             </div>
             <div className="z-50">
-              <NavBar session={session} />
+							<NavBar session={session} />
               {children}
             </div>
           </div>

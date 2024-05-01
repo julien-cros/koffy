@@ -1,5 +1,4 @@
 import FormPage from "@/components/formPage";
-import Modal from "@/components/modal";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 
