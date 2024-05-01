@@ -58,7 +58,7 @@ export default function FormPage({ type, session }: Props) {
   // handle the changes of the form
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[key] = value as never;
 
@@ -74,7 +74,7 @@ export default function FormPage({ type, session }: Props) {
       const exists = await findValidPost(
         session?.user.id,
         form.brand,
-        form.title
+        form.title,
       );
       if (!exists && form.title && form.brand && form.variety) {
         const post = await submit(form);
@@ -199,7 +199,7 @@ export default function FormPage({ type, session }: Props) {
                 <ChevronDownIcon className="w-6 h-6" />
               )}
             </div>
-						<WeightInput
+            <WeightInput
               setState={(value) => handleFormChange("weight", value)}
             />
             {showAdvenced && (
@@ -295,7 +295,7 @@ export default function FormPage({ type, session }: Props) {
             )}
           </div>
           <div className=" md:flex md:flex-row grid grid-cols-2 justify-around w-1/2 items-center gap-10">
-					<div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
               <HearthInput
                 rate={rate}
                 setState={(value) => handleFormChange("rate", value)}

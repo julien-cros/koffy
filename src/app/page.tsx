@@ -4,7 +4,7 @@ import RightSide from "@/components/rightSide";
 
 export default async function HomePage() {
   return (
-    <div className="w-full h-full flex flex-row justify-around">
+    <div className="w-full h-full flex flex-row justify-around pt-24">
       <LeftSide />
       <Feed />
       <RightSide />

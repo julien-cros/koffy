@@ -61,7 +61,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getCurrentUser();
-	
+
   return (
     <html lang="en">
       <head>
@@ -79,9 +79,7 @@ export default async function RootLayout({
       </head>
       <body className={EBGaramond.className}>
         <Providers>
-					<NextSSRPlugin
-					routerConfig={extractRouterConfig(ourFileRouter)}
-					/>
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col">
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-10">
               <div className="fixed inset-0 justify-center flex -z-20 items-center">
@@ -91,7 +89,7 @@ export default async function RootLayout({
               </div>
             </div>
             <div className="z-50">
-							<NavBar session={session} />
+              <NavBar session={session} />
               {children}
             </div>
           </div>

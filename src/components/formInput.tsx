@@ -23,7 +23,10 @@ const FormInput = ({
 }: Props) => {
   return (
     <div className="flex flex-start flex-col gap-1 w-full">
-      <label className="w-full text-gray-500 dark:text-gray-400">{title}{isRequierd ? "*" : ""}</label>
+      <label className="w-full text-gray-500 dark:text-gray-400">
+        {title}
+        {isRequierd ? "*" : ""}
+      </label>
 
       {textArea ? (
         <textarea

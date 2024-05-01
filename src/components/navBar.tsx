@@ -20,7 +20,7 @@ import ButtonPrivatePublic from "./buttonPrivatePublic";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { signIn } from "next-auth/react";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 
 type Props = {
   session: SessionInterface | null;
@@ -28,7 +28,7 @@ type Props = {
 
 export const NavBar: React.FC<Props> = ({ session }) => {
   const router = useRouter();
-	const pathname = usePathname()
+  const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [categorySearch, setCategorySearch] = useState("all");
   const [status, setStatus] = useState(true);
@@ -56,22 +56,21 @@ export const NavBar: React.FC<Props> = ({ session }) => {
     });
   };
 
-	useEffect(() => {
-		console.log(pathname)
-		if (pathname === "/create-card") {
-			setShowNavBar(false)
-		} else {
-			setShowNavBar(true)
-		}
-	}
-	, [pathname])
+  useEffect(() => {
+    console.log(pathname);
+    if (pathname === "/create-card") {
+      setShowNavBar(false);
+    } else {
+      setShowNavBar(true);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (clicked) {
       router.push(
         `/search-page/${categorySearch}-${search}-${
           status ? "public" : "private"
-        }`
+        }`,
       );
       setClicked(false);
       setSearchClicked(false);
@@ -207,9 +206,7 @@ export const NavBar: React.FC<Props> = ({ session }) => {
             </div>
           </div>
         </nav>
-      ) : 
-        null
-      }
+      ) : null}
     </>
   );
 };

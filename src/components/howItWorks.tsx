@@ -43,6 +43,7 @@ const GetStarted = () => {
           session={null}
           clickable={false}
           imageUrl={""}
+          country="Country"
         />
       </div>
 

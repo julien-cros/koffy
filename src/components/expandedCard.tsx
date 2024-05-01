@@ -32,7 +32,7 @@ enum ModalAction {
 
 const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   const [submitting, setSubmitting] = useState(false);
-  const [rate, setRate] = React.useState<number>(1);
+  const [rate, setRate] = React.useState<number>(post?.rate || 1);
   const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
@@ -94,11 +94,6 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     });
   };
 
-  const submitRate = (rate: number) => {
-    setRate(rate);
-    handleStateChange("rate", rate);
-  };
-
   const [form, setForm] = useState({
     title: post?.title || "",
     brand: post?.brand || "",
@@ -111,7 +106,12 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     status: post?.status || false,
     uptdatedAt: post?.updatedAt || new Date(),
     imageUrl: post?.imageUrl || "",
-		imageKey: post?.imageKey || "",
+    imageKey: post?.imageKey || "",
+		country: post?.country || "",
+		domain: post?.domain || "",
+		altitude: post?.altitude || "",
+		process: post?.process || "",
+		type: post?.type || ""
   });
 
   const handleStateChange = (
@@ -119,6 +119,10 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
     value: string | number | boolean,
   ) => {
     setForm({ ...form, [fieldName]: value });
+
+		if (fieldName === "rate") {
+      setRate(value as number);
+		}
   };
 
   function refreshPage() {
@@ -353,7 +357,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                 </div>
                 <div className="flex flex-col md:flex-row justify-between items-center ">
                   {submitting ? (
-                    <HearthInput rate={rate} setRate={submitRate} />
+                    <HearthInput rate={rate} setState={(value) => handleStateChange("rate", value)} />
                   ) : (
                     <HearthRate rate={post?.rate} />
                   )}

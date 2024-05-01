@@ -34,7 +34,7 @@ export default async function CoffeeListPage() {
   }
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full pt-24">
       <CoffeeListComponent
         posts={posts}
         isLogged={isLogged}

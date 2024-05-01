@@ -5,12 +5,15 @@ import type React from "react";
 import { useCallback, useRef } from "react";
 import Image from "next/image";
 
-const Modal = ({ children, onDismiss }: { children: React.ReactNode, onDismiss?: () => Promise<void> }) => {
+const Modal = ({
+  children,
+  onDismiss,
+}: { children: React.ReactNode; onDismiss?: () => Promise<void> }) => {
   const overlay = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const onDismissInternal = useCallback(async () => {
-		await onDismiss?.();
+    await onDismiss?.();
     router.back();
   }, [router]);
 

@@ -48,8 +48,9 @@ export default function LoadMore() {
             session={null}
             createdAt={post.createdAt}
             tasting={post.tasting}
-            clickable={false}
+            clickable={true}
             imageUrl={post?.imageUrl}
+            country={post?.country}
           />
         </div>
       ))}

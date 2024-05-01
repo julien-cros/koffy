@@ -9,9 +9,7 @@ const CreateCard = async () => {
     redirect("/");
   }
 
-  return (
-      <FormPage type="create" session={session} />
-  );
+  return <FormPage type="create" session={session} />;
 };
 
 export default CreateCard;

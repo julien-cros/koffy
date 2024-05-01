@@ -11,44 +11,42 @@ type Props = {
 const HearthInput = ({ rate, setState }: Props) => (
   <div className="flex p-2 justify-start">
     <HeartIcon
-      width={20}
-      height={20}
       onClick={() => {
         setState(1);
       }}
-      className="text-orange-500"
+      className="text-orange-500 w-5 lg:w-6"
     />
     <HeartIcon
-      width={20}
-      height={20}
       onClick={() => {
         setState(2);
       }}
-      className={`${rate >= 2 ? "text-orange-500" : "text-gray-400"}`}
+      className={`${
+        rate >= 2 ? "text-orange-500" : "text-gray-400"
+      } w-5 lg:w-6`}
     />
     <HeartIcon
-      width={20}
-      height={20}
       onClick={() => {
         setState(3);
       }}
-      className={`${rate >= 3 ? "text-orange-500" : "text-gray-400"}`}
+      className={`${
+        rate >= 3 ? "text-orange-500" : "text-gray-400"
+      } w-5 lg:w-6`}
     />
     <HeartIcon
-      width={20}
-      height={20}
       onClick={() => {
         setState(4);
       }}
-      className={`${rate >= 4 ? "text-orange-500" : "text-gray-400"}`}
+      className={`${
+        rate >= 4 ? "text-orange-500" : "text-gray-400"
+      } w-5 lg:w-6`}
     />
     <HeartIcon
-      width={20}
-      height={20}
       onClick={() => {
         setState(5);
       }}
-      className={`${rate >= 5 ? "text-orange-500" : "text-gray-400"}`}
+      className={`${
+        rate >= 5 ? "text-orange-500" : "text-gray-400"
+      } w-5 lg:w-6`}
     />
   </div>
 );

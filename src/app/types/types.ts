@@ -12,14 +12,13 @@ export type FormState = {
   weight: string | null;
   status: boolean;
   imageUrl: string | null;
-	imageKey: string | null;
-	country: string | null;
-	domain: string | null;
-	altitude: string | null;
-	process: string | null;
-	type: string | null;
+  imageKey: string | null;
+  country: string | null;
+  domain: string | null;
+  altitude: string | null;
+  process: string | null;
+  type: string | null;
 };
-
 
 export interface SessionInterface extends Session {
   user: User & {
@@ -43,11 +42,11 @@ export type PostInterface = {
   createdAt: Date;
   updatedAt: Date;
   status: boolean | null;
-	country: string | null;
-	domain: string | null;
-	altitude: string | null;
-	process: string | null;
-	type: string | null;
-  imageUrl: string;
-	imageKey: string;
+  country: string | null;
+  domain: string | null;
+  altitude: string | null;
+  process: string | null;
+  type: string | null;
+  imageUrl: string | null;
+  imageKey: string | null;
 };

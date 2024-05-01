@@ -21,7 +21,7 @@ const SearchPage = async ({ params }: PageProps) => {
   const posts = await findSearchPost(key, MyValue, isPrivate);
 
   return (
-    <div className="w-full h-full items-cneter">
+    <div className="w-full h-full items-cneter pt-24">
       <div className="flex flex-row justify-between items-center m-10">
         <div className="flex flex-row items-center gap-2">
           <PushBackButton />

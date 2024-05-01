@@ -62,7 +62,7 @@ export const CreatePost = async (form: FormState, user: SessionInterface) => {
 };
 
 export const getPostFromId = async (id: string | null) => {
-	if (!id) return null;
+  if (!id) return null;
   const post = await db.posts.findUnique({
     where: {
       id,
@@ -141,13 +141,13 @@ export async function DuplicatePost(id: string, user: SessionInterface) {
         note: post?.note,
         price: post.price,
         status: post.status,
-				imageUrl: post?.imageUrl,
-				imageKey: post?.imageKey,
-				country: post?.country,
-				domain: post?.domain,
-				altitude: post?.altitude,
-				process: post?.process,
-				type: post?.type,
+        imageUrl: post?.imageUrl,
+        imageKey: post?.imageKey,
+        country: post?.country,
+        domain: post?.domain,
+        altitude: post?.altitude,
+        process: post?.process,
+        type: post?.type,
         author: {
           connect: {
             id: user.user.id,

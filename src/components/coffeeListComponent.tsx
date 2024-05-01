@@ -65,7 +65,7 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
           </button>
         </div>
       </div>
-      <div className="mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10">
+      <div className="mt-20 grid grid-cols-1 justify-items-center gap-10">
         {posts?.map((post) => (
           <div key={post.id}>
             <Card
@@ -79,6 +79,7 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
               session={session}
               clickable={true}
               imageUrl={post?.imageUrl}
+              country={post?.country}
             />
           </div>
         ))}
@@ -93,6 +94,7 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
             id=""
             clickable={false}
             imageUrl={""}
+            country={""}
           />
         )}
       </div>

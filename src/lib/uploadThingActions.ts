@@ -10,7 +10,7 @@
 // 	}
 // 	const uploadedFile  = await utapi.uploadFilesFromUrl(fileUrl);
 // 		if (!uploadedFile) {
-// 			throw new Error("Failed to upload file");	
+// 			throw new Error("Failed to upload file");
 // 		}
 // 		if (!uploadedFile.data?.url) {
 // 			throw new Error("Failed to get url");
@@ -19,4 +19,4 @@
 // 		return uploadedFile.data?.url;
 // 	};
 
-// // export const deleteThing = 
+// // export const deleteThing =

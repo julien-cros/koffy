@@ -19,6 +19,7 @@ export const coffeDsisplay = [
     price: "14",
     tasting: "fruity with a hint of cocoa",
     createdAt: new Date(),
+    country: "Brazil",
   },
   {
     title: "Chateau Belleville",
@@ -27,6 +28,7 @@ export const coffeDsisplay = [
     price: "15",
     tasting: "red fruits and great",
     createdAt: new Date(),
+    country: "Ethiopia",
   },
   {
     title: "La Pantoufle",
@@ -35,6 +37,7 @@ export const coffeDsisplay = [
     price: "16",
     tasting: "powerful and creamy",
     createdAt: new Date(),
+    country: "Colombia",
   },
   {
     title: "Bob-o-Link",
@@ -43,5 +46,6 @@ export const coffeDsisplay = [
     price: "17",
     tasting: "smooth and chocolate",
     createdAt: new Date(),
+    country: "Guatemala",
   },
 ];

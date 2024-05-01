@@ -43,6 +43,7 @@ const DisplayCard = () => {
                 session={null}
                 clickable={false}
                 imageUrl={""}
+                country={coffee.country}
               />
             </div>
           ))}
