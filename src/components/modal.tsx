@@ -2,26 +2,27 @@
 
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { type ReactNode, useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import Image from "next/image";
 
-const Modal = ({ children }: { children: ReactNode }) => {
+const Modal = ({ children, onDismiss }: { children: React.ReactNode, onDismiss?: () => Promise<void> }) => {
   const overlay = useRef<HTMLDivElement>(null);
-  const wrapper = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const onDismiss = useCallback(() => {
-    router.push("/coffee-list");
+  const onDismissInternal = useCallback(async () => {
+		await onDismiss?.();
+    router.back();
   }, [router]);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       if (e.target === overlay.current) {
-        onDismiss();
+        onDismissInternal();
       }
     },
     [onDismiss, overlay],
   );
+
   return (
     <div
       ref={overlay}
@@ -30,13 +31,12 @@ const Modal = ({ children }: { children: ReactNode }) => {
     >
       <button
         type="button"
-        onClick={onDismiss}
+        onClick={onDismissInternal}
         className="absolute top-4 right-8"
       >
         <Image src="/close.svg" width={17} height={17} alt="close modal" />
       </button>
       <div
-        ref={wrapper}
         className="absolute h-[90%] w-full lg:w-[75%] justify-center bottom-0 bg-white dark:bg-black
 					rounded-t-[30px] px-8 pt-14 pb-72 overflow-auto
 					 whitespace-nowrap scrollbar-hide"

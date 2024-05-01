@@ -11,16 +11,7 @@ const CreateCard = async () => {
   }
 
   return (
-    <div>
-      <Modal>
-        <h3 className="flex justify-start text-2xl md:text-3xl lg:text-5xl text-black dark:text-white  font-light text-left max-w-5xl w-full">
-          Create a new coffee post
-        </h3>
-        <div>
-          <FormPage type="create" session={session} />
-        </div>
-      </Modal>
-    </div>
+      <FormPage type="create" session={session} />
   );
 };
 

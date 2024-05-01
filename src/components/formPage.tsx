@@ -1,7 +1,10 @@
 "use client";
 
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { generateUploadButton } from "@uploadthing/react";
+import {
+  generateUploadDropzone,
+  generateUploadButton,
+} from "@uploadthing/react";
 import { FormState, SessionInterface } from "@/app/types/types";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
@@ -15,8 +18,9 @@ type Props = {
   type: string;
   session: SessionInterface;
 };
-	
+
 export const UploadButton = generateUploadButton<OurFileRouter>();
+export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
 
 export default function FormPage({ type, session }: Props) {
   const submitType = type; // can be create or edit delete (for the delete of the image: edit)
@@ -87,8 +91,10 @@ export default function FormPage({ type, session }: Props) {
       }
       return;
     } else if (submitType === "delete") {
-      if (form.imageKey) {
+      if (imageKeyBuffer) {
+        console.log("delete");
         await deleteImage(imageKeyBuffer);
+        setImageKeyBuffer("");
         handleFormChange("imageKey", "");
         handleFormChange("imageUrl", "");
       }
@@ -99,6 +105,11 @@ export default function FormPage({ type, session }: Props) {
     }
   };
 
+  const handleCancel = () => {
+    if (imageKeyBuffer) deleteImage(imageKeyBuffer);
+    router.back();
+  };
+
   return (
     <form
       action={() => handleFormSubmit(submitType)}
@@ -106,8 +117,12 @@ export default function FormPage({ type, session }: Props) {
         handleFormSubmit(submitType);
       }}
     >
-      <div className="p-10 gap-10">
-        <div className="flex justify-start flex-col pt-24 px-10 gap-10">
+      <div className="h-full w-full p-10 ">
+        <h3 className="flex justify-start text-2xl md:text-3xl lg:text-5xl text-black dark:text-white font-light text-left max-w-5xl w-full">
+          Create a new coffee post
+        </h3>
+        <div className="p-10 justify-center items-center flex flex-col gap-5">
+          {/* <div className="pt-24 px-10 gap-10"> */}
           {/* all inputs to fill the form */}
           <FormInput
             type="text"
@@ -151,16 +166,7 @@ export default function FormPage({ type, session }: Props) {
             setState={(value) => handleFormChange("note", value)}
             isRequierd={false}
           />
-          <div className="flex ">
-            <FormInput
-              type="text"
-              title="Price"
-              placeholder="Price"
-              maxLength={5}
-              setState={(value) => handleFormChange("price", value)}
-              isRequierd={false}
-            />
-
+          <div className="w-full h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-white">
             {/* if there is an image to show, show the image */}
             {form.imageUrl ? (
               <div className="flex flex-col items-center justify-center">
@@ -191,56 +197,72 @@ export default function FormPage({ type, session }: Props) {
                 />
               </div>
             ) : (
-              <UploadButton
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                  handleFormChange("imageUrl", res[0].url);
-                  setImageKeyBuffer(res[0].key);
-                  handleFormSubmit("update");
-                }}
-                onUploadError={(error: Error) => {
-                  alert(`ERROR! ${error.message}`);
-                }}
-                className="cursor-pointer"
-              />
+              <div className="h-96 flex justify-center">
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    handleFormChange("imageUrl", res[0].url);
+                    setImageKeyBuffer(res[0].key);
+                    handleFormSubmit("update");
+                  }}
+                  onUploadError={(error: Error) => {
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                  className="cursor-pointer w-full h-full flex justify-center items-center"
+                />
+              </div>
             )}
           </div>
-          <WeightInput
-            setState={(value) => handleFormChange("weight", value)}
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <HearthInput
-            rate={rate}
-            setState={(value) => handleFormChange("rate", value)}
-          />
-          <div>
-            <div className=" text-center text-sm text-slate-400">
-              {form.status ? "Public" : "Private"}
+          <div className="">
+            <div className="flex ">
+              <FormInput
+                type="text"
+                title="Price"
+                placeholder="Price"
+                maxLength={5}
+                setState={(value) => handleFormChange("price", value)}
+                isRequierd={false}
+              />
             </div>
-            <label className="relative items-center cursor-pointer">
-              <input type="checkbox" className="sr-only peer" />
-              <div
-                className="ring-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8
-											peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
-											peer-checked:after:translate-x-8 peer-hover:after:scale-95"
-                onClick={() => {
-                  setStatus(!status);
-                  handleFormChange("status", status);
-                }}
-              ></div>
-            </label>
+            <WeightInput
+              setState={(value) => handleFormChange("weight", value)}
+            />
+            {/* </div> */}
+            <div className="flex justify-between items-center">
+              <HearthInput
+                rate={rate}
+                setState={(value) => handleFormChange("rate", value)}
+              />
+              <div>
+                <div className=" text-center text-sm text-slate-400">
+                  {form.status ? "Public" : "Private"}
+                </div>
+                <label className="relative items-center cursor-pointer">
+                  <input type="checkbox" className="sr-only peer" />
+                  <div
+                    className="ring-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8
+									peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
+									peer-checked:after:translate-x-8 peer-hover:after:scale-95"
+                    onClick={() => {
+                      setStatus(!status);
+                      handleFormChange("status", status);
+                    }}
+                  ></div>
+                </label>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center pt-10">
-          <button
-            type="submit"
-            className="px-32 py-4 bg-orange-500 text-black text-lg rounded-full"
-            disabled={submitting || false}
-            onClick={() => handleFormSubmit("create")}
-          >
-            {submitting ? "Submitting..." : "Submit"}
-          </button>
+          <div className="flex justify-center pt-10">
+            <button onClick={() => handleCancel()}>Cancel</button>
+            <button
+              type="submit"
+              className="px-32 py-4 bg-orange-500 text-black text-lg rounded-full"
+              disabled={submitting || false}
+              onClick={() => handleFormSubmit("create")}
+            >
+              {submitting ? "Submitting..." : "Submit"}
+            </button>
+          </div>
         </div>
       </div>
     </form>

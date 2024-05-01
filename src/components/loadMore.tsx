@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getPostForFeed } from "@/lib/actions";
-import { PostInterface } from "./expandedCard";
+import { PostInterface } from "@/app/types/types";
 import Loader from "./loader";
 import Card from "./card";
 
