@@ -2,21 +2,20 @@
 
 import React, { useState } from "react";
 import HearthRate from "./hearthRate";
-import ExpandCardInput from "./expandCardInput";
 import {
   AdjustmentsHorizontalIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/solid";
-import { updatePost } from "@/app/create-card/actions";
-import HearthInput from "./hearthInput";
-import WeightInput from "./weightInput";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
-import { ArrowUpOnSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
-import DuplicateButton from "./duplicateButton";
+import {
+  ArrowUpOnSquareIcon,
+  CheckIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/outline";
 import type { SessionInterface } from "@/app/types/types";
 import type { PostInterface } from "@/app/types/types";
 import copy from "clipboard-copy";
+import { DuplicatePost } from "@/lib/actions";
 
 type Props = {
   post: PostInterface | null;
@@ -25,453 +24,138 @@ type Props = {
   session: SessionInterface | null;
 };
 
-enum ModalAction {
-  UPDATE = "update",
-  DELETE = "delete",
-}
-
 const ExpandedCard = ({ post, id, isMine, session }: Props) => {
-  const [submitting, setSubmitting] = useState(false);
-  const [rate, setRate] = React.useState<number>(post?.rate || 1);
-  const [type, setType] = React.useState<ModalAction>(ModalAction.UPDATE);
-  const [clicked, setClicked] = useState(false);
   const router = useRouter();
+  const [clicked, setClicked] = useState(false);
 
-  type AlertProps = {
-    message: string;
-    icon: any;
-    messageButton?: string;
-  };
-
-  const AlertBox = ({ message, icon, messageButton }: AlertProps) => {
-    Swal.fire({
-      icon: icon,
-      title: message,
-      showCloseButton: true,
-      timer: 10000,
-      timerProgressBar: true,
-      showConfirmButton: true,
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: messageButton,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "/coffee-list";
-      } else {
-        window.location.href = "/coffee-list";
-      }
-    });
-  };
-
-  const areYouSure = async (type: ModalAction): Promise<boolean> => {
-    return new Promise(async (resolve) => {
-      switch (type) {
-        case ModalAction.DELETE: {
-          return Swal.fire({
-            icon: "warning",
-            title: "Are you sure you want to delete this post?",
-            showCloseButton: true,
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonColor: "#4ade80",
-            confirmButtonText: "Yes",
-            cancelButtonColor: "#ef4444",
-            cancelButtonText: "No",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-          });
-        }
-        case ModalAction.UPDATE: {
-          resolve(true);
-        }
-        default: {
-          resolve(false);
-        }
-      }
-    });
-  };
-
-  const [form, setForm] = useState({
-    title: post?.title || "",
-    brand: post?.brand || "",
-    variety: post?.variety || "",
-    tasting: post?.tasting || "",
-    rate: post?.rate || 1,
-    note: post?.note || "",
-    price: post?.price || "",
-    weight: post?.weight || "",
-    status: post?.status || false,
-    uptdatedAt: post?.updatedAt || new Date(),
-    imageUrl: post?.imageUrl || "",
-    imageKey: post?.imageKey || "",
-    country: post?.country || "",
-    domain: post?.domain || "",
-    altitude: post?.altitude || "",
-    process: post?.process || "",
-    type: post?.type || "",
-  });
-
-  const handleStateChange = (
-    fieldName: string,
-    value: string | number | boolean
-  ) => {
-    setForm({ ...form, [fieldName]: value });
-
-    if (fieldName === "rate") {
-      setRate(value as number);
-    }
-  };
-
-  function refreshPage() {
-    window.location.reload();
-  }
-
-  const onSubmit = async () => {
-    if (!isMine) {
-      AlertBox({
-        message: "You can't update this post",
-        icon: "error",
-        messageButton: "Got it!",
-      });
-      setSubmitting(false);
-      return;
-    }
-    if (form.title === "" || form.title === null) {
-      AlertBox({
-        message: "Title is required!",
-        icon: "error",
-        messageButton: "Got it!",
-      });
-      setSubmitting(false);
-      return;
-    }
-    if (await areYouSure(type)) {
-      const updatedPost = await updatePost(id, form, type);
-      if (updatedPost && type === ModalAction.UPDATE) {
-        refreshPage();
-        setSubmitting(false);
-      } else if (updatedPost && type === ModalAction.DELETE) {
-        AlertBox({
-          message: "Post deleted",
-          icon: "success",
-          messageButton: "ok",
-        });
-      } else {
-        AlertBox({
-          message: "Failed to update",
-          icon: "error",
-          messageButton: "ok",
-        });
-      }
-    } else {
-      setSubmitting(false);
-    }
-  };
+  // function refreshPage() {
+  //   window.location.reload();
+  // }
 
   const copyClipboard = (id: string) => {
-    setClicked(true);
-
     if (!navigator.clipboard) {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
-    () => {
-      handleStateChange("status", !form.status);
-    };
     () => copyClipboard(id);
-    setClicked(true);
-    setTimeout(() => {
-      setClicked(false);
-    }, 1000);
+    setTimeout(() => {}, 1000);
   };
 
-  const pushBack = () => {
-    router.back();
+  const handleDuplicate = async (
+    id: string,
+    session?: SessionInterface | null,
+  ) => {
+    console.log("Duplicate button clicked");
+    if (!session?.user.id) {
+      return;
+    }
+    const res = await DuplicatePost(id, session);
+    if (res) {
+      alert("Post duplicated successfully");
+    } else {
+      alert("Post duplication failed");
+    }
   };
-// soit on fait expand card et autre page pour update et delete ou alors on laisse et on refactore
+
   return (
-    // <form action={onSubmit}>
-      <div className=" w-full h-full items-center">
-        <div className="flex flex-row justify-between items-center p-10">
-          <label onClick={() => pushBack()} className="flex items-center gap-2">
-            <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
-            <p className="text-2xl md:text-3xl lg:text-5xl font-light">
-              details
+    <div className=" w-full h-full items-center">
+      <div className="flex flex-row justify-between items-center p-10">
+        <div onClick={() => router.back()} className="flex items-center gap-2">
+          <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
+          <p className="text-2xl md:text-3xl lg:text-5xl font-light">details</p>
+        </div>
+        <div className={`${isMine ? "block" : "hidden"}`}>
+          <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
+            <AdjustmentsHorizontalIcon
+              className="w-10 h-10 flex justify-end tcursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
+              onClick={() => router.push(`/coffee-list/${id}/update`)}
+            />
+          </div>
+        </div>
+      </div>
+      {/* card */}
+      <div className="flex justify-center items-center">
+        <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-80 md:w-96 lg:w-[500px]">
+          <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
+            <p className="text-lg font-medium lg:text-xl  text-clip truncate">
+              {post?.title}
             </p>
-          </label>
-          <div className={`${isMine ? "block" : "hidden"}`}>
-            <div className="flex flex-row gap-10 justify-center items-center">
-              <div className=" flex flex-col justify-center items-center ">
-                <div className=" text-center text-xs ">
-                  {form.status ? "Public" : "Private"}
-                </div>
-                <label className="relative items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    disabled={!submitting}
-                    checked={form.status}
-                    onClick={() => handleStateChange("status", !form.status)}
-                  />
-                  <div
-                    className={`ing-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8  
- 								peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
- 								peer-checked:after:translate-x-8 peer-hover:after:scale-95`}
-                  ></div>
-                </label>
-              </div>
-              <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
-                <AdjustmentsHorizontalIcon
-                  className="w-10 h-10 flex justify-end tcursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
-                  onClick={() => router.push(`/coffee-list/${id}/update`)}
+            <p className="font-light text-lg text-clip truncate">
+              {post?.brand}
+            </p>
+            <p className="font-light text-md  truncate flex justify-end ">
+              {post?.country}
+            </p>
+            <p className="font-light text-md  truncate py-6 lg:py-10 ">
+              {post?.tasting}
+            </p>
+            {post?.imageUrl && (
+              <div className="h-64 xs:h-[400px] lg:h-[450px] w-full object-cover mb-5">
+                <img
+                  src={post?.imageUrl}
+                  alt="postImage"
+                  className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-2xl object-cover mb-5"
                 />
+              </div>
+            )}
+            <div className="flex justify-between">
+              <div className="">
+                <HearthRate rate={post?.rate} />
+              </div>
+              <p className="text-sm font-light">
+                {post?.createdAt
+                  ?.toJSON()
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("/")}
+              </p>
+            </div>
+            <div className="border-t-[1px] border-black dark:border-white mt-4 pt-4 absolutw w-12/12 flex justify-between">
+              <div className="">
+                {/* duplicate to post to account */}
+                {!isMine && session?.user.id && (
+                  <button
+                    onClick={() => {
+                      handleDuplicate(id, session);
+                    }}
+                  >
+                    <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
+                  </button>
+                )}
+              </div>
+
+              {/* copy link of post */}
+              <div className=" dark:text-white hover:scale-105 ">
+                <button
+                  onClick={() => {
+                    copyClipboard(id);
+                    setClicked(true);
+                    setTimeout(() => {
+                      setClicked(false);
+                    }, 1000);
+                  }}
+                  className="flex items-center justify-center"
+                >
+                  {clicked ? (
+                    <div className="dark:text-white flex flex-row items-center justify-center">
+                      <p className="text-xs">link copied</p>
+                      <CheckIcon className="h-6 w-6" />
+                    </div>
+                  ) : (
+                    <ArrowUpOnSquareIcon className="h-6 w-6" />
+                  )}
+                </button>
               </div>
             </div>
           </div>
         </div>
-				{/* card */}
-
       </div>
-    // </form>
+    </div>
   );
 };
-// <form action={onSubmit}>
-//   <div className=" w-full h-full items-center">
-//     <div className="flex flex-row justify-between items-center p-10">
-//       <label onClick={() => pushBack()} className="flex items-center gap-2">
-//         <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
-//         <p className="text-2xl md:text-3xl lg:text-5xl font-light">
-//           details
-//         </p>
-//       </label>
-//       <div className={`${isMine ? "block" : "hidden"}`}>
-//         <div className="flex flex-row gap-10 justify-center items-center">
-//           <div className=" flex flex-col justify-center items-center ">
-//             <div className=" text-center text-xs ">
-//               {form.status ? "Public" : "Private"}
-//             </div>
-//             <label className="relative items-center cursor-pointer">
-//               <input
-//                 type="checkbox"
-//                 className="sr-only peer"
-//                 disabled={!submitting}
-//                 checked={form.status}
-//                 onClick={() => handleStateChange("status", !form.status)}
-//               />
-//               <div
-//                 className={`ing-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8
-// 								peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1
-// 								peer-checked:after:translate-x-8 peer-hover:after:scale-95`}
-//               ></div>
-//             </label>
-//           </div>
-//           <div className='flex justify-end mr-0 md:mr-5 lg:mr-10 xl:mr-10"'>
-//             <AdjustmentsHorizontalIcon
-//               className="w-10 h-10 flex justify-end tcursor-pointer hover:scale-105 transition duration-150 active:scale-95 "
-//               onClick={() => setSubmitting(!submitting)}
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//     {/* card */}
-//     <div className=" w-full h-full flex justify-center items-center py-20 relative">
-//       <div
-//         className={`w-3/4 max-w-xl h-fit rounded-xl break-words dark:bg-gradient-to-br border-black border-[1px] dark:from-neutral-700 dark:to-black p-px`}
-//       >
-//         <div
-//           className={`w-full h-full bg-white dark:bg-black rounded-xl p-4 md:p-6 relative`}
-//         >
-//           <div className="flex flex-col pl-10 pr-10">
-//             {/* title */}
-//             <div className="flex justify-start pt-10 text-3xl font-bold">
-//               {submitting ? (
-//                 <ExpandCardInput
-//                   placeholder="Title"
-//                   type="title"
-//                   isTextArea={false}
-//                   submitting={submitting}
-//                   text={post?.title}
-//                   setChange={handleStateChange}
-//                   maxLength={30}
-//                   isRequierd={false}
-//                 />
-//               ) : (
-//                 <p className="">{post?.title}</p>
-//               )}
-//             </div>
-
-//             {/* brand and variety */}
-//             <div className="text-xl pt-5 font-normal flex justify-between">
-//               {submitting ? (
-//                 <ExpandCardInput
-//                   placeholder="Brand"
-//                   type="brand"
-//                   isTextArea={false}
-//                   submitting={submitting}
-//                   text={post?.brand}
-//                   setChange={handleStateChange}
-//                   maxLength={30}
-//                   isRequierd={false}
-//                 />
-//               ) : (
-//                 <p>{post?.brand}</p>
-//               )}
-//               {submitting ? (
-//                 <ExpandCardInput
-//                   placeholder="Variety"
-//                   type="variety"
-//                   isTextArea={false}
-//                   text={post?.variety}
-//                   submitting={submitting}
-//                   setChange={handleStateChange}
-//                   maxLength={30}
-//                   isRequierd={false}
-//                 />
-//               ) : (
-//                 <p>{post?.variety}</p>
-//               )}
-//             </div>
-
-//             {/* tasting */}
-//             <p className="pt-10">Tasting: </p>
-//             {submitting ? (
-//               <ExpandCardInput
-//                 placeholder="There is no tasting"
-//                 type="tasting"
-//                 isTextArea={true}
-//                 text={post?.tasting}
-//                 submitting={submitting}
-//                 setChange={handleStateChange}
-//                 maxLength={400}
-//                 isRequierd={false}
-//               />
-//             ) : (
-//               <p className="pl-2 break-words">{post?.tasting}</p>
-//             )}
-
-//             {/* note */}
-//             <p className="pt-10">Note: </p>
-//             {submitting ? (
-//               <ExpandCardInput
-//                 placeholder="There is no note"
-//                 type="note"
-//                 isTextArea={true}
-//                 text={post?.note}
-//                 submitting={submitting}
-//                 setChange={handleStateChange}
-//                 maxLength={400}
-//                 isRequierd={false}
-//               />
-//             ) : (
-//               <p className="pl-3 pt-3">{post?.note}</p>
-//             )}
-
-//             {/* price */}
-//             <div className="flex flex-row  items-center pt-10">
-//               {submitting ? (
-//                 <div className="flex">
-//                   <ExpandCardInput
-//                     placeholder="$"
-//                     type="price"
-//                     isTextArea={false}
-//                     text={post?.price}
-//                     submitting={submitting}
-//                     setChange={handleStateChange}
-//                     maxLength={5}
-//                     isRequierd={false}
-//                   />
-//                   <WeightInput
-//                     setState={(value) => handleStateChange("weight", value)}
-//                   />
-//                 </div>
-//               ) : (
-//                 <p className="pl-1">
-//                   {post?.price} / {post?.weight}
-//                 </p>
-//               )}
-//             </div>
-//             <div className="flex justify-center items-center py-10 ">
-//               <div className="w-1/2 border-b-[1px] border-black dark:border-white"></div>
-//             </div>
-//             <div className="flex flex-col md:flex-row justify-between items-center ">
-//               {submitting ? (
-//                 <HearthInput rate={rate} setState={(value) => handleStateChange("rate", value)} />
-//               ) : (
-//                 <HearthRate rate={post?.rate} />
-//               )}
-//               <h2 className="py-10 sm:pt-10">
-//                 <p>
-//                   Last Update:{" "}
-//                   {post?.updatedAt
-//                     ?.toJSON()
-//                     .slice(0, 10)
-//                     .split("-")
-//                     .reverse()
-//                     .join("/")}
-//                 </p>
-//                 <p>
-//                   Created the:{" "}
-//                   {post?.createdAt
-//                     ?.toJSON()
-//                     .slice(0, 10)
-//                     .split("-")
-//                     .reverse()
-//                     .join("/")}
-//                 </p>
-//               </h2>
-//             </div>
-//           </div>
-//           <div className="border-b-[1px] border-black dark:border-white w-full mb-16" />
-//           <div className="absolute bottom-5 left-5 md:bottom-8 md:left-10 z-10 dark:text-white hover:scale-105">
-//             <DuplicateButton id={id} session={session} />
-//           </div>
-//           <label
-//             onClick={() => copyClipboard(id)}
-//             className="absolute bottom-5 right-5 md:bottom-10 md:right-10 z-10 dark:text-white hover:scale-105"
-//           >
-//             {clicked ? (
-//               // <div className="flex items-center justify-center">
-
-//               <div className="dark:text-white flex flex-row items-center justify-center">
-//                 <p className="text-xs">link copied</p>
-//                 <CheckIcon className="h-6 w-6 md:w-8 md:h-8" />
-//               </div>
-//             ) : (
-//               // </div>
-//               <ArrowUpOnSquareIcon className="h-6 w-6 md:w-8 md:h-8" />
-//             )}
-//           </label>
-//         </div>
-//       </div>
-//     </div>
-//     {submitting && (
-//       <div className="flex justify-between px-20 pb-20 items-center">
-//         <button
-//           type="submit"
-//           className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2 rounded-full hover:scale-105 active:scale-95 transition duration-150"
-//           onClick={() => {
-//             setType(ModalAction.DELETE);
-//           }}
-//         >
-//           Delete
-//         </button>
-//         <button
-//           type="submit"
-//           className="text-sm md:text-lg lg:text-lg border-[1px] border-black dark:border-white px-3 py-2  rounded-full hover:scale-105 active:scale-95 transition duration-150"
-//           onClick={() => setType(ModalAction.UPDATE)}
-//         >
-//           Update
-//         </button>
-//       </div>
-//     )}
-//   </div>
-// </form>
 
 export default ExpandedCard;

@@ -36,7 +36,7 @@ const FormInput = ({
         <textarea
           defaultValue={text && displayDefaultValue ? text : ""}
           className="relative w-full cursor-default  rounded-lg lg:rounded-xl outline-none ring-0 border-[1px] border-black dark:border-neutral-400
-						bg-transparent dark:text-white text-left focus:outline-none text-sm pl-2 pt-1 md:pt-4 "
+						bg-transparent dark:text-white text-left focus:outline-none text-sm pl-2 pt-1 md:pt-4"
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}
           maxLength={maxLength}
@@ -45,7 +45,7 @@ const FormInput = ({
         <input
           defaultValue={text && displayDefaultValue ? text : ""}
           className="relative w-full cursor-default overflow-hidden rounded-lg border-[1px] border-black dark:border-neutral-400
-						bg-transparent dark:text-white outline-none  text-left text-sm p-1 md:p-2"
+						bg-transparent dark:text-white outline-none pl-2 text-left text-sm p-1 md:p-2"
           type={type || "text"}
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}

@@ -2,7 +2,6 @@
 
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import {
-  generateUploadDropzone,
   generateUploadButton,
 } from "@uploadthing/react";
 import { FormState, SessionInterface } from "@/app/types/types";
@@ -127,12 +126,12 @@ export default function FormPage({ type, session }: Props) {
         handleFormSubmit(submitType);
       }}
     >
-      <div className="h-full w-full pt-24 p-10">
+      <div className="h-full w-full pt-24 md:p-10">
         <XMarkIcon
           className="w-6 h-6 cursor-pointer absolute top-10 right-10"
           onClick={() => handleCancel()}
         />
-        <h3 className="flex justify-center text-3xl text-black dark:text-white font-light text-left max-w-5xl w-full">
+        <h3 className="flex justify-center text-2xl md:text-3xl text-black dark:text-white font-light text-left max-w-5xl w-full">
           Create a new coffee post
         </h3>
         <div className="p-10 justify-between items-center flex flex-col gap-5 ">
@@ -246,16 +245,16 @@ export default function FormPage({ type, session }: Props) {
               </>
             )}
           </div>
-          <div className="w-full md:w-3/4 lg:w-1/2 h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400">
+          <div className="w-full md:w-3/4 lg:w-1/2 h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
             {/* if there is an image to show, show the image */}
             {form.imageUrl ? (
               <div className="flex flex-col items-center justify-center">
                 <img
                   src={form.imageUrl}
                   alt="image"
-                  className="h-80 lg:h-[480px] w-full rounded-2xl"
+                  className="h-80 lg:h-[480px] w-full rounded-[7px]"
                 />
-                <div className="w-full border-b-[1px] border-black dark:border-neutral-400 p-2" />
+                <div className="w-full border-b-[1px] border-black dark:border-neutral-400 pb-2" />
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
@@ -266,7 +265,7 @@ export default function FormPage({ type, session }: Props) {
                   onUploadError={(error: Error) => {
                     alert(`ERROR! ${error.message}`);
                   }}
-                  className="cursor-pointer dark:text-neutral-400"
+                  className="cursor-pointer dark:text-neutral-400 pb-2"
                 />
                 <TrashIcon
                   className="w-6 h-6 cursor-pointer"
@@ -293,7 +292,7 @@ export default function FormPage({ type, session }: Props) {
               </div>
             )}
           </div>
-          <div className=" md:flex md:flex-row grid grid-cols-2 justify-around w-1/2 items-center gap-10">
+          <div className=" md:flex md:flex-row grid grid-cols-2 justify-around w-full md:w-1/2 items-center gap-10">
             <div className="flex justify-between items-center">
               <HearthInput
                 rate={rate}
@@ -321,14 +320,14 @@ export default function FormPage({ type, session }: Props) {
           </div>
           <div className="flex justify-center pt-10  gap-10">
             <button
-              className="px-10 md:px-24 py-4 border-[1px] border-black dark:border-neutral-400 rounded-full"
+              className="px-5 md:px-10 lg:px-24 py-2 md:py-3 lg:py-4 border-[1px] text-sm md:text-base lg:text-lg border-black dark:border-neutral-400 rounded-full"
               onClick={() => handleCancel()}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-10 md:px-24 py-4 bg-orange-500 text-black text-lg rounded-full"
+              className="px-5 md:px-10 lg:px-24 py-2 md:py-3 lg:py-4 bg-orange-500 text-black text-sm md:text-base lg:text-lg rounded-full"
               disabled={submitting || false}
               onClick={() => handleFormSubmit("create")}
             >

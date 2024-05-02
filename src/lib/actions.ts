@@ -1,6 +1,5 @@
 "use server";
 
-import type { FormState } from "@/app/types/types";
 import type { SessionInterface } from "@/app/types/types";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "./db";
