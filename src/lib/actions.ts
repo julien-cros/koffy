@@ -41,26 +41,6 @@ export const fetchToken = async () => {
   }
 };
 
-export const CreatePost = async (form: FormState, user: SessionInterface) => {
-  await db.posts.create({
-    data: {
-      title: form.title,
-      brand: form.brand,
-      variety: form.variety,
-      tasting: form.tasting,
-      rate: form.rate,
-      note: form.note,
-      price: form.price,
-      status: form.status,
-      author: {
-        connect: {
-          id: user.user.id,
-        },
-      },
-    },
-  });
-};
-
 export const getPostFromId = async (id: string | null) => {
   if (!id) return null;
   const post = await db.posts.findUnique({
@@ -147,10 +127,10 @@ export async function DuplicatePost(id: string, user: SessionInterface) {
         domain: post?.domain,
         altitude: post?.altitude,
         process: post?.process,
-        type: post?.type,
+				type: post?.type,
         author: {
-          connect: {
-            id: user.user.id,
+					connect: {
+						id: user.user.id,
           },
         },
       },
@@ -172,6 +152,15 @@ export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
   });
   if (posts.length > 0) return posts;
   else return [];
+}
+
+export async function getCreator(id: string) {
+	const creator = await db.user.findUnique({
+		where: {
+			id
+		}
+	});
+	return creator;
 }
 
 // export const getWishlist = async (authorId: string) => {

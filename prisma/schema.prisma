@@ -8,6 +8,7 @@ generator client {
 datasource db {
   url      = env("DATABASE_URL")
   provider = "postgresql"
+	relationMode = "prisma"
 }
 
 model User {
@@ -30,7 +31,7 @@ model Posts {
 	variety					String
 	rate						Int
 	note						String?
-	status					Boolean?
+	status					Boolean
 	weight					String?
 	country					String?
 	domain					String?
@@ -45,6 +46,8 @@ model Posts {
 	duplicatedPosts	DupPost[]
 	author					User?	@relation(fields: [authorId], references: [id])
 	authorId				String?
+
+	@@index([authorId])
 }
 
 model DupPost {

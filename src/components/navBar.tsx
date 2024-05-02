@@ -58,7 +58,7 @@ export const NavBar: React.FC<Props> = ({ session }) => {
 
   useEffect(() => {
     console.log(pathname);
-    if (pathname === "/create-card") {
+    if (pathname === "/create-card" || pathname.includes("update")) {
       setShowNavBar(false);
     } else {
       setShowNavBar(true);
@@ -80,7 +80,7 @@ export const NavBar: React.FC<Props> = ({ session }) => {
   return (
     <>
       {showNavBar ? (
-        <nav className="fixed w-full top-0 z-40 ">
+        <nav className="fixed w-full top-0 z-40">
           <div
             className={`${
               isSidebarOpen

@@ -41,7 +41,7 @@ export type PostInterface = {
   weight: string | null;
   createdAt: Date;
   updatedAt: Date;
-  status: boolean | null;
+  status: boolean;
   country: string | null;
   domain: string | null;
   altitude: string | null;
