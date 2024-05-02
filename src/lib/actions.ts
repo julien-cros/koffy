@@ -127,10 +127,10 @@ export async function DuplicatePost(id: string, user: SessionInterface) {
         domain: post?.domain,
         altitude: post?.altitude,
         process: post?.process,
-				type: post?.type,
+        type: post?.type,
         author: {
-					connect: {
-						id: user.user.id,
+          connect: {
+            id: user.user.id,
           },
         },
       },
@@ -155,12 +155,12 @@ export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
 }
 
 export async function getCreator(id: string) {
-	const creator = await db.user.findUnique({
-		where: {
-			id
-		}
-	});
-	return creator;
+  const creator = await db.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  return creator;
 }
 
 // export const getWishlist = async (authorId: string) => {

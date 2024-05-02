@@ -25,7 +25,6 @@ type Props = {
 };
 
 export const UploadButton = generateUploadButton<OurFileRouter>();
-export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
 
 export default function FormPage({ type, session }: Props) {
   const submitType = type; // can be create or edit delete (for the delete of the image: edit)

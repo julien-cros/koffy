@@ -44,7 +44,7 @@ const UpdateCard = async ({ params }: Props) => {
         imageKey: post.imageKey,
       }}
       session={session}
-			postId={post.id}
+      postId={post.id}
     />
   );
 };

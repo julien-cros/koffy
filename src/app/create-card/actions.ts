@@ -38,6 +38,20 @@ export async function getData() {
 // 	}
 // }
 
+export const updateUser = async (user: any, id: string | undefined) => {
+  if (!id) return null;
+  await db.user.update({
+    where: {
+      id,
+    },
+    data: {
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+    },
+  });
+};
+
 export default async function submit(form: FormState) {
   const user = await getData();
 
@@ -54,7 +68,7 @@ export default async function submit(form: FormState) {
         note: form?.note,
         price: form?.price,
         weight: form?.weight,
-        status: form?.status,
+        status: form.status,
         imageUrl: form?.imageUrl,
         imageKey: form?.imageKey,
         country: form?.country,
@@ -62,6 +76,7 @@ export default async function submit(form: FormState) {
         altitude: form?.altitude,
         process: form?.process,
         type: form?.type,
+        authorId: user.user.id,
         author: {
           connect: {
             id: user.user.id,
@@ -83,9 +98,13 @@ export async function deleteImage(imageUrl: string | null) {
   await utapi.deleteFiles(imageUrl);
 }
 
-export async function updatePost(id: string, form: FormState, type: string) {
+export async function updatePost(
+  postId: string,
+  form: FormState,
+  type: string,
+) {
   const user = await getData();
-  const post = await checkUser(id, user.user.id);
+  const post = await checkUser(postId, user.user.id);
   if (!post) {
     throw new Error("Unauthorized");
   }
@@ -94,7 +113,7 @@ export async function updatePost(id: string, form: FormState, type: string) {
     try {
       await db.posts.delete({
         where: {
-          id,
+          id: postId,
         },
       });
       return true;
@@ -106,7 +125,7 @@ export async function updatePost(id: string, form: FormState, type: string) {
     try {
       await db.posts.update({
         where: {
-          id,
+          id: postId,
         },
         data: {
           title: form?.title,

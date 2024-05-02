@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 type Props = {
   post: FormState;
   session: SessionInterface;
-	postId: string;
+  postId: string;
 };
 
 enum ModalAction {
@@ -36,7 +36,7 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState(post.status);
   const [imageKeyBuffer, setImageKeyBuffer] = useState("");
-	const [imageUrlBuffer, setImageUrlBuffer] = useState(post.imageUrl);
+  const [imageUrlBuffer, setImageUrlBuffer] = useState(post.imageUrl);
   const [submitType, setSubmitType] = useState(ModalAction.UPDATE); // update, updateImage or delete
   const [rate, setRate] = useState(post.rate);
 
@@ -61,7 +61,7 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
 
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[key] = value as never;
 
@@ -75,6 +75,12 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
     if (post.imageUrl !== form.imageUrl) {
       deleteImage(post.imageKey);
       post.imageKey = imageKeyBuffer;
+    }
+    if (submitType === ModalAction.DELETE) {
+      if (confirm("Are you sure you want to delete this post?") === false) {
+        setSubmitting(false);
+        return;
+      }
     }
     const updatedPost = await updatePost(postId, form, submitType);
     if (updatedPost === true && submitType === ModalAction.UPDATE) {
@@ -102,7 +108,7 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
     }
     setImageKeyBuffer(imageKey);
     handleFormChange("imageUrl", imageUrl);
-		setImageUrlBuffer(imageUrl);
+    setImageUrlBuffer(imageUrl);
   };
 
   return (
@@ -275,9 +281,9 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
                 <TrashIcon
                   className="w-6 h-6 cursor-pointer"
                   onClick={() => {
-										UpdateImage("", imageKeyBuffer);
-										handleFormChange("imageUrl", "");
-										setImageUrlBuffer("");// just to display th image and remove the image from the page not from the post
+                    UpdateImage("", imageKeyBuffer);
+                    handleFormChange("imageUrl", "");
+                    setImageUrlBuffer(""); // just to display th image and remove the image from the page not from the post
                   }}
                 />
               </div>
@@ -338,6 +344,15 @@ const UpdateCardForm = ({ post, session, postId }: Props) => {
               {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
+        </div>
+        <div
+          className="border-[1px] border-black dark:border-white px-3 py-2 rounded-lg flex justify-end items-end w-fit"
+          onClick={() => {
+            setSubmitType(ModalAction.DELETE);
+            handleFormSubmit(ModalAction.DELETE);
+          }}
+        >
+          Delete post
         </div>
       </div>
     </form>
