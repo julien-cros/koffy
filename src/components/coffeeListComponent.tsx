@@ -69,6 +69,8 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
         {posts?.map((post) => (
           <div key={post.id}>
             <Card
+              author={post.author?.name}
+              avatar={post.author?.avatar}
               key={post.id}
               title={post.title}
               brand={post.brand}
@@ -85,6 +87,8 @@ const CoffeeListComponent = ({ posts, isLogged, session }: Props) => {
         ))}
         {!posts && (
           <Card
+            author={"Julien"}
+            avatar={"images/default-profile.svg"}
             key={0}
             title="No coffee yet"
             brand="future Brand"

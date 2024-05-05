@@ -16,6 +16,7 @@ import type { SessionInterface } from "@/app/types/types";
 import type { PostInterface } from "@/app/types/types";
 import copy from "clipboard-copy";
 import { DuplicatePost } from "@/lib/actions";
+import ExpandCardInput from "./expandCardInput";
 
 type Props = {
   post: PostInterface | null;
@@ -37,7 +38,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
     () => copyClipboard(id);
@@ -46,7 +47,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
 
   const handleDuplicate = async (
     id: string,
-    session?: SessionInterface | null,
+    session?: SessionInterface | null
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {
@@ -61,7 +62,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
   };
 
   return (
-    <div className=" w-full h-full items-center">
+    <div className=" w-full h-full items-center pb-10">
       <div className="flex flex-row justify-between items-center p-10">
         <div onClick={() => router.back()} className="flex items-center gap-2">
           <ArrowLeftIcon className="w-5 h-5 md:w-7 md:h-7 lg:w-10 lg:h-10 cursor-pointer hover:scale-105 transition duration-150 active:scale-95" />
@@ -78,30 +79,44 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       </div>
       {/* card */}
       <div className="flex justify-center items-center">
-        <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-80 md:w-96 lg:w-[500px]">
+        <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full max-w-5xl mx-5 h-full">
           <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
-            <p className="text-lg font-medium lg:text-xl  text-clip truncate">
-              {post?.title}
-            </p>
-            <p className="font-light text-lg text-clip truncate">
-              {post?.brand}
-            </p>
-            <p className="font-light text-md  truncate flex justify-end ">
-              {post?.country}
-            </p>
-            <p className="font-light text-md  truncate py-6 lg:py-10 ">
-              {post?.tasting}
-            </p>
-            {post?.imageUrl && (
-              <div className="h-64 xs:h-[400px] lg:h-[450px] w-full object-cover mb-5">
-                <img
-                  src={post?.imageUrl}
-                  alt="postImage"
-                  className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-2xl object-cover mb-5"
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl">
+              <div className="pr-5 h-full w-full pb-5 flex gap-2 flex-col">
+                <div className="flex items-center gap-2 pb-5">
+                  <img
+                    src={post?.author?.avatar || "/images/default-profile.svg"}
+                    alt="avatar"
+                    className="h-10 w-10 rounded-full"
+                  />
+                  {post?.author?.name}
+                </div>
+                <div className="flex flex-col pb-2">
+                  <p className="text-2xl font-light">{post?.title}</p>
+                  <p className="text-lg font-light">{post?.brand}</p>
+                </div>
+                <ExpandCardInput text={post?.country} />
+                <ExpandCardInput text={post?.tasting} />
+                <ExpandCardInput text={post?.note} title="Notes:" />
+                <ExpandCardInput text={post?.variety} title="Variety:" />
+                <ExpandCardInput text={post?.price} title="Price:" />
+                <ExpandCardInput text={post?.weight} title="Weight:" />
+                <ExpandCardInput text={post?.domain} title="Domain:" />
+                <ExpandCardInput text={post?.altitude} title="Altitude:" />
+                <ExpandCardInput text={post?.process} title="Process:" />
+                <ExpandCardInput text={post?.type} title="Type of extraction" />
               </div>
-            )}
-            <div className="flex justify-between">
+              {post?.imageUrl && (
+                <div className="object-cover mb-5 flex justify-center md:justify-end items-center">
+                  <img
+                    src={post?.imageUrl}
+                    alt="postImage"
+                    className="h-fit max-h-[500px]  lg:max-h-[600px] w-fit rounded-2xl object-cover mb-5"
+                  />
+                </div>
+              )}
+            </div>
+            <div className="flex justify-between items-end">
               <div className="">
                 <HearthRate rate={post?.rate} />
               </div>
@@ -123,7 +138,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                       handleDuplicate(id, session);
                     }}
                   >
-                    <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
+                    <PlusCircleIcon className="h-6 w-6  dark:text-white hover:scale-105" />
                   </button>
                 )}
               </div>

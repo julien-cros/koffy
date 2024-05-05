@@ -41,6 +41,8 @@ export default function LoadMore() {
       {posts?.map((post) => (
         <div key={post.id}>
           <Card
+            author={post.author?.name}
+            avatar={post.author?.avatar}
             id={post.id}
             title={post.title}
             brand={post.brand}

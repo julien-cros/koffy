@@ -23,6 +23,8 @@ export type CardProps = {
   clickable?: boolean;
   imageUrl: string | null;
   country: string | null;
+  author?: string | null;
+  avatar?: string | null;
 };
 
 export default function Card({
@@ -36,6 +38,8 @@ export default function Card({
   clickable,
   imageUrl,
   country,
+  author,
+  avatar,
 }: CardProps) {
   const router = useRouter();
   const [clicked, setClicked] = useState(false);
@@ -48,7 +52,7 @@ export default function Card({
 
   const handleDuplicate = async (
     id: string,
-    session?: SessionInterface | null,
+    session?: SessionInterface | null
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {
@@ -67,7 +71,7 @@ export default function Card({
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
   };
@@ -79,6 +83,14 @@ export default function Card({
       onClick={() => redirectToCard()}
     >
       <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
+        <div className="flex items-center gap-2 pb-5">
+          <img
+            src={avatar || "images/default-profile.svg"}
+            alt="avatar"
+            className="h-10 w-10 rounded-full"
+          />
+          {author}
+        </div>
         <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
         </p>

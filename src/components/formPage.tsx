@@ -1,9 +1,7 @@
 "use client";
 
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import {
-  generateUploadButton,
-} from "@uploadthing/react";
+import { generateUploadButton } from "@uploadthing/react";
 import { FormState, SessionInterface } from "@/app/types/types";
 import {
   ChevronDownIcon,
@@ -56,7 +54,7 @@ export default function FormPage({ type, session }: Props) {
   // handle the changes of the form
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean,
+    value: string | number | boolean
   ) => {
     form[key] = value as never;
 
@@ -72,7 +70,7 @@ export default function FormPage({ type, session }: Props) {
       const exists = await findValidPost(
         session?.user.id,
         form.brand,
-        form.title,
+        form.title
       );
       if (!exists && form.title && form.brand && form.variety) {
         const post = await submit(form);
@@ -135,7 +133,7 @@ export default function FormPage({ type, session }: Props) {
           Create a new coffee post
         </h3>
         <div className="p-10 justify-between items-center flex flex-col gap-5 ">
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full md:w-3/4 lg:w-1/2 gap-4 gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-3xl mx-auto gap-4 gap-x-10">
             <FormInput
               type="text"
               title="Title"
@@ -245,7 +243,7 @@ export default function FormPage({ type, session }: Props) {
               </>
             )}
           </div>
-          <div className="w-full md:w-3/4 lg:w-1/2 h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
+          <div className="w-full max-w-3xl mx-auto h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
             {/* if there is an image to show, show the image */}
             {form.imageUrl ? (
               <div className="flex flex-col items-center justify-center">

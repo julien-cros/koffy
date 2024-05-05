@@ -8,6 +8,7 @@ import Loader from "./loader";
 
 async function Feed() {
   const posts = await getPostForFeed(8, 0);
+  // const creator = await getImageAndName(posts);// non parce que plein de posts
 
   if (!posts)
     return (
@@ -22,6 +23,8 @@ async function Feed() {
       {posts?.map((post) => (
         <div key={post.id}>
           <Card
+            author={post.author?.name}
+            avatar={post.author?.avatar}
             id={post.id}
             title={post.title}
             brand={post.brand}

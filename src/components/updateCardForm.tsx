@@ -61,7 +61,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
 
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean,
+    value: string | number | boolean
   ) => {
     form[key] = value as never;
 
@@ -127,7 +127,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
           Update your coffee post
         </h3>
         <div className="p-10 justify-between items-center flex flex-col gap-5 ">
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full md:w-3/4 lg:w-1/2 gap-4 gap-x-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-3xl mx-5 h-full gap-4 gap-x-10">
             <FormInput
               type="text"
               title="Title"
@@ -258,7 +258,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
               </>
             )}
           </div>
-          <div className="w-full md:w-3/4 lg:w-1/2 h-full flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
+          <div className="w-full max-w-3xl mx-5 h-full  flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
             {/* if there is an image to show, show the image */}
             {imageUrlBuffer ? (
               <div className="flex flex-col items-center justify-center">
