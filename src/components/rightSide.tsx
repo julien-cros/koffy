@@ -1,7 +1,5 @@
 import React from "react";
 
-function RightSide() {
-  return <div>RightSide</div>;
+export function RightSide() {
+  return <div className="fixed">RightSide</div>;
 }
-
-export default RightSide;
