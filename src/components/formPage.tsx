@@ -30,7 +30,7 @@ export default function FormPage({ type, session }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [imageKeyBuffer, setImageKeyBuffer] = useState<string>("");
   const router = useRouter();
-  const [showAdvenced, setShowAdvenced] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const [form] = useState({
     title: "",
@@ -186,10 +186,10 @@ export default function FormPage({ type, session }: Props) {
             />
             <div
               className="flex justify-center items-center gap-2 cursor-pointer border-[1px] rounded-lg border-black dark:border-neutral-400 p-2 w-full h-10 dark:text-neutral-400"
-              onClick={() => setShowAdvenced(!showAdvenced)}
+              onClick={() => setShowAdvanced(!showAdvanced)}
             >
-              Advenced
-              {showAdvenced ? (
+              Advanced
+              {showAdvanced ? (
                 <ChevronUpIcon className="w-6 h-6" />
               ) : (
                 <ChevronDownIcon className="w-6 h-6" />
@@ -198,7 +198,7 @@ export default function FormPage({ type, session }: Props) {
             <WeightInput
               setState={(value) => handleFormChange("weight", value)}
             />
-            {showAdvenced && (
+            {showAdvanced && (
               <>
                 <FormInput
                   type="text"
@@ -308,8 +308,8 @@ export default function FormPage({ type, session }: Props) {
 									peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
 									peer-checked:after:translate-x-8 peer-hover:after:scale-95"
                   onClick={() => {
+                    handleFormChange("status", !status);
                     setStatus(!status);
-                    handleFormChange("status", status);
                   }}
                 ></div>
               </label>

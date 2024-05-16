@@ -194,7 +194,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
               className="flex justify-center items-center gap-2 cursor-pointer border-[1px] rounded-lg border-black dark:border-neutral-400 p-2 w-full h-10 dark:text-neutral-400"
               onClick={() => setShowAdvenced(!showAdvenced)}
             >
-              Advenced
+              Advanced
               {showAdvenced ? (
                 <ChevronUpIcon className="w-6 h-6" />
               ) : (
@@ -314,14 +314,18 @@ const UpdateCardForm = ({ post, postId }: Props) => {
                 {form.status ? "Public" : "Private"}
               </div>
               <label className="relative items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" />
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  checked={status}
+                />
                 <div
                   className="ring-0 bg-orange-500 rounded-full outline-none duration-1000 after:duration-300 w-16 h-8
 									peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-black after:outline-none after:h-6 after:w-6 after:top-1 after:left-1   
 									peer-checked:after:translate-x-8 peer-hover:after:scale-95"
                   onClick={() => {
+                    handleFormChange("status", !status);
                     setStatus(!status);
-                    handleFormChange("status", status);
                   }}
                 ></div>
               </label>

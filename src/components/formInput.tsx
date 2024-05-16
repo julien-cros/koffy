@@ -45,7 +45,7 @@ const FormInput = ({
         <input
           defaultValue={text && displayDefaultValue ? text : ""}
           className="relative w-full cursor-default overflow-hidden rounded-lg border-[1px] border-black dark:border-neutral-400
-						bg-transparent dark:text-white outline-none pl-2 text-left text-sm p-1 md:p-2"
+						bg-transparent dark:text-white outline-none pl-2 text-left text-sm p-1 md:p-2 h-10"
           type={type || "text"}
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}
