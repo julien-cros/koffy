@@ -43,7 +43,7 @@ export default function WeightInput({ setState }: Props) {
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative w-full">
           <div
-            className="relative w-full cursor-default overflow-hidden rounded-lg py-1 border-[1px] border-black dark:border-neutral-400 pr-10
+            className="relative w-full h-10 cursor-default overflow-hidden rounded-lg py-1 border-[1px] border-black dark:border-neutral-400 pr-10
 		  	text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 
 			focus-visible:ring-offset-2 focus-visible:ring-slate-900 sm:text-sm"
           >

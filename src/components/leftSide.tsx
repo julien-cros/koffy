@@ -5,6 +5,7 @@ import {
   ClipboardDocumentListIcon,
   Cog6ToothIcon,
   ExclamationCircleIcon,
+  HomeIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { SquaresPlusIcon } from "@heroicons/react/24/solid";
@@ -32,6 +33,13 @@ export default function LeftSide({ session }: { session: any }) {
           />
         </Link>
         <div className="w-full flex flex-col items-end space-y-1 md:pr-5">
+          <Link
+            href="/"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <HomeIcon className="w-6 h-6" />
+            <p className="hidden lg:block">Home</p>
+          </Link>
           <button
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
             onClick={
@@ -48,7 +56,7 @@ export default function LeftSide({ session }: { session: any }) {
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
             <ClipboardDocumentListIcon className="w-6 h-6" />
-            <p className="hidden lg:block">My Coffee</p>
+            <p className="hidden lg:block">Coffee List</p>
           </Link>
           <Link
             href="/about"

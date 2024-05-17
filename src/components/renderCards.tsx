@@ -37,6 +37,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
             clickable={true}
             imageUrl={post?.imageUrl}
             country={post?.country}
+            avatar={post?.author?.avatar}
           />
         </div>
       ))}

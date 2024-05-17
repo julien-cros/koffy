@@ -21,7 +21,7 @@ const SignOutButton = ({ name, style }: Props) => {
     >
       <ArrowRightOnRectangleIcon className="w-6 h-6" />
       <p className={`${style ? "hidden lg:block" : ""}`}>
-        {name ? `${name}` : "Sign out"}
+        {name ? `${name}` : "Sign Out"}
       </p>
     </div>
   );
