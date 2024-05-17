@@ -32,7 +32,7 @@ export const UploadButton = generateUploadButton<OurFileRouter>();
 
 const UpdateCardForm = ({ post, postId }: Props) => {
   const router = useRouter();
-  const [showAdvenced, setShowAdvenced] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState(post.status);
   const [imageKeyBuffer, setImageKeyBuffer] = useState("");
@@ -192,10 +192,10 @@ const UpdateCardForm = ({ post, postId }: Props) => {
             />
             <div
               className="flex justify-center items-center gap-2 cursor-pointer border-[1px] rounded-lg border-black dark:border-neutral-400 p-2 w-full h-10 dark:text-neutral-400"
-              onClick={() => setShowAdvenced(!showAdvenced)}
+              onClick={() => setShowAdvanced(!showAdvanced)}
             >
               Advanced
-              {showAdvenced ? (
+              {showAdvanced ? (
                 <ChevronUpIcon className="w-6 h-6" />
               ) : (
                 <ChevronDownIcon className="w-6 h-6" />
@@ -204,7 +204,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
             <WeightInput
               setState={(value) => handleFormChange("weight", value)}
             />
-            {showAdvenced && (
+            {showAdvanced && (
               <>
                 <FormInput
                   type="text"

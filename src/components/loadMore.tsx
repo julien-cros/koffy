@@ -37,7 +37,7 @@ export default function LoadMore() {
   }, [inView]);
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-2">
       {posts?.map((post) => (
         <div key={post.id}>
           <Card
