@@ -89,7 +89,7 @@ export default async function RootLayout({
               </div>
             </div>
             <div className="z-50">
-              <NavBar session={session} />
+              {/* <NavBar session={session} /> */}
               {children}
             </div>
           </div>
