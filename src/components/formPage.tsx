@@ -54,7 +54,7 @@ export default function FormPage({ type, session }: Props) {
   // handle the changes of the form
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[key] = value as never;
 
@@ -70,7 +70,7 @@ export default function FormPage({ type, session }: Props) {
       const exists = await findValidPost(
         session?.user.id,
         form.brand,
-        form.title
+        form.title,
       );
       if (!exists && form.title && form.brand && form.variety) {
         const post = await submit(form);

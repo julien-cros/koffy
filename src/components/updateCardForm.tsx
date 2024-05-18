@@ -61,7 +61,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
 
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean
+    value: string | number | boolean,
   ) => {
     form[key] = value as never;
 

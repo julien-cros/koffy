@@ -21,7 +21,7 @@ export function RightSide({ session }: Props) {
   useEffect(() => {
     if (clicked) {
       router.push(
-        `/search-page/${category}-${search}-${isPublic ? "public" : "private"}`
+        `/search-page/${category}-${search}-${isPublic ? "public" : "private"}`,
       );
       setClicked(false);
       setClicked(false);

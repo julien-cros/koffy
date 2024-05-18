@@ -8,7 +8,7 @@ import {
   getFollowStatus,
   getNumOfFollowers,
   getNumOfFollowings,
-} from "../ProfileAction";
+} from "@/app/profile/profileAction";
 import { getCurrentUser } from "@/lib/actions";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/loader";

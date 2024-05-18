@@ -1,9 +1,7 @@
-"use client";
-
 import Center from "@/components/center";
 import GetStarted from "@/components/howItWorks";
 
-export default function HomePage() {
+export default async function AboutPage() {
   return (
     <section className="w-full h-full ">
       <section id="section-0">

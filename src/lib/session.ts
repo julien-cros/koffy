@@ -1,9 +1,8 @@
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from "jsonwebtoken";
 import type { AdapterUser } from "next-auth/adapters";
-import type { SessionInterface } from "@/app/types/types";
 import type { JWT } from "next-auth/jwt";
-import { type NextAuthOptions, type User, getServerSession } from "next-auth";
+import { type NextAuthOptions, type User } from "next-auth";
 
 import { createUser, getUser } from "./actions";
 

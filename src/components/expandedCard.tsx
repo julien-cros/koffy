@@ -38,7 +38,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
     () => copyClipboard(id);
@@ -47,7 +47,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
 
   const handleDuplicate = async (
     id: string,
-    session?: SessionInterface | null
+    session?: SessionInterface | null,
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {

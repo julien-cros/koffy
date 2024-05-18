@@ -1,6 +1,6 @@
 import "./globals.css";
-import { NavBar } from "@/components/navBar";
-import { getCurrentUser } from "@/lib/actions";
+// import { NavBar } from "@/components/navBar";
+// import { getCurrentUser } from "@/lib/actions";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -61,7 +61,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getCurrentUser();
+  // const session = await getCurrentUser();
 
   return (
     <html lang="en">

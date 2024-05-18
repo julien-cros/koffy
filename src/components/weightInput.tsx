@@ -35,7 +35,7 @@ export default function WeightInput({ setState }: Props) {
           weight.value
             .toLowerCase()
             .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
+            .includes(query.toLowerCase().replace(/\s+/g, "")),
         );
 
   return (
