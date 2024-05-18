@@ -2,9 +2,8 @@
 
 import Card from "@/components/card";
 import { getProfile, getUserPosts } from "@/lib/actions";
-import React from "react";
 import {
-  // FollowAndUnfollow,
+  FollowAndUnfollow,
   getFollowStatus,
   getNumOfFollowers,
   getNumOfFollowings,
@@ -12,6 +11,8 @@ import {
 import { getCurrentUser } from "@/lib/actions";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/loader";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type PageProps = {
   params: {
@@ -20,6 +21,8 @@ type PageProps = {
 };
 
 const profilePage = ({ params }: PageProps) => {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const router = useRouter();
   const { data: querySession, isLoading: isLoadingSession } = useQuery({
     queryKey: ["repoData"],
     queryFn: async () => {
@@ -63,6 +66,7 @@ const profilePage = ({ params }: PageProps) => {
       queryKey: ["followingStatus", profile?.user?.name, session?.user?.name],
       queryFn: async () => {
         const res = await getFollowStatus(profile?.user.id, session?.user.id);
+        setIsFollowing(res ? true : false);
         return res;
       },
       enabled: !!profile?.user?.name && !!session?.user?.name,
@@ -93,44 +97,40 @@ const profilePage = ({ params }: PageProps) => {
   }
 
   if (!profile || !profile.user) {
-    return <div>Profile not found</div>;
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <h1 className="text-xl font-light">No user found</h1>
+      </div>
+    );
   }
 
-  var isFollowing = queryFollowingStatus ? queryFollowingStatus : false;
   const numOfFollowers = queryFollowers ? queryFollowers : 0;
   const numOfFollowings = queryFollowings ? queryFollowings : 0;
   const post = queryPost;
   const numOfPosts = post?.length || 0;
+  void queryFollowingStatus;
 
-  // const handlefollow = () => {
-  //   const {
-  //     isPending,
-  //     error,
-  //     data: followData,
-  //   } = useQuery({
-  //     queryKey: ["repoData"],
-  //     queryFn: async () => {
-  //       const res = await FollowAndUnfollow(
-  //         profile.user.id,
-  //         session?.user.id,
-  //         isFollowing ? true : false
-  //       );
-  //       return res;
-  //     },
-  //   });
+  const handleFollow = async () => {
+    if (!session || !profile) {
+      router.push("/");
+    }
+    if (session?.user?.name === profile?.user.name) {
+      router.push("/profile/edit");
+    }
 
-  //   if (isPending) return <Loader />;
-
-  //   if (error)
-  //     return "An error has occurred: " + error.message + " try again later";
-
-  //   if (followData === "followed") {
-  //     isFollowing = true;
-  //   } else if (followData === "unfollowed") {
-  //     isFollowing = false;
-  //   }
-  // };
-
+    const followData = await FollowAndUnfollow(
+      profile.user.id,
+      session?.user.id,
+      isFollowing ? true : false,
+    );
+    if (followData === "followed") {
+      setIsFollowing(true);
+    }
+    if (followData === "unfollowed") {
+      setIsFollowing(false);
+    }
+  };
+  // TODO: find a way to rerender only follower/following counter
   return (
     <div className="w-full p-5 pt-24 space-y-10 flex justify-center items-center flex-col">
       <div className="w-full max-w-5xl mx-auto h-fit bg-white  dark:bg-neutral-900 rounded-lg border-[1px] border-black dark:border-neutral-400 p-4">
@@ -143,10 +143,10 @@ const profilePage = ({ params }: PageProps) => {
             />
             <h1 className="text-xl font-light">{profile?.user.name}</h1>
           </div>
-          <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 flex flex-col justify-between">
+          <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 flex flex-col justify-between items-end">
             <button
               className="text-sm border-[1px] border-black dark:border-neutral-700 rounded-md py-1 px-2"
-              // onClick={handlefollow}
+              onClick={() => handleFollow()}
             >
               {session?.user?.name !== profile?.user.name
                 ? isFollowing
