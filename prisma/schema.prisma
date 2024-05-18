@@ -15,8 +15,12 @@ model User {
 	id				String  @id @default(cuid())
 	email			String  @unique
 	avatar		String?
-	name			String?
+	name			String @unique
+	userId		String? @unique
+ 	followers Follows[] @relation("follower")
+  following Follows[] @relation("following")
 	posts			Posts[]
+	profile		Profile?
 	dupicatedPosts	DupPost[]
 	comments	Comment[]
 	wishlist	Wishlist[]
@@ -48,6 +52,23 @@ model Posts {
 	authorId				String?
 
 	@@index([authorId])
+}
+
+model Follows{
+	follower		User	@relation("follower", fields: [followerId], references: [id])
+	followerId	String
+	following		User	@relation("following", fields: [followingId], references: [id])
+	followingId	String
+
+	@@id([followerId, followingId])
+}
+
+model Profile {
+	id				String	@id @default(cuid())
+	bio				String?
+	location	String?
+	user			User	@relation(fields: [userId], references: [id])
+	userId		String	@unique
 }
 
 model DupPost {

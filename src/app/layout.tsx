@@ -1,6 +1,6 @@
 import "./globals.css";
 import { NavBar } from "@/components/navBar";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";

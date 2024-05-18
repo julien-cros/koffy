@@ -1,6 +1,6 @@
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import React from "react";
-import { checkUser } from "@/app/create-card/actions";
+import { checkUserByPost } from "@/app/create-card/actions";
 import UpdateCardForm from "@/components/updateCardForm";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,7 @@ const UpdateCard = async ({ params }: Props) => {
     redirect(`/coffee-list/${params.id}`);
   }
 
-  const post = await checkUser(params.id, session.user.id);
+  const post = await checkUserByPost(params.id, session.user.id);
 
   if (!post) {
     redirect(`/coffee-list/${params.id}`);

@@ -1,7 +1,7 @@
 import LeftSide from "@/components/leftSide";
 import Feed from "@/components/feed";
 import { RightSide } from "@/components/rightSide";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 
 export default async function HomePage() {
   const session = await getCurrentUser();

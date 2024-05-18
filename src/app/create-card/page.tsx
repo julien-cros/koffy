@@ -1,5 +1,5 @@
 import FormPage from "@/components/formPage";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import { redirect } from "next/navigation";
 
 const CreateCard = async () => {

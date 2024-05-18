@@ -1,12 +1,22 @@
 "use server";
 
 import type { SessionInterface } from "@/app/types/types";
-import { getCurrentUser } from "@/lib/session";
+import { authOptions } from "@/lib/session";
 import { db } from "./db";
-import { checkUser } from "@/app/create-card/actions";
+import { checkUserByPost } from "@/app/create-card/actions";
+import { getServerSession } from "next-auth";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
+
+export async function getCurrentUser() {
+	const session = (await getServerSession(
+		authOptions as any,
+	)) as SessionInterface | null;
+
+	return session;
+}
+
 
 export const createUser = async (
 	name: string,
@@ -58,7 +68,8 @@ export const getPostFromId = async (id: string | null) => {
 	return post;
 };
 
-export const getUserPosts = async (authorId: string) => {
+export const getUserPosts = async (authorId: string | undefined) => {
+	if (!authorId) return null;
 	try {
 		const posts = await db.posts.findMany({
 			include: {
@@ -106,7 +117,7 @@ export default async function findPosts(
 export async function getUserFromId(id: string) {
 	const user = await getCurrentUser();
 	if (!user?.user.id) return null;
-	const response = checkUser(id, user.user.id);
+	const response = checkUserByPost(id, user.user.id);
 	if (response) return response;
 	else return null;
 }
@@ -194,6 +205,27 @@ export async function getCreator(id: string) {
 		},
 	});
 	return creator;
+}
+
+export async function getProfile(user: string) {
+	return await db.profile.findFirst({
+		include: {
+			user: {
+				select: {
+					id: true,
+					name: true,
+					avatar: true,
+				},
+			},
+		},
+		where: {
+			user: {
+				name: decodeURI(user),
+			}
+		},
+	}
+	);
+
 }
 
 // export const getWishlist = async (authorId: string) => {

@@ -55,3 +55,16 @@ export type PostInterface = {
 	imageUrl: string | null;
 	imageKey: string | null;
 };
+
+export type ProfileInterface = ({
+	user: {
+		id: string;
+		avatar: string | null;
+		name: string;
+	};
+} & {
+	id: string;
+	bio: string | null;
+	location: string | null;
+	userId: string;
+}) | null;

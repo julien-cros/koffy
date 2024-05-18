@@ -2,7 +2,7 @@ import React from "react";
 import { findSearchPost } from "../actions";
 import PushBackButton from "@/components/pushBackButton";
 import DisplayCards from "@/components/renderCards";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 
 type PageProps = {
   params: {

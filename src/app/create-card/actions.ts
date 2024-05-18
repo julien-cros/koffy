@@ -1,7 +1,7 @@
 "use server";
 
 import type { FormState } from "@/app/types/types";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import { db } from "@/lib/db";
 import { utapi } from "../server/uploadthing";
 // import { uploadThingByUrl } from "@/lib/uploadThingActions";
