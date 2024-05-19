@@ -26,8 +26,10 @@ function Feed() {
 
   if (error)
     return (
-      <div className="h-screen w-full max-w-md">
-        <h1>Something went wrong</h1>
+      <div className="h-screen w-full">
+        <div className="h-full w-full flex justify-center items-center">
+          <div className="">Something went wrong</div>
+        </div>
       </div>
     );
 
@@ -61,7 +63,7 @@ function Feed() {
           </button>
         </div>
       </div>
-      <div className="px-2 flex  flex-col space-y-2">
+      <div className=" flex  flex-col space-y-2">
         {isLoading ? (
           <div className="h-screen">
             <Loader />

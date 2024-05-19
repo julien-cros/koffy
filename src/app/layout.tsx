@@ -1,6 +1,5 @@
 import "./globals.css";
 // import { NavBar } from "@/components/navBar";
-// import { getCurrentUser } from "@/lib/actions";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -10,6 +9,8 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import QueryProviders from "@/components/tanstackProvider";
+import LeftSide from "@/components/leftSide";
+import { getCurrentUser } from "@/lib/actions";
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -61,7 +62,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const session = await getCurrentUser();
+  const session = await getCurrentUser();
 
   return (
     <html lang="en">
@@ -91,6 +92,9 @@ export default async function RootLayout({
                 </div>
               </div>
               <div className="z-50">
+                <div className="">
+                  <LeftSide session={session} />
+                </div>
                 {/* <NavBar session={session} /> */}
                 {children}
               </div>

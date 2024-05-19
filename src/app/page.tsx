@@ -7,9 +7,9 @@ export default async function HomePage() {
   const session = await getCurrentUser();
 
   return (
-    <div className="w-full h-full flex flex-row space-x-4 md:space-x-6 justify-between">
+    <div className="w-full h-full flex flex-row">
       <div className="flex-1 flex justify-end">
-        <LeftSide session={session} />
+        {/* <LeftSide session={session} /> */}
       </div>
       <div className="flex-1 flex justify-center items-center">
         <Feed />
