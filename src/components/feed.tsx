@@ -15,31 +15,28 @@ function Feed() {
     isPending,
     error,
     data: posts,
+    isLoading,
   } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: [],
     queryFn: async () => {
       const res = await getPostForFeed(8, 0);
       return res;
     },
   });
 
-  if (isPending) return <Loader />;
-
-  if (error) return "An error has occurred: " + error.message;
-
-  if (!posts)
+  if (error)
     return (
-      <div className="flex-center w-full h-full ">
-        <Loader />
+      <div className="h-screen w-full max-w-md">
+        <h1>Something went wrong</h1>
       </div>
     );
 
   return (
-    <div className="flex flex-col gap-2 justify-center items-center">
-      <div className="w-full grid grid-cols-2 pb-10">
-        <div className="w-full h-24 flex justify-center items-center cursor-pointer ">
+    <div className="w-full h-full flex flex-col gap-2 justify-center items-center">
+      <div className="w-full grid grid-cols-2 border-b-[1px] border-neutral-700">
+        <div className="w-full h-24 flex justify-center items-center cursor-pointer">
           <button
-            className={`text-lg w-36 py-2 hover:w-full transition-width duration-100
+            className={`text-lg w-32 py-2 hover:w-40 transition-width duration-100
 						 ${
                FeedOrCoffeeList === "feed"
                  ? "border-orange-500 border-b-[1px]"
@@ -52,7 +49,7 @@ function Feed() {
         </div>
         <div className="w-full h-24 flex justify-center items-center cursor-pointer">
           <button
-            className={`text-lg w-36 py-2 hover:w-full transition-width duration-100
+            className={`text-lg w-32 py-2 hover:w-40 transition-width duration-100
 					${
             FeedOrCoffeeList === "coffees"
               ? "border-orange-500 border-b-[1px]"
@@ -64,24 +61,32 @@ function Feed() {
           </button>
         </div>
       </div>
-      {posts?.map((post) => (
-        <div key={post.id}>
-          <Card
-            author={post.author?.name}
-            avatar={post.author?.avatar}
-            id={post.id}
-            title={post.title}
-            brand={post.brand}
-            rate={post.rate}
-            session={null}
-            createdAt={post.createdAt}
-            tasting={post.tasting}
-            clickable={true}
-            imageUrl={post.imageUrl}
-            country={post?.country}
-          />
-        </div>
-      ))}
+      <div className="px-2 flex  flex-col space-y-2">
+        {isLoading ? (
+          <div className="h-screen">
+            <Loader />
+          </div>
+        ) : (
+          posts?.map((post) => (
+            <div key={post.id}>
+              <Card
+                author={post.author?.name}
+                avatar={post.author?.avatar}
+                id={post.id}
+                title={post.title}
+                brand={post.brand}
+                rate={post.rate}
+                session={null}
+                createdAt={post.createdAt}
+                tasting={post.tasting}
+                clickable={true}
+                imageUrl={post.imageUrl}
+                country={post?.country}
+              />
+            </div>
+          ))
+        )}
+      </div>
       <div className=" flex justify-center items-center">
         <LoadMore />
       </div>

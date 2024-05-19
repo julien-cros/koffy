@@ -23,8 +23,8 @@ const AuthProviders = ({ style }: props) => {
           : "rounded-full tracking-wide px-4 py-2 bg-orange-500 dark:text-black hover:scale-105 transition duration-105 ease-out active:scale-95 text-sm"
       }`}
     >
-      {style && <ArrowLeftOnRectangleIcon className="w-6 h-6" />}
-      <p className={`${style ? "hidden lg:block" : ""}`}>Sign In</p>
+      {style && <ArrowLeftOnRectangleIcon className="w-8 h-8" />}
+      <p className={`${style ? "hidden lg:block text-lg" : ""}`}>Sign In</p>
     </button>
   );
 };

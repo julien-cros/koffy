@@ -37,8 +37,8 @@ export default function LeftSide({ session }: { session: any }) {
             href="/"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
-            <HomeIcon className="w-6 h-6" />
-            <p className="hidden lg:block">Home</p>
+            <HomeIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Home</p>
           </Link>
           <button
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
@@ -48,39 +48,30 @@ export default function LeftSide({ session }: { session: any }) {
                 : () => alert("Please sign in to create a card")
             }
           >
-            <SquaresPlusIcon className="w-6 h-6" />
-            <p className="hidden lg:block">Create</p>
+            <SquaresPlusIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Create</p>
           </button>
           <Link
             href="/coffee-list"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
-            <ClipboardDocumentListIcon className="w-6 h-6" />
-            <p className="hidden lg:block">Coffee List</p>
+            <ClipboardDocumentListIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Coffee List</p>
           </Link>
           <Link
             href="/about"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
-            <ExclamationCircleIcon className="w-6 h-6 rotate-180" />
-            <p className="hidden lg:block">About</p>
+            <ExclamationCircleIcon className="w-8 h-8 rotate-180" />
+            <p className="hidden lg:block text-lg">About</p>
           </Link>
           <Link
             href="/saves"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
-            <BookmarkIcon className="w-6 h-6" />
-            <p className="hidden lg:block">Saves</p>
+            <BookmarkIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Saves</p>
           </Link>
-          {session?.user && (
-            <Link
-              href={`/profile/${session?.user?.name}`}
-              className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-            >
-              <UserIcon className="w-6 h-6" />
-              <p className="hidden lg:block">Profile</p>
-            </Link>
-          )}
           {session?.user ? (
             <SignOutButton
               name={session?.user?.name}
@@ -99,30 +90,30 @@ export default function LeftSide({ session }: { session: any }) {
             href="/settings"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
-            <Cog6ToothIcon className="w-6 h-6" />
-            <p className="hidden lg:block">settings</p>
+            <Cog6ToothIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Settings</p>
           </Link>
+          {session?.user && (
+            <Link
+              href={`/profile/${session?.user?.name}`}
+              className="lg:w-full w-14 flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
+            >
+              {session?.user.avatar ? (
+                <img
+                  src={session?.user.avatar}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full flex justify-end items-end"
+                />
+              ) : (
+                <UserIcon className="w-8 h-8" />
+              )}
+              <p className="hidden lg:block text-lg">Profile</p>
+            </Link>
+          )}
         </div>
       </div>
-      {session?.user && (
-        <div className="absolute left-16 lg:left-0 bottom-5">
-          <Link
-            href={`/profile/${session?.user?.userId}`}
-            className="flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
-          >
-            <img
-              src={session?.user.avatar || "/images/default-profile.svg"}
-              alt="avatar"
-              width={32}
-              height={32}
-              className="rounded-full flex justify-end items-end"
-            />
-            {session?.user.name}
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
-
-//TODO: put this in bottom of the left side
