@@ -34,8 +34,8 @@ function Feed() {
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center z-50">
-      <div className="w-full grid grid-cols-2 border-b-[1px] border-neutral-700 dark:border-neutral-400">
-        <div className="w-full h-24 flex justify-center items-center cursor-pointer">
+      <div className="w-full grid grid-cols-2 border-b-[1px] border-neutral-700 dark:border-neutral-400 h-24">
+        <div className="w-full h-full flex justify-center items-center cursor-pointer">
           <button
             className={`text-lg w-32 py-2 hover:w-40 transition-width duration-100
 						 ${
@@ -48,7 +48,7 @@ function Feed() {
             Feed
           </button>
         </div>
-        <div className="w-full h-24 flex justify-center items-center cursor-pointer">
+        <div className="w-full h-full flex justify-center items-center cursor-pointer">
           <button
             className={`text-lg w-32 py-2 hover:w-40 transition-width duration-100
 					${

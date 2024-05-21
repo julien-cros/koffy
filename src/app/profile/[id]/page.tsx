@@ -82,7 +82,7 @@ const profilePage = ({ params }: PageProps) => {
     enabled: !!profile?.user?.name,
   });
 
-  if (isLoadingSession || isLoadingProfile) {
+  if (isLoadingSession) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
         <Loader />
@@ -106,7 +106,7 @@ const profilePage = ({ params }: PageProps) => {
 
   const handleFollow = async () => {
     if (!session || !profile) {
-      router.push("/");
+      return;
     }
     if (session?.user?.name === profile?.user.name) {
       router.push("/profile/edit");
@@ -115,7 +115,7 @@ const profilePage = ({ params }: PageProps) => {
     const followData = await FollowAndUnfollow(
       profile?.user.id,
       session?.user.id,
-      isFollowing ? true : false,
+      isFollowing ? true : false
     );
     if (followData === "followed") {
       setIsFollowing(true);
@@ -127,12 +127,12 @@ const profilePage = ({ params }: PageProps) => {
   // TODO: find a way to rerender only follower/following counter
   return (
     <div className="relative w-full h-full flex flex-row">
-      <div className="w-full pt-10 space-y-10 flex flex-col">
-        <div className="flex justify-start	pl-2 item-center gap-2 cursor-pointer">
-          <ArrowLeftIcon className="h-8 w-8" onClick={() => router.back()} />
-          <p className="font-light text-xl ">Profile</p>
+      <div className="w-full flex flex-col ">
+        <div className="flex flex-row justify-start	pl-2 items-center gap-2 cursor-pointer h-24 border-b-[1px] border-y-black dark:border-neutral-400 ">
+          <ArrowLeftIcon className="h-6 w-6" onClick={() => router.back()} />
+          <p className="font-light text-xl">Profile</p>
         </div>
-        <div className="w-full max-w-5xl mx-auto  h-fit bg-white  dark:bg-neutral-900 border-[1px] border-y-black dark:border-neutral-400 p-4">
+        <div className="w-full max-w-5xl mx-auto  h-fit p-4  border-b-[1px] border-y-black dark:border-neutral-400 ">
           {isLoadingProfile ? (
             <Loader />
           ) : (
@@ -151,17 +151,15 @@ const profilePage = ({ params }: PageProps) => {
                   onClick={() => handleFollow()}
                 >
                   {isLoadingFollowingStatus ? (
-                    session?.user?.name !== profile?.user.name ? (
-                      isFollowing ? (
-                        "Following"
-                      ) : (
-                        "Follow"
-                      )
+                    <Loader />
+                  ) : session?.user?.name !== profile?.user.name ? (
+                    isFollowing ? (
+                      "Following"
                     ) : (
-                      "Edit Profile"
+                      "Follow"
                     )
                   ) : (
-                    <Loader />
+                    "Edit Profile"
                   )}
                 </button>
                 {profile?.location}
@@ -172,19 +170,21 @@ const profilePage = ({ params }: PageProps) => {
             bio: <br /> {profile?.bio}
           </div>
           <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400 flex justify-around">
-            {isLoadingFollowers && isLoadingFollowings && isLoadingPost ? (
-              <Loader />
-            ) : (
-              <>
-                <p> {numOfPosts} posts </p>
-                <p> {numOfFollowers} followers </p>
-                <p> {numOfFollowings} following </p>
-              </>
-            )}
+            <>
+              <p className="flex flex-row gap-2">
+                {isLoadingPost ? <Loader /> : numOfPosts} posts
+              </p>
+              <p className="flex flex-row gap-2">
+                {isLoadingFollowers ? <Loader /> : numOfFollowers} followers
+              </p>
+              <p className="flex flex-row gap-2">
+                {isLoadingFollowings ? <Loader /> : numOfFollowings} following
+              </p>
+            </>
           </div>
         </div>
         {/* TODO: query 8 by 8 while scrolling */}
-        <div className=" flex flex-col space-y-2 p-2 pb-10 justify-center w-full">
+        <div className=" flex flex-col space-y-2 p-2 pb-10 justify-center w-full pt-10">
           {isLoadingPost ? (
             <Loader />
           ) : (
