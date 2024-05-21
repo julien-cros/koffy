@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 type PageProps = {
   params: {
@@ -81,14 +82,7 @@ const profilePage = ({ params }: PageProps) => {
     enabled: !!profile?.user?.name,
   });
 
-  if (
-    isLoadingSession ||
-    isLoadingProfile ||
-    isLoadingFollowings ||
-    isLoadingFollowers ||
-    isLoadingFollowingStatus ||
-    isLoadingPost
-  ) {
+  if (isLoadingSession || isLoadingProfile) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
         <Loader />
@@ -96,13 +90,13 @@ const profilePage = ({ params }: PageProps) => {
     );
   }
 
-  if (!profile || !profile.user) {
-    return (
-      <div className="h-screen w-full flex items-center justify-center">
-        <h1 className="text-xl font-light">No user found</h1>
-      </div>
-    );
-  }
+  // if (!profile || !profile.user) {
+  //   return (
+  //     <div className="h-screen w-full flex items-center justify-center">
+  //       <h1 className="text-xl font-light">No user found</h1>
+  //     </div>
+  //   );
+  // }
 
   const numOfFollowers = queryFollowers ? queryFollowers : 0;
   const numOfFollowings = queryFollowings ? queryFollowings : 0;
@@ -119,7 +113,7 @@ const profilePage = ({ params }: PageProps) => {
     }
 
     const followData = await FollowAndUnfollow(
-      profile.user.id,
+      profile?.user.id,
       session?.user.id,
       isFollowing ? true : false,
     );
@@ -132,58 +126,87 @@ const profilePage = ({ params }: PageProps) => {
   };
   // TODO: find a way to rerender only follower/following counter
   return (
-    <div className="w-full p-5 pt-24 space-y-10 flex justify-center items-center flex-col">
-      <div className="w-full max-w-5xl mx-auto h-fit bg-white  dark:bg-neutral-900 rounded-lg border-[1px] border-black dark:border-neutral-400 p-4">
-        <div className="flex justify-between">
-          <div className="flex space-x-2 items-center">
-            <img
-              src={profile?.user.avatar || "/images/default-profile.svg"}
-              alt={profile?.user.name}
-              className="w-24 h-24 rounded-full"
-            />
-            <h1 className="text-xl font-light">{profile?.user.name}</h1>
+    <div className="relative w-full h-full flex flex-row">
+      <div className="w-full pt-10 space-y-10 flex flex-col">
+        <div className="flex justify-start	pl-2 item-center gap-2 cursor-pointer">
+          <ArrowLeftIcon className="h-8 w-8" onClick={() => router.back()} />
+          <p className="font-light text-xl ">Profile</p>
+        </div>
+        <div className="w-full max-w-5xl mx-auto  h-fit bg-white  dark:bg-neutral-900 border-[1px] border-y-black dark:border-neutral-400 p-4">
+          {isLoadingProfile ? (
+            <Loader />
+          ) : (
+            <div className="flex justify-between">
+              <div className="flex space-x-2 items-center">
+                <img
+                  src={profile?.user.avatar || "/images/default-profile.svg"}
+                  alt={profile?.user.name}
+                  className="w-24 h-24 rounded-full"
+                />
+                <h1 className="text-xl font-light">{profile?.user.name}</h1>
+              </div>
+              <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 flex flex-col justify-between items-end">
+                <button
+                  className="text-sm border-[1px] border-black dark:border-neutral-700 rounded-md py-1 px-2"
+                  onClick={() => handleFollow()}
+                >
+                  {isLoadingFollowingStatus ? (
+                    session?.user?.name !== profile?.user.name ? (
+                      isFollowing ? (
+                        "Following"
+                      ) : (
+                        "Follow"
+                      )
+                    ) : (
+                      "Edit Profile"
+                    )
+                  ) : (
+                    <Loader />
+                  )}
+                </button>
+                {profile?.location}
+              </div>
+            </div>
+          )}
+          <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400">
+            bio: <br /> {profile?.bio}
           </div>
-          <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 flex flex-col justify-between items-end">
-            <button
-              className="text-sm border-[1px] border-black dark:border-neutral-700 rounded-md py-1 px-2"
-              onClick={() => handleFollow()}
-            >
-              {session?.user?.name !== profile?.user.name
-                ? isFollowing
-                  ? "Following"
-                  : "Follow"
-                : "Edit Profile"}
-            </button>
-            {profile?.location}
+          <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400 flex justify-around">
+            {isLoadingFollowers && isLoadingFollowings && isLoadingPost ? (
+              <Loader />
+            ) : (
+              <>
+                <p> {numOfPosts} posts </p>
+                <p> {numOfFollowers} followers </p>
+                <p> {numOfFollowings} following </p>
+              </>
+            )}
           </div>
         </div>
-        <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400">
-          bio: <br /> {profile?.bio}
+        {/* TODO: query 8 by 8 while scrolling */}
+        <div className=" flex flex-col space-y-2 p-2 pb-10 justify-center w-full">
+          {isLoadingPost ? (
+            <Loader />
+          ) : (
+            post?.map((post) => (
+              <div className="" key={post.id}>
+                <Card
+                  id={post.id}
+                  clickable={true}
+                  author={post?.author?.name}
+                  title={post.title}
+                  brand={post.brand}
+                  country={post.country}
+                  tasting={post.tasting}
+                  rate={post.rate}
+                  createdAt={post.createdAt}
+                  imageUrl={post.imageUrl}
+                  avatar={post?.author?.avatar}
+                />
+              </div>
+            ))
+          )}
         </div>
-        <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400 flex justify-around">
-          <p> {numOfPosts} posts </p>
-          <p> {numOfFollowers} followers </p>
-          <p> {numOfFollowings} following </p>
-        </div>
-      </div>
-      {/* TODO: query 8 by 8 while scrolling */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-10">
-        {post?.map((post) => (
-          <div className="w-full" key={post.id}>
-            <Card
-              id={post.id}
-              author={post?.author?.name}
-              title={post.title}
-              brand={post.brand}
-              country={post.country}
-              tasting={post.tasting}
-              rate={post.rate}
-              createdAt={post.createdAt}
-              imageUrl={post.imageUrl}
-              avatar={post?.author?.avatar}
-            />
-          </div>
-        ))}
       </div>
     </div>
   );

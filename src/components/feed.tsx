@@ -12,7 +12,6 @@ function Feed() {
   const [FeedOrCoffeeList, setFeedOrCoffeeList] = useState("feed");
 
   const {
-    isPending,
     error,
     data: posts,
     isLoading,
@@ -34,8 +33,8 @@ function Feed() {
     );
 
   return (
-    <div className="w-full h-full flex flex-col gap-2 justify-center items-center">
-      <div className="w-full grid grid-cols-2 border-b-[1px] border-neutral-700">
+    <div className="w-full h-full flex flex-col justify-center items-center z-50">
+      <div className="w-full grid grid-cols-2 border-b-[1px] border-neutral-700 dark:border-neutral-400">
         <div className="w-full h-24 flex justify-center items-center cursor-pointer">
           <button
             className={`text-lg w-32 py-2 hover:w-40 transition-width duration-100
@@ -63,9 +62,9 @@ function Feed() {
           </button>
         </div>
       </div>
-      <div className=" flex  flex-col space-y-2">
+      <div className="flex flex-col p-2  space-y-2">
         {isLoading ? (
-          <div className="h-screen">
+          <div className="h-screen flex justify-center items-center">
             <Loader />
           </div>
         ) : (
