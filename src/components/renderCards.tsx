@@ -22,7 +22,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
   };
 
   return (
-    <div className="mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10 pb-10">
+    <div className="pt-10 flex flex-col justify-items-center p-4 md:p-2 space-y-4 md:space-y-2 pb-10">
       {post?.map((post) => (
         <div key={post.id} onClick={() => handleClick(post.id, State)}>
           <Card
@@ -42,7 +42,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
         </div>
       ))}
       {!post && (
-        <p className="flex justify-center items-center text-lg md:text-xl lg:text-2xl">
+        <p className="h-screen flex justify-center items-center text-lg md:text-xl lg:text-2xl">
           Nothing Found
         </p>
       )}

@@ -8,7 +8,7 @@ import ButtonPrivatePublic from "./buttonPrivatePublic";
 import BaseSearchBar from "./baseSearchBar";
 
 type Props = {
-  session: SessionInterface | null;
+  session: SessionInterface | undefined | null;
 };
 
 export function RightSide({ session }: Props) {
@@ -29,7 +29,7 @@ export function RightSide({ session }: Props) {
   }, [clicked]);
 
   return (
-    <div className=" fixed h-screen pt-24 hidden md:block px-5 border-l-[1px] border-neutral-700 dark:border-neutral-400">
+    <div className=" fixed h-screen pt-24 hidden lg:block px-5">
       <div className="w-full max-w-3xl mx-auto flex justify-center items-center border-[1px] border-black dark:border-neutral-400 rounded-lg p-3">
         <div className="w-full max-w-3xl mx-auto">
           <BaseSearchBar

@@ -4,7 +4,7 @@ import type { SessionInterface } from "@/app/types/types";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
-  session: SessionInterface | null;
+  session: SessionInterface | null | undefined;
   setSearch: (search: string) => void;
   setClicked: (clicked: boolean) => void;
 };

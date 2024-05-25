@@ -13,8 +13,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SignOutButton from "./signOutButton";
 import AuthProviders from "./authProviders";
+import { SessionInterface } from "@/app/types/types";
 
-export default function LeftSide({ session }: { session: any }) {
+export function LeftSide({
+  session,
+}: {
+  session: SessionInterface | null | undefined;
+}) {
   const router = useRouter();
 
   // reactive sideBar dependig of the page
@@ -30,7 +35,7 @@ export default function LeftSide({ session }: { session: any }) {
   // }, [pathname]);
 
   return (
-    <div className="hidden md:block h-screen fixed pt-10 md:pt-24 border-r-[1px] border-neutral-700 dark:border-neutral-400">
+    <div className="hidden md:block h-screen fixed pt-10 md:pt-24">
       {/* TODO: test some border to get greates style*/}
       <Link
         href="/"

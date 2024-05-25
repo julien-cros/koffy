@@ -1,5 +1,4 @@
 import "./globals.css";
-// import { NavBar } from "@/components/navBar";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
@@ -9,9 +8,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import QueryProviders from "@/components/tanstackProvider";
-import LeftSide from "@/components/leftSide";
-import { getCurrentUser } from "@/lib/actions";
-import { RightSide } from "@/components/rightSide";
+import React from "react";
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -63,8 +60,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getCurrentUser();
-
   return (
     <html lang="en">
       <head>
@@ -92,17 +87,7 @@ export default async function RootLayout({
                   <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
                 </div>
               </div>
-              <div className=" flex flex-row z-10">
-                <div className="flex flex-1 justify-end">
-                  <LeftSide session={session} />
-                </div>
-                <div className="flex justify-center w-full max-w-xl mx-auto">
-                  {children}
-                </div>
-                <div className="flex flex-1 justify-start">
-                  <RightSide session={session} />
-                </div>
-              </div>
+              <div className="z-10">{children}</div>
             </div>
             <SwitchDarkLightMode />
           </Providers>

@@ -56,7 +56,7 @@ const page = async ({ params }: PageProps) => {
 
   const isMine = user ? true : false;
   return (
-    <div className="pt-24">
+    <div className="w-full h-full">
       <ExpandedCard
         post={post}
         id={params.id}
