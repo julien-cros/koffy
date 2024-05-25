@@ -52,7 +52,7 @@ export default function Card({
 
   const handleDuplicate = async (
     id: string,
-    session?: SessionInterface | null,
+    session?: SessionInterface | null
   ) => {
     console.log("Duplicate button clicked");
     if (!session?.user.id) {
@@ -71,7 +71,7 @@ export default function Card({
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
   };

@@ -35,102 +35,141 @@ export function LeftSide({
   // }, [pathname]);
 
   return (
-    <div className="hidden md:block h-screen fixed pt-10 md:pt-24">
-      {/* TODO: test some border to get greates style*/}
-      <Link
-        href="/"
-        className="px-3 py-3 cursor-pointer transition duration-100 dark:hover:bg-neutral-800 hover:bg-neutral-200 w-14 rounded-lg mr-5 flex justify-center"
-      >
-        <img
-          src="/coffee.png"
-          alt="logo"
-          width={24}
-          height={24}
-          className="dark:invert"
-        />
-      </Link>
-      <div className="w-full flex flex-col items-end space-y-1 md:pr-5">
+    <>
+      <div className="hidden md:block h-screen fixed pt-10 md:pt-24">
+        {/* TODO: test some border to get greates style*/}
         <Link
           href="/"
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          className="px-3 py-3 cursor-pointer transition duration-100 dark:hover:bg-neutral-800 hover:bg-neutral-200 w-14 rounded-lg mr-5 flex justify-center"
         >
-          <HomeIcon className="w-8 h-8" />
-          <p className="hidden lg:block text-lg">Home</p>
+          <img
+            src="/coffee.png"
+            alt="logo"
+            width={24}
+            height={24}
+            className="dark:invert"
+          />
         </Link>
-        <button
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+        <div className="w-full flex flex-col items-end space-y-1 md:pr-5">
+          <Link
+            href="/"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <HomeIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Home</p>
+          </Link>
+          <button
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+            onClick={
+              session?.user
+                ? () => router.push("/create-card")
+                : () => alert("Please sign in to create a card")
+            }
+          >
+            <SquaresPlusIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Create</p>
+          </button>
+          <Link
+            href="/coffee-list"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <ClipboardDocumentListIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Coffee List</p>
+          </Link>
+          <Link
+            href="/about"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <ExclamationCircleIcon className="w-8 h-8 rotate-180" />
+            <p className="hidden lg:block text-lg">About</p>
+          </Link>
+          <Link
+            href="/saves"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <BookmarkIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Saves</p>
+          </Link>
+          {session?.user ? (
+            <SignOutButton
+              name={session?.user?.name}
+              style={
+                "lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+              }
+            />
+          ) : (
+            <AuthProviders
+              style={
+                "lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+              }
+            />
+          )}
+          <Link
+            href="/settings"
+            className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
+          >
+            <Cog6ToothIcon className="w-8 h-8" />
+            <p className="hidden lg:block text-lg">Settings</p>
+          </Link>
+          {session?.user && (
+            <Link
+              href={`/profile/${session?.user?.name}`}
+              className="lg:w-full w-14 flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
+            >
+              {session?.user.avatar ? (
+                <img
+                  src={session?.user.avatar}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full flex justify-end items-end"
+                />
+              ) : (
+                <UserIcon className="w-8 h-8" />
+              )}
+              <p className="hidden lg:block text-lg">Profile</p>
+            </Link>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom Bar*/}
+      <div className="md:hidden fixed  bottom-0  w-full h-16 flex justify-around items-center backdrop-blur-sm z-50">
+        <Link href={"/"}>
+          <HomeIcon className="w-7 h-7 cursor-pointer" />
+        </Link>
+        <Link href={"/coffee-list"}>
+          <ClipboardDocumentListIcon className="w-7 h-7 cursor-pointer" />
+        </Link>
+        <SquaresPlusIcon
+          className="w-7 h-7 cursor-pointer"
           onClick={
             session?.user
               ? () => router.push("/create-card")
               : () => alert("Please sign in to create a card")
           }
-        >
-          <SquaresPlusIcon className="w-8 h-8" />
-          <p className="hidden lg:block text-lg">Create</p>
-        </button>
-        <Link
-          href="/coffee-list"
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-        >
-          <ClipboardDocumentListIcon className="w-8 h-8" />
-          <p className="hidden lg:block text-lg">Coffee List</p>
-        </Link>
-        <Link
-          href="/about"
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-        >
-          <ExclamationCircleIcon className="w-8 h-8 rotate-180" />
-          <p className="hidden lg:block text-lg">About</p>
-        </Link>
-        <Link
-          href="/saves"
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-        >
-          <BookmarkIcon className="w-8 h-8" />
-          <p className="hidden lg:block text-lg">Saves</p>
+        />
+        <Link href={"/saves"}>
+          <BookmarkIcon className="w-7 h-7 cursor-pointer" />
         </Link>
         {session?.user ? (
-          <SignOutButton
-            name={session?.user?.name}
-            style={
-              "lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-            }
-          />
-        ) : (
-          <AuthProviders
-            style={
-              "lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-            }
-          />
-        )}
-        <Link
-          href="/settings"
-          className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
-        >
-          <Cog6ToothIcon className="w-8 h-8" />
-          <p className="hidden lg:block text-lg">Settings</p>
-        </Link>
-        {session?.user && (
           <Link
             href={`/profile/${session?.user?.name}`}
-            className="lg:w-full w-14 flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
+            className="flex flex-col items-center"
           >
-            {session?.user.avatar ? (
-              <img
-                src={session?.user.avatar}
-                alt="avatar"
-                width={32}
-                height={32}
-                className="rounded-full flex justify-end items-end"
-              />
-            ) : (
-              <UserIcon className="w-8 h-8" />
-            )}
-            <p className="hidden lg:block text-lg">Profile</p>
+            <img
+              src={session?.user.avatar}
+              alt="avatar"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
           </Link>
+        ) : (
+          <UserIcon className="w-7 h-7 cursor-pointer" />
         )}
       </div>
-    </div>
+    </>
   );
 }
 
