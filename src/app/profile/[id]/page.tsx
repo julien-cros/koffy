@@ -113,7 +113,7 @@ const profilePage = ({ params }: PageProps) => {
       return;
     }
     if (session?.user?.name === profile?.user.name) {
-      router.push("/profile/edit");
+      router.push("/editProfile");
     }
 
     const followData = await FollowAndUnfollow(

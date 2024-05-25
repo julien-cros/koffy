@@ -10,219 +10,229 @@ const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
 
 export async function getCurrentUser() {
-  const session = (await getServerSession(
-    authOptions as any,
-  )) as SessionInterface | null;
+	const session = (await getServerSession(
+		authOptions as any,
+	)) as SessionInterface | null;
 
-  return session;
+	return session;
+}
+
+export const getUserByName = async (name: string) => {
+	const post = await db.posts.findMany({
+		where: {
+			title: name,
+		},
+	});
+	return post;
 }
 
 export const createUser = async (
-  name: string,
-  email: string,
-  avatar: string,
+	name: string,
+	email: string,
+	avatar: string,
 ) => {
-  await db.user.create({
-    data: {
-      name,
-      email,
-      avatar,
-    },
-  });
+	const user = await db.user.create({
+		data: {
+			name,
+			email,
+			avatar,
+		},
+	});
+	return user;
 };
 
 export const getUser = async (email: string) => {
-  const user = await db.user.findUnique({
-    where: {
-      email,
-    },
-  });
-  return user;
+	const user = await db.user.findUnique({
+		where: {
+			email,
+		},
+	});
+	return user;
 };
 
 export const fetchToken = async () => {
-  try {
-    const response = await fetch(`${serverUrl}/api/auth/token`);
-    return response.json();
-  } catch (err) {
-    throw err;
-  }
+	try {
+		const response = await fetch(`${serverUrl}/api/auth/token`);
+		return response.json();
+	} catch (err) {
+		throw err;
+	}
 };
 
 export const getPostFromId = async (id: string | null) => {
-  if (!id) return null;
-  const post = await db.posts.findUnique({
-    include: {
-      author: {
-        select: {
-          name: true,
-          avatar: true,
-        },
-      },
-    },
-    where: {
-      id,
-    },
-  });
-  return post;
+	if (!id) return null;
+	const post = await db.posts.findUnique({
+		include: {
+			author: {
+				select: {
+					name: true,
+					avatar: true,
+				},
+			},
+		},
+		where: {
+			id,
+		},
+	});
+	return post;
 };
 
 export const getUserPosts = async (authorId: string | undefined) => {
-  if (!authorId) return null;
-  try {
-    const posts = await db.posts.findMany({
-      include: {
-        author: {
-          select: {
-            name: true,
-            avatar: true,
-          },
-        },
-      },
-      where: {
-        authorId,
-      },
-    });
-    if (posts.length > 0) return posts;
-    else return null;
-  } catch (err) {
-    throw err;
-  }
+	if (!authorId) return null;
+	try {
+		const posts = await db.posts.findMany({
+			include: {
+				author: {
+					select: {
+						name: true,
+						avatar: true,
+					},
+				},
+			},
+			where: {
+				authorId,
+			},
+		});
+		if (posts.length > 0) return posts;
+		else return null;
+	} catch (err) {
+		throw err;
+	}
 };
 
 export default async function findPosts(
-  key: string,
-  value: string | number,
-  authorId: string,
+	key: string,
+	value: string | number,
+	authorId: string,
 ) {
-  const posts = await db.posts.findMany({
-    where: {
-      [key]: {
-        contains: value,
-        mode: "insensitive",
-      },
-      authorId: authorId,
-    },
-  });
-  console.log("the post is equal to:", posts);
-  if (posts.length > 0) {
-    console.log(
-      "Post already exists while searching by " + key + " and " + value,
-    );
-    return posts;
-  } else return null;
+	const posts = await db.posts.findMany({
+		where: {
+			[key]: {
+				contains: value,
+				mode: "insensitive",
+			},
+			authorId: authorId,
+		},
+	});
+	console.log("the post is equal to:", posts);
+	if (posts.length > 0) {
+		console.log(
+			"Post already exists while searching by " + key + " and " + value,
+		);
+		return posts;
+	} else return null;
 }
 
 export async function getUserFromId(id: string) {
-  const user = await getCurrentUser();
-  if (!user?.user.id) return null;
-  const response = checkUserByPost(id, user.user.id);
-  if (response) return response;
-  else return null;
+	const user = await getCurrentUser();
+	if (!user?.user.id) return null;
+	const response = checkUserByPost(id, user.user.id);
+	if (response) return response;
+	else return null;
 }
 
 export async function DuplicatePost(id: string, user: SessionInterface) {
-  if (!user?.user.id) {
-    console.log("No user found");
-    return null;
-  }
-  const post = await getPostFromId(id);
-  if (!post) return null;
+	if (!user?.user.id) {
+		console.log("No user found");
+		return null;
+	}
+	const post = await getPostFromId(id);
+	if (!post) return null;
 
-  if (post.authorId === user.user.id) {
-    console.log("User is the author");
-    return null;
-  } else if (
-    (await findPosts("title", post.title, user.user.id)) === null &&
-    (await findPosts("brand", post.brand, user.user.id)) === null
-  ) {
-    await db.posts.create({
-      data: {
-        title: post.title,
-        brand: post.brand,
-        variety: post.variety,
-        tasting: post?.tasting,
-        rate: post.rate,
-        note: post?.note,
-        price: post.price,
-        status: post.status,
-        imageUrl: post?.imageUrl,
-        imageKey: post?.imageKey,
-        country: post?.country,
-        domain: post?.domain,
-        altitude: post?.altitude,
-        process: post?.process,
-        type: post?.type,
-        author: {
-          connect: {
-            id: user.user.id,
-          },
-        },
-      },
-    });
-    return post;
-  } else return null;
+	if (post.authorId === user.user.id) {
+		console.log("User is the author");
+		return null;
+	} else if (
+		(await findPosts("title", post.title, user.user.id)) === null &&
+		(await findPosts("brand", post.brand, user.user.id)) === null
+	) {
+		await db.posts.create({
+			data: {
+				title: post.title,
+				brand: post.brand,
+				variety: post.variety,
+				tasting: post?.tasting,
+				rate: post.rate,
+				note: post?.note,
+				price: post.price,
+				status: post.status,
+				imageUrl: post?.imageUrl,
+				imageKey: post?.imageKey,
+				country: post?.country,
+				domain: post?.domain,
+				altitude: post?.altitude,
+				process: post?.process,
+				type: post?.type,
+				author: {
+					connect: {
+						id: user.user.id,
+					},
+				},
+			},
+		});
+		return post;
+	} else return null;
 }
 
 export async function getImageAndName(posts: any) {
-  const creator = await db.user.findMany({
-    where: {
-      id: {
-        in: posts.map((post: any) => post.authorId),
-      },
-    },
-  });
-  return creator;
+	const creator = await db.user.findMany({
+		where: {
+			id: {
+				in: posts.map((post: any) => post.authorId),
+			},
+		},
+	});
+	return creator;
 }
 
 //ici
 export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
-  return db.posts.findMany({
-    skip: PostOffset,
-    take: NumbOfPosts,
-    include: {
-      author: {
-        select: {
-          name: true,
-          avatar: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    where: {
-      status: true,
-    },
-  });
+	return db.posts.findMany({
+		skip: PostOffset,
+		take: NumbOfPosts,
+		include: {
+			author: {
+				select: {
+					name: true,
+					avatar: true,
+				},
+			},
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+		where: {
+			status: true,
+		},
+	});
 }
 
 export async function getCreator(id: string) {
-  const creator = await db.user.findUnique({
-    where: {
-      id,
-    },
-  });
-  return creator;
+	const creator = await db.user.findUnique({
+		where: {
+			id,
+		},
+	});
+	return creator;
 }
 
 export async function getProfile(user: string) {
-  return await db.profile.findFirst({
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true,
-        },
-      },
-    },
-    where: {
-      user: {
-        name: decodeURI(user),
-      },
-    },
-  });
+	return await db.profile.findFirst({
+		include: {
+			user: {
+				select: {
+					id: true,
+					name: true,
+					avatar: true,
+				},
+			},
+		},
+		where: {
+			user: {
+				name: decodeURI(user),
+			},
+		},
+	});
 }
 
 // export const getWishlist = async (authorId: string) => {
