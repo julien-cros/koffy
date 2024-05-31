@@ -20,7 +20,7 @@ export async function createProfile(bio: string | null, location: string | null,
 export async function updateProfile(bio: string | null, location: string | null, userId: string) {
 	await db.profile.update({
 		where: {
-			userId,
+			id: userId,
 		},
 		data: {
 			bio,

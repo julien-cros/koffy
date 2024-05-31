@@ -8,10 +8,11 @@ import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { generateUploadButton } from "@uploadthing/react";
 import { deleteImage } from "@/app/create-card/actions";
 import FormInput from "./formInput";
-import { getUserByName } from "@/lib/actions";
+import { deleteUser, getUserByName } from "@/lib/actions";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import Loader from "./loader";
+import { Session } from "inspector";
 
 type Props = {
   profile: ProfileInterface;
@@ -76,8 +77,11 @@ export function EditProfileForm({ profile }: Props) {
     } else if (submitType === ModalAction.DELETE) {
       if (confirm("Are you sure you want to delete your account?")) {
         // delete
-        // await deleteProfile(data);
-        // redirect(`/`);
+        await deleteUser(profile.user.id);
+        router.push("/");
+      } else {
+        setSubmitting(false);
+        return;
       }
     }
     setSubmitting(false);
@@ -253,7 +257,7 @@ export function EditProfileForm({ profile }: Props) {
           </button>
         </div>
         <div
-          className="absolute bottom-10 left-5 border-[1px] border-black dark:border-white px-3 py-2 rounded-lg flex justify-end items-end w-fit"
+          className="absolute bottom-10 left-5 border-[1px] border-black dark:border-white px-3 py-2 rounded-lg flex justify-end items-end w-fit cursor-pointer"
           onClick={() => {
             setSubmitType(ModalAction.DELETE);
             handleFormSubmit(ModalAction.DELETE);

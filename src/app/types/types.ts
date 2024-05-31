@@ -68,5 +68,4 @@ export type ProfileInterface =
 		id: string;
 		bio: string | null;
 		location: string | null;
-		userId: string;
 	});

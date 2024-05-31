@@ -15,8 +15,8 @@ model User {
 	id				String  @id @default(cuid())
 	email			String  @unique
 	avatar		String?
+	avatarKey	String?
 	name			String @unique
-	userId		String? @unique
  	followers Follows[] @relation("follower")
   following Follows[] @relation("following")
 	posts			Posts[]
@@ -48,16 +48,16 @@ model Posts {
 	updatedAt				DateTime @updatedAt
 	comments				Comment[]
 	duplicatedPosts	DupPost[]
-	author					User?	@relation(fields: [authorId], references: [id])
+	author					User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId				String?
 
 	@@index([authorId])
 }
 
 model Follows{
-	follower		User	@relation("follower", fields: [followerId], references: [id])
+	follower		User	@relation("follower", fields: [followerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	followerId	String
-	following		User	@relation("following", fields: [followingId], references: [id])
+	following		User	@relation("following", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	followingId	String
 
 	@@id([followerId, followingId])
@@ -67,7 +67,7 @@ model Profile {
 	id				String	@id @default(cuid())
 	bio				String?
 	location	String?
-	user			User	@relation(fields: [userId], references: [id])
+	user			User	@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	userId		String	@unique
 }
 
@@ -79,8 +79,8 @@ model DupPost {
 	note			String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
-	author		User?	@relation(fields: [authorId], references: [id])
-	post			Posts?	@relation(fields: [postId], references: [id])
+	author		User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	post			Posts?	@relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId	String?
 }
 
@@ -90,8 +90,8 @@ model Comment {
 	postId		String?
 	createdAt	DateTime @default(now())
 	updatedAt	DateTime @updatedAt
-	post			Posts?	@relation(fields: [postId], references: [id])
-	author		User?	@relation(fields: [authorId], references: [id])
+	post			Posts?	@relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	author		User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId	String?
 }
 
@@ -101,6 +101,6 @@ model Wishlist {
 	brand			String?
 	price			String?
 	url				String?
-	author		User?	@relation(fields: [authorId], references: [id])
+	author		User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId	String?
 }

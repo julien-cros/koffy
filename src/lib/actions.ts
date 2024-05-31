@@ -237,21 +237,12 @@ export async function getProfile(user: string) {
 }
 
 export async function deleteUser(id: string) {
-	await db.profile.delete({
-		where: {
-			userId: id,
-		},
-	});
-	await db.posts.deleteMany({
-		where: {
-			authorId: id,
-		},
-	});
 	await db.user.delete({
 		where: {
-			id,
+			id
 		},
 	});
+
 }
 
 // export const getWishlist = async (authorId: string) => {
