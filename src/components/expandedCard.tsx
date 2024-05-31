@@ -68,8 +68,8 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       <div className="flex flex-1 justify-end">
         <LeftSide session={session} />
       </div>
-      <div className="flex justify-center w-full max-w-xl mx-auto">
-        <div className="w-full h-screen flex flex-col border-x-[1px] border-neutral-700 dark:border-neutral-400 space-y-10">
+      <div className="flex justify-center w-full md:max-w-xl mx-auto">
+        <div className="w-full h-screen flex flex-col border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400 space-y-10">
           <div className="h-24 w-full border-b-[1px] border-neutral-700 dark:border-neutral-400">
             <div className="md:hidden flex justify-between items-center w-full p-2">
               {session?.user.id ? (
@@ -83,8 +83,12 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
               ) : (
                 <div className="h-6 w-6"></div>
               )}
-              <img src="/coffee.png" alt="logoFeed" className="h-6 w-6" />
-              <Cog6ToothIcon className="h-6 w-6" />
+              <Link href={"/"}>
+                <img src="/coffee.png" alt="logoFeed" className="h-6 w-6" />
+              </Link>
+              <Link href={"/settings"}>
+                <Cog6ToothIcon className="h-6 w-6" />
+              </Link>
             </div>
             <div className="w-full h-full flex flex-row justify-between items-center px-2 pb-10 md:pb-0 ">
               <div className=" flex flex-row items-center gap-2">
