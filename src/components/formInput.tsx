@@ -35,7 +35,7 @@ const FormInput = ({
       {textArea ? (
         <textarea
           defaultValue={text && displayDefaultValue ? text : ""}
-          className="relative w-full cursor-default  rounded-lg lg:rounded-xl outline-none ring-0 border-[1px] border-black dark:border-neutral-400
+          className="relative w-full min-h-fit h-24 cursor-default  rounded-lg lg:rounded-xl outline-none ring-0 border-[1px] border-black dark:border-neutral-400
 						bg-transparent dark:text-white text-left focus:outline-none text-sm pl-2 pt-1 md:pt-4"
           placeholder={placeholder}
           onChange={(e) => setState(e.target.value)}

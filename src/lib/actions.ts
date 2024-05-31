@@ -18,9 +18,9 @@ export async function getCurrentUser() {
 }
 
 export const getUserByName = async (name: string) => {
-	const post = await db.posts.findMany({
+	const post = await db.user.findMany({
 		where: {
-			title: name,
+			name,
 		},
 	});
 	return post;
@@ -224,6 +224,7 @@ export async function getProfile(user: string) {
 					id: true,
 					name: true,
 					avatar: true,
+					avatarKey: true,
 				},
 			},
 		},
@@ -231,6 +232,24 @@ export async function getProfile(user: string) {
 			user: {
 				name: decodeURI(user),
 			},
+		},
+	});
+}
+
+export async function deleteUser(id: string) {
+	await db.profile.delete({
+		where: {
+			userId: id,
+		},
+	});
+	await db.posts.deleteMany({
+		where: {
+			authorId: id,
+		},
+	});
+	await db.user.delete({
+		where: {
+			id,
 		},
 	});
 }

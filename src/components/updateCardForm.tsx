@@ -61,7 +61,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
 
   const handleFormChange = (
     key: keyof FormState,
-    value: string | number | boolean,
+    value: string | number | boolean
   ) => {
     form[key] = value as never;
 
@@ -123,7 +123,7 @@ const UpdateCardForm = ({ post, postId }: Props) => {
           className="w-6 h-6 cursor-pointer absolute top-10 right-10"
           onClick={() => handleCancel()}
         />
-        <h3 className="flex justify-center  text-2xl md:text-3xl text-black dark:text-white font-light text-left max-w-5xl w-full">
+        <h3 className="flex justify-center text-2xl md:text-3xl text-black dark:text-white font-light text-left max-w-5xl w-full">
           Update your coffee post
         </h3>
         <div className="p-10 justify-between items-center flex flex-col gap-5 ">

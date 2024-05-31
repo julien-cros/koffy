@@ -32,7 +32,7 @@ const GetStarted = () => {
         </p>
         <AdjustmentsHorizontalIcon className="h-10 w-10 hover:scale-105 transition duration-150 flex justify-end active:scale-95 ease-out" />
       </div>
-      <div className="mt-20 px-10 gap-10 flex justify-center">
+      <div className="mt-20 px-10 gap-10 flex justify-center w-full max-w-lg mx-auto">
         <Card
           title="Coffe Name"
           brand="Coffe Brand"

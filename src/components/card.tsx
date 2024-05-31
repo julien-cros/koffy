@@ -78,7 +78,7 @@ export default function Card({
 
   return (
     <div
-      className="bg-gradient-to-br from-neutral-200 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full"
+      className="bg-gradient-to-br from-neutral-200 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full min-w-fit"
       key={id}
       onClick={() => redirectToCard()}
     >

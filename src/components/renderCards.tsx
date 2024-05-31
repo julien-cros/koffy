@@ -27,6 +27,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
         <div key={post.id} onClick={() => handleClick(post.id, State)}>
           <Card
             key={post.id}
+            author={post?.author?.name}
             title={post.title}
             brand={post.brand}
             tasting={post?.tasting}
