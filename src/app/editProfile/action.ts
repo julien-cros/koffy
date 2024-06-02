@@ -18,7 +18,7 @@ export async function createProfile(bio: string | null, location: string | null,
 
 
 export async function updateProfile(bio: string | null, location: string | null, userId: string) {
-	await db.profile.update({
+	return await db.profile.update({
 		where: {
 			id: userId,
 		},
@@ -26,5 +26,26 @@ export async function updateProfile(bio: string | null, location: string | null,
 			bio,
 			location,
 		},
+	});
+}
+
+export async function updateUser(userId: string, name: string | null, avatar: string | null, avatarKey: string | null) {
+	const data: { name?: string, avatar?: string | null, avatarKey?: string | null } = {};
+
+	if (name !== null && name !== "") {
+		data.name = name;
+	}
+	if (avatar !== null && avatar !== "") {
+		data.avatar = avatar;
+	}
+	if (avatarKey !== null && avatarKey !== "") {
+		data.avatarKey = avatarKey;
+	}
+
+	await db.user.update({
+		where: {
+			id: userId,
+		},
+		data: data,
 	});
 }

@@ -3,7 +3,7 @@
 import type { SessionInterface } from "@/app/types/types";
 import { authOptions } from "@/lib/session";
 import { db } from "./db";
-import { checkUserByPost } from "@/app/create-card/actions";
+import { checkUserByPost, deleteImage } from "@/app/create-card/actions";
 import { getServerSession } from "next-auth";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -236,10 +236,18 @@ export async function getProfile(user: string) {
 	});
 }
 
-export async function deleteUser(id: string) {
+type userInterface = {
+	id: string;
+	name: string;
+	avatar: string | null;
+	avatarKey: string | null;
+};
+
+export async function deleteUser(user: userInterface) {
+	await deleteImage(user.avatarKey);
 	await db.user.delete({
 		where: {
-			id
+			id: user.id,
 		},
 	});
 

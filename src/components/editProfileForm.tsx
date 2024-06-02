@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import Loader from "./loader";
 import { Session } from "inspector";
+import { updateProfile, updateUser } from "@/app/editProfile/action";
 
 type Props = {
   profile: ProfileInterface;
@@ -28,10 +29,12 @@ export const UploadButton = generateUploadButton<OurFileRouter>();
 export function EditProfileForm({ profile }: Props) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
-  const [nameBuffer, setNameBuffer] = useState(profile.user.name);
+  const [nameBuffer, setNameBuffer] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [submitType, setSubmitType] = useState(ModalAction.UPDATE);
-  const [imageUrlBuffer, setImageUrlBuffer] = useState(profile.user?.avatar);
+  const [imageUrlBuffer, setImageUrlBuffer] = useState(
+    profile.user?.avatar || ""
+  );
   const [imageKeyBuffer, setImageKeyBuffer] = useState(
     profile.user?.avatarKey || ""
   );
@@ -72,12 +75,27 @@ export function EditProfileForm({ profile }: Props) {
     setSubmitting(true);
     if (submitType === ModalAction.UPDATE) {
       // update
-      // await updateProfile(data);
-      // redirect(`/profile/${form.name}`);
+      if (!isValidName) {
+        alert("Please enter a valid name");
+        setSubmitting(false);
+        return;
+      }
+      await updateUser(
+        profile.user.id,
+        nameBuffer,
+        imageUrlBuffer,
+        imageKeyBuffer
+      );
+      await updateProfile(form.bio, form.location, profile.id).then(() => {
+        if (nameBuffer) {
+          router.push(`/profile/${nameBuffer}`);
+        } else {
+          router.push(`/profile/${profile.user.name}`);
+        }
+      });
     } else if (submitType === ModalAction.DELETE) {
       if (confirm("Are you sure you want to delete your account?")) {
-        // delete
-        await deleteUser(profile.user.id);
+        await deleteUser(profile.user);
         router.push("/");
       } else {
         setSubmitting(false);
@@ -97,34 +115,33 @@ export function EditProfileForm({ profile }: Props) {
       deleteImage(imageKeyBuffer);
     }
     setImageKeyBuffer(imageKey);
-    handleFormChange("imageUrl", imageUrl);
     setImageUrlBuffer(imageUrl);
   };
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (debouncedSearchName) {
-        setIsSearchingName(true);
-        if (
-          (searchName.length <= 1 && searchName) ||
-          (!searchName.match(/^[0-9a-z]+$/i) && searchName)
-        ) {
-          setIsValidName(false);
-          setIsSearchingName(false);
-          return;
-        }
-        const res = await getUserByName(debouncedSearchName);
-        if (res.length > 0) {
-          setIsValidName(false);
-        } else {
-          setIsValidName(true);
-        }
+      setIsSearchingName(true);
+      if (
+        (searchName.length <= 1 && searchName) ||
+        (!searchName.match(/^[0-9a-z]+$/i) && searchName)
+      ) {
+        setIsValidName(false);
+        setNameBuffer("");
+        setIsSearchingName(false);
+        return;
+      }
+      const res = await getUserByName(debouncedSearchName);
+      if (res.length > 0) {
+        setNameBuffer("");
+        setIsValidName(false);
+      } else {
+        setNameBuffer(debouncedSearchName);
+        setIsValidName(true);
       }
       setIsSearchingName(false);
     };
-
     fetchUser();
-  });
+  }, [debouncedSearchName]);
   return (
     <form
       action={() => handleFormSubmit(submitType)}
@@ -149,7 +166,7 @@ export function EditProfileForm({ profile }: Props) {
                   <img
                     src={imageUrlBuffer}
                     alt="image"
-                    className="h-24 lg:h-32 w-fit rounded-full"
+                    className="h-24 lg:h-32 w-fit max-w-xs rounded-full"
                   />
                   <div className="w-full border-b-[1px] border-black dark:border-neutral-400 pb-2" />
                   <UploadButton
@@ -167,7 +184,7 @@ export function EditProfileForm({ profile }: Props) {
                     onClick={() => {
                       UpdateImage("", imageKeyBuffer);
                       handleFormChange("imageUrl", "");
-                      setImageUrlBuffer(""); // just to display th image and remove the image from the page not from the post
+                      setImageUrlBuffer("");
                     }}
                   />
                 </div>
