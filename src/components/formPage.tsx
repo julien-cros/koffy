@@ -99,7 +99,6 @@ export default function FormPage({ type, session }: Props) {
       return;
     } else if (submitType === "delete") {
       if (imageKeyBuffer) {
-        console.log("delete");
         await deleteImage(imageKeyBuffer);
         setImageKeyBuffer("");
         handleFormChange("imageKey", "");

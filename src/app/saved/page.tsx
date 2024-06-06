@@ -6,9 +6,6 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "@/lib/actions";
 import Loader from "@/components/loader";
-import Link from "next/link";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
-import PushBackButton from "@/components/pushBackButton";
 import { DefaultHeader } from "@/components/defaultHeader";
 
 export default function page() {
@@ -38,8 +35,8 @@ export default function page() {
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full flex flex-col border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-            <DefaultHeader session={session} title="Save" />
-            <div className="w-full h-full flex justify-center items-center">
+            <DefaultHeader session={session} title="Saved" />
+            <div className="w-full flex justify-center items-center">
               <p>Comming soon</p>
             </div>
           </div>

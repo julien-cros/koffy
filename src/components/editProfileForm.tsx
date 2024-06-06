@@ -2,27 +2,19 @@
 
 import { ProfileInterface } from "@/app/types/types";
 import { CheckIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { generateUploadButton } from "@uploadthing/react";
 import { deleteImage } from "@/app/create-card/actions";
 import FormInput from "./formInput";
-import { deleteUser, getUserByName } from "@/lib/actions";
-import { useQuery } from "@tanstack/react-query";
+import { getUserByName } from "@/lib/actions";
 import { useDebounce } from "@uidotdev/usehooks";
-import Loader from "./loader";
-import { Session } from "inspector";
 import { updateProfile, updateUser } from "@/app/editProfile/action";
 
 type Props = {
   profile: ProfileInterface;
 };
-
-enum ModalAction {
-  UPDATE = "update",
-  DELETE = "delete",
-}
 
 export const UploadButton = generateUploadButton<OurFileRouter>();
 
@@ -31,10 +23,10 @@ export function EditProfileForm({ profile }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [nameBuffer, setNameBuffer] = useState("");
   const [isValidName, setIsValidName] = useState(true);
-  const [submitType, setSubmitType] = useState(ModalAction.UPDATE);
   const [imageUrlBuffer, setImageUrlBuffer] = useState(
     profile.user?.avatar || ""
   );
+  //rm user?.avatarKey i think bcs it deletes the image
   const [imageKeyBuffer, setImageKeyBuffer] = useState(
     profile.user?.avatarKey || ""
   );
@@ -46,8 +38,6 @@ export function EditProfileForm({ profile }: Props) {
     location: profile?.location || "",
   });
 
-  // debounce
-  const [isSearchingName, setIsSearchingName] = useState(false);
   const [searchName, setSearchName] = useState("");
   const debouncedSearchName = useDebounce(searchName, 300);
 
@@ -57,10 +47,9 @@ export function EditProfileForm({ profile }: Props) {
 
   const handleFormChange = (key: string, value: string) => {
     setForm({ ...form, [key]: value });
-    console.log("value", value);
   };
 
-  const handleFormSubmit = async (submitType: string) => {
+  const handleFormSubmit = async () => {
     if (!isValidName) {
       alert("Please enter a valid name");
       return;
@@ -73,35 +62,24 @@ export function EditProfileForm({ profile }: Props) {
       handleFormChange("name", debouncedSearchName);
     }
     setSubmitting(true);
-    if (submitType === ModalAction.UPDATE) {
-      // update
-      if (!isValidName) {
-        alert("Please enter a valid name");
-        setSubmitting(false);
-        return;
-      }
-      await updateUser(
-        profile.user.id,
-        nameBuffer,
-        imageUrlBuffer,
-        imageKeyBuffer
-      );
-      await updateProfile(form.bio, form.location, profile.id).then(() => {
-        if (nameBuffer) {
-          router.push(`/profile/${nameBuffer}`);
-        } else {
-          router.push(`/profile/${profile.user.name}`);
-        }
-      });
-    } else if (submitType === ModalAction.DELETE) {
-      if (confirm("Are you sure you want to delete your account?")) {
-        await deleteUser(profile.user);
-        router.push("/");
-      } else {
-        setSubmitting(false);
-        return;
-      }
+    if (!isValidName) {
+      alert("Please enter a valid name");
+      setSubmitting(false);
+      return;
     }
+    await updateUser(
+      profile.user.id,
+      nameBuffer,
+      imageUrlBuffer,
+      imageKeyBuffer
+    );
+    await updateProfile(form.bio, form.location, profile.id).then(() => {
+      if (nameBuffer) {
+        router.push(`/profile/${nameBuffer}`);
+      } else {
+        router.push(`/profile/${profile.user.name}`);
+      }
+    });
     setSubmitting(false);
   };
 
@@ -120,33 +98,31 @@ export function EditProfileForm({ profile }: Props) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      setIsSearchingName(true);
       if (
         (searchName.length <= 1 && searchName) ||
-        (!searchName.match(/^[0-9a-z]+$/i) && searchName)
+        (!searchName.match(/^[0-9a-z]+$/i) && searchName) ||
+        searchName.length > 20
       ) {
         setIsValidName(false);
         setNameBuffer("");
-        setIsSearchingName(false);
         return;
       }
       const res = await getUserByName(debouncedSearchName);
       if (res.length > 0) {
-        setNameBuffer("");
         setIsValidName(false);
+        setNameBuffer("");
       } else {
-        setNameBuffer(debouncedSearchName);
         setIsValidName(true);
+        setNameBuffer(debouncedSearchName);
       }
-      setIsSearchingName(false);
     };
     fetchUser();
   }, [debouncedSearchName]);
   return (
     <form
-      action={() => handleFormSubmit(submitType)}
+      action={() => handleFormSubmit()}
       onSubmit={() => {
-        handleFormSubmit(submitType);
+        handleFormSubmit();
       }}
     >
       <div className="h-full w-full pt-24 p-10">
@@ -160,7 +136,6 @@ export function EditProfileForm({ profile }: Props) {
         <div className="w-full h-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 pb-32 md:pb-20 gap-5">
           <div className="flex justify-center">
             <div className="w-full max-h-80 max-w-sm px-5 flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
-              {/* if there is an image to show, show the image */}
               {imageUrlBuffer ? (
                 <div className="flex flex-col items-center justify-center">
                   <img
@@ -242,7 +217,7 @@ export function EditProfileForm({ profile }: Props) {
               maxLength={30}
               isRequierd={false}
               displayDefaultValue={true}
-              setState={() => handleFormChange("location", form.location)}
+              setState={(value) => handleFormChange("location", value)}
             />
             <FormInput
               type="text"
@@ -253,7 +228,7 @@ export function EditProfileForm({ profile }: Props) {
               maxLength={150}
               isRequierd={false}
               displayDefaultValue={true}
-              setState={() => handleFormChange("bio", form.bio)}
+              setState={(value) => handleFormChange("bio", value)}
             />
           </div>
         </div>
@@ -268,19 +243,10 @@ export function EditProfileForm({ profile }: Props) {
             type="submit"
             className="px-5 md:px-10 lg:px-24 py-2 md:py-3 lg:py-4 bg-orange-500 text-black text-sm md:text-base lg:text-lg rounded-full"
             disabled={submitting || false}
-            onClick={() => handleFormSubmit(ModalAction.UPDATE)}
+            onClick={() => handleFormSubmit()}
           >
             {submitting ? "Submitting..." : "Submit"}
           </button>
-        </div>
-        <div
-          className="absolute bottom-10 left-5 border-[1px] border-black dark:border-white px-3 py-2 rounded-lg flex justify-end items-end w-fit cursor-pointer"
-          onClick={() => {
-            setSubmitType(ModalAction.DELETE);
-            handleFormSubmit(ModalAction.DELETE);
-          }}
-        >
-          <p className="text-sm md:text-base">Delete account</p>
         </div>
       </div>
     </form>

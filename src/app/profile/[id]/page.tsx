@@ -13,11 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import PushBackButton from "@/components/pushBackButton";
 import { RightSide } from "@/components/rightSide";
 import { LeftSide } from "@/components/leftSide";
-import Link from "next/link";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { DefaultHeader } from "@/components/defaultHeader";
 
 type PageProps = {
@@ -176,8 +173,9 @@ const profilePage = ({ params }: PageProps) => {
                   </div>
                 </div>
               )}
-              <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400">
-                bio: <br /> {profile?.bio}
+              <div className="text-lg break-all font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400">
+                <p>bio:</p>
+                <p className="pl-5">{profile?.bio}</p>
               </div>
               <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400 flex justify-around">
                 <>

@@ -3,12 +3,9 @@
 import React from "react";
 import Card from "./card";
 import type { PostInterface } from "@/app/types/types";
-import Link from "next/link";
-import PushBackButton from "./pushBackButton";
 import type { SessionInterface } from "@/app/types/types";
 import { LeftSide } from "./leftSide";
 import { RightSide } from "./rightSide";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { DefaultHeader } from "./defaultHeader";
 
 type Props = {

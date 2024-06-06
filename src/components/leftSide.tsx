@@ -38,19 +38,20 @@ export function LeftSide({
     <>
       <div className="hidden md:block h-screen fixed pt-10 md:pt-24">
         {/* TODO: test some border to get greates style*/}
-        <Link
-          href="/"
-          className="px-3 py-3 cursor-pointer transition duration-100 dark:hover:bg-neutral-800 hover:bg-neutral-200 w-14 rounded-lg mr-5 flex justify-center"
-        >
-          <img
-            src="/coffee.png"
-            alt="logo"
-            width={24}
-            height={24}
-            className="dark:invert"
-          />
-        </Link>
-        <div className="w-full flex flex-col items-end space-y-1 md:pr-5">
+
+        <div className="w-56 flex flex-col items-end lg:items-start  space-y-1 md:pr-5">
+          <Link
+            href="/"
+            className="px-3 py-3 cursor-pointer transition duration-100 dark:hover:bg-neutral-800 hover:bg-neutral-200 w-14 rounded-lg flex justify-center"
+          >
+            <img
+              src="/coffee.png"
+              alt="logo"
+              width={24}
+              height={24}
+              className="dark:invert"
+            />
+          </Link>
           <Link
             href="/"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
@@ -84,11 +85,11 @@ export function LeftSide({
             <p className="hidden lg:block text-lg">About</p>
           </Link>
           <Link
-            href="/saves"
+            href="/saved"
             className="lg:w-full w-14 cursor-pointer transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3 flex flex-row items-center gap-2 lg:justify-start justify-center"
           >
             <BookmarkIcon className="w-8 h-8" />
-            <p className="hidden lg:block text-lg">Saves</p>
+            <p className="hidden lg:block text-lg">Saved</p>
           </Link>
           {session?.user ? (
             <SignOutButton
@@ -166,7 +167,7 @@ export function LeftSide({
             />
           </Link>
         ) : (
-          <UserIcon className="w-7 h-7 cursor-pointer" />
+          <AuthProviders style="w-7 h-7 cursor-pointer" />
         )}
       </div>
     </>

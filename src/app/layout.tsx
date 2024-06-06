@@ -3,7 +3,6 @@ import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Providers } from "@/components/providers";
-import SwitchDarkLightMode from "@/components/switchDarkLightMode";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
@@ -89,7 +88,6 @@ export default async function RootLayout({
               </div>
               <div className="z-10">{children}</div>
             </div>
-            <SwitchDarkLightMode />
           </Providers>
         </QueryProviders>
       </body>
