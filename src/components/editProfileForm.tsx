@@ -24,11 +24,11 @@ export function EditProfileForm({ profile }: Props) {
   const [nameBuffer, setNameBuffer] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [imageUrlBuffer, setImageUrlBuffer] = useState(
-    profile.user?.avatar || ""
+    profile.user?.avatar || "",
   );
   //rm user?.avatarKey i think bcs it deletes the image
   const [imageKeyBuffer, setImageKeyBuffer] = useState(
-    profile.user?.avatarKey || ""
+    profile.user?.avatarKey || "",
   );
   const [form, setForm] = useState({
     name: profile.user.name,
@@ -71,7 +71,7 @@ export function EditProfileForm({ profile }: Props) {
       profile.user.id,
       nameBuffer,
       imageUrlBuffer,
-      imageKeyBuffer
+      imageKeyBuffer,
     );
     await updateProfile(form.bio, form.location, profile.id).then(() => {
       if (nameBuffer) {
@@ -107,7 +107,7 @@ export function EditProfileForm({ profile }: Props) {
         setNameBuffer("");
         return;
       }
-      const res = await getUserByName(debouncedSearchName);
+      const res = await getUserByName(debouncedSearchName, true);
       if (res.length > 0) {
         setIsValidName(false);
         setNameBuffer("");

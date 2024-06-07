@@ -10,6 +10,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const category = [
   { name: "all" },
+  { name: "user" },
   { name: "brand" },
   { name: "title" },
   { name: "variety" },

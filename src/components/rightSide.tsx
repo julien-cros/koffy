@@ -20,10 +20,15 @@ export function RightSide({ session }: Props) {
 
   useEffect(() => {
     if (clicked) {
-      router.push(
-        `/search-page/${category}-${search}-${isPublic ? "public" : "private"}`,
-      );
-      setClicked(false);
+      if (category === "user") {
+        router.push(`/search-page/${category}-${search}`);
+      } else {
+        router.push(
+          `/search-page/${category}-${search}-${
+            isPublic ? "public" : "private"
+          }`,
+        );
+      }
       setClicked(false);
     }
   }, [clicked]);

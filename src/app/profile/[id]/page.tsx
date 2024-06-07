@@ -118,7 +118,7 @@ const profilePage = ({ params }: PageProps) => {
     const followData = await FollowAndUnfollow(
       profile?.user.id,
       session?.user.id,
-      isFollowing ? true : false
+      isFollowing ? true : false,
     );
     if (followData === "followed") {
       setIsFollowing(true);

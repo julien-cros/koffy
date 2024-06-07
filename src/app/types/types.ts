@@ -20,6 +20,14 @@ export type FormState = {
   type: string | null;
 };
 
+export type UserInterface = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string | null;
+  avatarKey: string | null;
+};
+
 export interface SessionInterface extends Session {
   user: User & {
     id: number;

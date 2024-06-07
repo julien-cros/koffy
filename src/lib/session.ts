@@ -80,7 +80,10 @@ export const authOptions: NextAuthOptions = {
         const userExists = await getUser(user?.email as string);
 
         if (!userExists) {
-          const nameAlreadyExist = await getUserByName(user.name as string);
+          const nameAlreadyExist = await getUserByName(
+            user.name as string,
+            true,
+          );
           if (nameAlreadyExist) {
             if (user.name && user.name?.length > 14)
               user.name = user.name?.substring(0, 14);
