@@ -10,7 +10,6 @@ import {
 import type { SessionInterface } from "@/app/types/types";
 import type { PostInterface } from "@/app/types/types";
 import copy from "clipboard-copy";
-import { DuplicatePost } from "@/lib/actions";
 import ExpandCardInput from "./expandCardInput";
 import { RightSide } from "./rightSide";
 import { LeftSide } from "./leftSide";
@@ -35,27 +34,11 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
     () => copyClipboard(id);
     setTimeout(() => {}, 1000);
-  };
-
-  const handleDuplicate = async (
-    id: string,
-    session?: SessionInterface | null,
-  ) => {
-    console.log("Duplicate button clicked");
-    if (!session?.user.id) {
-      return;
-    }
-    const res = await DuplicatePost(id, session);
-    if (res) {
-      alert("Post duplicated successfully");
-    } else {
-      alert("Post duplication failed");
-    }
   };
 
   return (
@@ -130,9 +113,9 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                     </p>
                   </div>
                   <div className="border-t-[1px] border-black dark:border-white mt-4 pt-4 absolutw w-12/12 flex justify-between">
-                    <div className="">
-                      {/* duplicate to post to account */}
-                      {!isMine && session?.user.id && (
+                    {/* <div className=""> */}
+                    {/* duplicate to post to account */}
+                    {/* {!isMine && session?.user.id && (
                         <button
                           onClick={() => {
                             handleDuplicate(id, session);
@@ -141,7 +124,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                           <PlusCircleIcon className="h-6 w-6  dark:text-white hover:scale-105" />
                         </button>
                       )}
-                    </div>
+                    </div> */}
 
                     {/* copy link of post */}
                     <div className=" dark:text-white hover:scale-105 ">

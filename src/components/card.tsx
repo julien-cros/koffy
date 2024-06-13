@@ -4,13 +4,15 @@ import HearthRate from "./hearthRate";
 import { useRouter } from "next/navigation";
 import {
   ArrowUpOnSquareIcon,
+  BookmarkIcon,
   CheckIcon,
-  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import type { SessionInterface } from "@/app/types/types";
-import { DuplicatePost } from "@/lib/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import copy from "clipboard-copy";
+import { getSaved, savePost } from "@/app/saved/savedAction";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "./loader";
 
 export type CardProps = {
   title: string;
@@ -42,7 +44,25 @@ export default function Card({
   avatar,
 }: CardProps) {
   const router = useRouter();
+
   const [clicked, setClicked] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const { data: dataSaved, isLoading: isLoadingSaved } = useQuery({
+    queryKey: ["saved", id],
+    queryFn: async () => {
+      const res = await getSaved(id, session?.user.id);
+      return res;
+    },
+  });
+
+  useEffect(() => {
+    if (dataSaved) {
+      setSaved(true);
+    } else {
+      setSaved(false);
+    }
+  }, [dataSaved]);
 
   const redirectToCard = () => {
     if (clickable) {
@@ -50,19 +70,11 @@ export default function Card({
     }
   };
 
-  const handleDuplicate = async (
-    id: string,
-    session?: SessionInterface | null,
-  ) => {
-    console.log("Duplicate button clicked");
-    if (!session?.user.id) {
-      return;
-    }
-    const res = await DuplicatePost(id, session);
-    if (res) {
-      alert("Post duplicated successfully");
-    } else {
-      alert("Post duplication failed");
+  const handleSavePost = async () => {
+    if (session) {
+      console.log("handleSavePost");
+      const res = await savePost(id, session.user.id);
+      setSaved(res);
     }
   };
 
@@ -71,7 +83,7 @@ export default function Card({
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
   };
@@ -123,12 +135,18 @@ export default function Card({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleDuplicate(id, session);
+                handleSavePost();
               }}
             >
-              {session?.user.id ? (
-                <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
-              ) : null}
+              {isLoadingSaved ? (
+                <Loader />
+              ) : (
+                <BookmarkIcon
+                  className={`h-6 w-6 ${
+                    saved ? "text-orange-500 fill-orange-500" : ""
+                  }`}
+                />
+              )}
             </button>
           </div>
 

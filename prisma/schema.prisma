@@ -21,7 +21,7 @@ model User {
   following Follows[] @relation("following")
 	posts			Posts[]
 	profile		Profile?
-	dupicatedPosts	DupPost[]
+	saved			Saved[]
 	comments	Comment[]
 	wishlist	Wishlist[]
 }
@@ -47,11 +47,17 @@ model Posts {
 	createdAt				DateTime @default(now())
 	updatedAt				DateTime @updatedAt
 	comments				Comment[]
-	duplicatedPosts	DupPost[]
 	author					User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId				String?
 
 	@@index([authorId])
+}
+
+model Saved {
+	id				String	@id @default(cuid())
+	postId		String
+	user		User?	@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	userId	String?
 }
 
 model Follows{
@@ -69,19 +75,6 @@ model Profile {
 	location	String?
 	user			User	@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	userId		String	@unique
-}
-
-model DupPost {
-	id				String	@id @default(cuid())
-	postId		String
-	rate			Int?
-	tasting		String?
-	note			String?
-	createdAt	DateTime @default(now())
-	updatedAt	DateTime @updatedAt
-	author		User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-	post			Posts?	@relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-	authorId	String?
 }
 
 model Comment {

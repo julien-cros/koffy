@@ -3,13 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getPostForFeed } from "@/lib/actions";
-import { PostInterface } from "@/app/types/types";
+import { PostInterface, SessionInterface } from "@/app/types/types";
 import Loader from "./loader";
 import Card from "./card";
 
 let increment = 1;
 
-export default function LoadMore() {
+export default function LoadMore({
+  session,
+}: {
+  session: SessionInterface | null;
+}) {
   const { ref, inView } = useInView();
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -47,7 +51,7 @@ export default function LoadMore() {
             title={post.title}
             brand={post.brand}
             rate={post.rate}
-            session={null}
+            session={session}
             createdAt={post.createdAt}
             tasting={post.tasting}
             clickable={true}

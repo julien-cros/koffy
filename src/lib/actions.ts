@@ -142,48 +142,6 @@ export async function getUserFromId(id: string) {
 	else return null;
 }
 
-export async function DuplicatePost(id: string, user: SessionInterface) {
-	if (!user?.user.id) {
-		console.log("No user found");
-		return null;
-	}
-	const post = await getPostFromId(id);
-	if (!post) return null;
-
-	if (post.authorId === user.user.id) {
-		console.log("User is the author");
-		return null;
-	} else if (
-		(await findPosts("title", post.title, user.user.id)) === null &&
-		(await findPosts("brand", post.brand, user.user.id)) === null
-	) {
-		await db.posts.create({
-			data: {
-				title: post.title,
-				brand: post.brand,
-				variety: post.variety,
-				tasting: post?.tasting,
-				rate: post.rate,
-				note: post?.note,
-				price: post.price,
-				status: post.status,
-				imageUrl: post?.imageUrl,
-				imageKey: post?.imageKey,
-				country: post?.country,
-				domain: post?.domain,
-				altitude: post?.altitude,
-				process: post?.process,
-				type: post?.type,
-				author: {
-					connect: {
-						id: user.user.id,
-					},
-				},
-			},
-		});
-		return post;
-	} else return null;
-}
 
 export async function getImageAndName(posts: any) {
 	const creator = await db.user.findMany({

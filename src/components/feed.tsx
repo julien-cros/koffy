@@ -108,7 +108,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
                     title={post.title}
                     brand={post.brand}
                     rate={post.rate}
-                    session={null}
+                    session={session}
                     createdAt={post.createdAt}
                     tasting={post.tasting}
                     clickable={true}
@@ -120,7 +120,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
             )}
           </div>
           <div className=" flex justify-center items-center">
-            <LoadMore />
+            <LoadMore session={session} />
           </div>
         </div>
       </div>
