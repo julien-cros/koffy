@@ -3,7 +3,7 @@
 import { db } from "@/lib/db";
 
 export async function savePost(id: string, userId: string) {
-	const alereadySaved = await getSaved(id, userId);
+	const alereadySaved = await getSavedPost(id, userId);
 
 	if (alereadySaved) {
 		await db.saved.delete({
@@ -23,12 +23,40 @@ export async function savePost(id: string, userId: string) {
 	}
 }
 
-export async function getSaved(postId: string, userId: string | null | undefined) {
-	const saved = await db.saved.findFirst({
+export async function getSavedPost(postId: string, userId: string | null | undefined) {
+	return await db.saved.findFirst({
 		where: {
 			userId,
 			postId,
 		},
 	});
-	return saved;
+}
+
+
+export async function getSavedPostPacked(userId: string | null | undefined, NumbOfPosts: number, PostOffset: number) {
+	if (!userId) return [];
+	return await db.saved.findMany({
+		take: NumbOfPosts,
+		skip: PostOffset,
+		where: {
+			userId,
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+		include: {
+			post: {
+				include: {
+					author: {
+						select: {
+							name: true,
+							avatar: true,
+						},
+					},
+				},
+			}
+
+		},
+	});
+
 }

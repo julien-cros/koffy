@@ -10,7 +10,7 @@ import {
 import type { SessionInterface } from "@/app/types/types";
 import { useEffect, useState } from "react";
 import copy from "clipboard-copy";
-import { getSaved, savePost } from "@/app/saved/savedAction";
+import { getSavedPost, savePost } from "@/app/saved/savedAction";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./loader";
 
@@ -51,7 +51,7 @@ export default function Card({
   const { data: dataSaved, isLoading: isLoadingSaved } = useQuery({
     queryKey: ["saved", id],
     queryFn: async () => {
-      const res = await getSaved(id, session?.user.id);
+      const res = await getSavedPost(id, session?.user.id);
       return res;
     },
   });
@@ -72,7 +72,6 @@ export default function Card({
 
   const handleSavePost = async () => {
     if (session) {
-      console.log("handleSavePost");
       const res = await savePost(id, session.user.id);
       setSaved(res);
     }

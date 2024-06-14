@@ -47,6 +47,7 @@ model Posts {
 	createdAt				DateTime @default(now())
 	updatedAt				DateTime @updatedAt
 	comments				Comment[]
+	savedBy					Saved[]
 	author					User?	@relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 	authorId				String?
 
@@ -56,8 +57,10 @@ model Posts {
 model Saved {
 	id				String	@id @default(cuid())
 	postId		String
-	user		User?	@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-	userId	String?
+	post			Posts	@relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	user			User?	@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	createdAt	DateTime @default(now())
+	userId		String?
 }
 
 model Follows{
