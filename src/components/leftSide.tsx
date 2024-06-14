@@ -36,7 +36,7 @@ export function LeftSide({
 
   return (
     <>
-      <div className="hidden md:block h-screen fixed pt-10 md:pt-24">
+      <div className="hidden md:block h-screen fixed pt-14">
         {/* TODO: test some border to get greates style*/}
 
         <div className="w-56 flex flex-col items-end lg:items-start  space-y-1 md:pr-5">
@@ -150,7 +150,7 @@ export function LeftSide({
               : () => alert("Please sign in to create a card")
           }
         />
-        <Link href={"/saves"}>
+        <Link href={"/saved"}>
           <BookmarkIcon className="w-7 h-7 cursor-pointer" />
         </Link>
         {session?.user ? (

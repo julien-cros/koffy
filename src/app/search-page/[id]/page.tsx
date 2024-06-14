@@ -32,7 +32,7 @@ const SearchPage = async ({ params }: PageProps) => {
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-            <DefaultHeader session={session} title="Results" />
+            <DefaultHeader title="Results" />
             {(key === "user" || key === "all") && value && users.length > 0 ? (
               <DisplayUsers users={users} />
             ) : null}

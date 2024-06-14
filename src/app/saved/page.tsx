@@ -45,7 +45,7 @@ export default function page() {
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full flex flex-col border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-            <DefaultHeader session={session} title="Saved" />
+            <DefaultHeader title="Saved" />
             {saved?.length === 0 || !saved ? (
               <div className="flex justify-center items-center pt-10">
                 {session?.user ? (

@@ -22,7 +22,7 @@ const CoffeeListComponent = ({ posts, session }: Props) => {
       </div>
       <div className="flex w-full md:max-w-xl mx-auto min-h-screen">
         <div className="flex flex-col w-full border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-          <DefaultHeader session={session} title="My Coffee List" />
+          <DefaultHeader title="My Coffee List" />
           <div className="flex flex-col p-4 md:p-2 space-y-4 md:space-y-2">
             {posts?.map((post) => (
               <div key={post.id}>

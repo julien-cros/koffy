@@ -48,7 +48,7 @@ export default function page() {
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full flex flex-col border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-            <DefaultHeader session={session} title="Settings" />
+            <DefaultHeader title="Settings" />
             <div className="flex flex-col pl-10 gap-2 pt-10">
               <div className="">
                 <p className="font-light">Theme:</p>

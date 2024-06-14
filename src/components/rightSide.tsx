@@ -26,7 +26,7 @@ export function RightSide({ session }: Props) {
         router.push(
           `/search-page/${category}-${search}-${
             isPublic ? "public" : "private"
-          }`,
+          }`
         );
       }
       setClicked(false);
@@ -34,7 +34,7 @@ export function RightSide({ session }: Props) {
   }, [clicked]);
 
   return (
-    <div className=" fixed h-screen pt-24 hidden lg:block px-5">
+    <div className=" fixed h-screen pt-14 hidden lg:block px-5">
       <div className="w-full max-w-3xl mx-auto flex justify-center items-center border-[1px] border-black dark:border-neutral-400 rounded-lg p-3">
         <div className="w-full max-w-3xl mx-auto">
           <BaseSearchBar

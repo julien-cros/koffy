@@ -75,7 +75,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full min-h-screen flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-            <DefaultHeader session={session} title="Details" />
+            <DefaultHeader title="Details" />
             {/* card */}
             <div className="flex justify-center items-center pt-2">
               <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full max-w-5xl mx-2  h-full">
