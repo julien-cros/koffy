@@ -9,7 +9,7 @@ import Card from "./card";
 
 let increment = 1;
 
-export default function LoadMore({
+export default function LoadMoreFeed({
   session,
 }: {
   session: SessionInterface | null;
@@ -28,8 +28,9 @@ export default function LoadMore({
           setTimeout(() => {
             setHasNextPage(false);
           }, 1000);
+        } else {
+          increment++;
         }
-        increment++;
       } catch (error) {
         console.error("Error fetching posts:", error);
       }

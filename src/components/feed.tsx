@@ -3,7 +3,7 @@
 import { getPostForFeed } from "@/lib/actions";
 import React from "react";
 import Card from "./card";
-import LoadMore from "./loadMore";
+import LoadMoreFeed from "./loadMoreFeed";
 import Loader from "./loader";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -120,7 +120,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
             )}
           </div>
           <div className=" flex justify-center items-center">
-            <LoadMore session={session} />
+            <LoadMoreFeed session={session} />
           </div>
         </div>
       </div>

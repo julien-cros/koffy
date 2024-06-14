@@ -92,6 +92,9 @@ export const getUserPosts = async (authorId: string | undefined) => {
 	if (!authorId) return null;
 	try {
 		const posts = await db.posts.findMany({
+			orderBy: {
+				createdAt: "desc",
+			},
 			include: {
 				author: {
 					select: {

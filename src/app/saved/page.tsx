@@ -9,6 +9,7 @@ import Loader from "@/components/loader";
 import { DefaultHeader } from "@/components/defaultHeader";
 import { getSavedPostPacked } from "./savedAction";
 import Card from "@/components/card";
+import LoadMoreSaved from "@/components/loadMoreSaved";
 
 export default function page() {
   const { data: session } = useQuery({
@@ -75,6 +76,7 @@ export default function page() {
                     avatar={mapped.post.author?.avatar}
                   />
                 ))}
+                {session?.user.id && <LoadMoreSaved session={session} />}
               </div>
             )}
           </div>
