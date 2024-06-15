@@ -24,6 +24,7 @@ export async function savePost(id: string, userId: string) {
 }
 
 export async function getSavedPost(postId: string, userId: string | null | undefined) {
+	if (!userId || postId) return null;
 	return await db.saved.findFirst({
 		where: {
 			userId,
