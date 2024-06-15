@@ -1,6 +1,9 @@
 "use client";
 
 import {
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
+  Bars3Icon,
   BookmarkIcon,
   ClipboardDocumentListIcon,
   Cog6ToothIcon,
@@ -14,6 +17,97 @@ import { useRouter } from "next/navigation";
 import SignOutButton from "./signOutButton";
 import AuthProviders from "./authProviders";
 import { SessionInterface } from "@/app/types/types";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
+import { signIn, signOut } from "next-auth/react";
+
+export default function PlusButton({
+  session,
+}: {
+  session: SessionInterface | null | undefined;
+}) {
+  return (
+    <div className="">
+      <Menu>
+        <MenuButton className="inline-flex items-center py-3 ">
+          <Bars3Icon className="w-7" />
+        </MenuButton>
+        <Transition
+          enter="transition ease-out duration-75"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <MenuItems
+            anchor="top end"
+            className="w-44 z-50 origin-bottom-right rounded-xl border border-white/5 bg-white/5 p-1 backdrop-blur-sm text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none outline-none"
+            onScroll={(e) => e.stopPropagation()}
+          >
+            <MenuItem>
+              <Link
+                href="/about"
+                className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+              >
+                <ExclamationCircleIcon className=" w-5 rotate-180" />
+                About
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              {session?.user ? (
+                <button
+                  className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+                  onClick={() => signOut()}
+                >
+                  <ArrowRightOnRectangleIcon className="w-5" />
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+                  onClick={() => signIn()}
+                >
+                  <ArrowLeftOnRectangleIcon className="w-5" />
+                  Sign In
+                </button>
+              )}
+            </MenuItem>
+            <MenuItem>
+              <Link
+                href="/settings"
+                className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+              >
+                <Cog6ToothIcon className="w-5" />
+                Settings
+              </Link>
+            </MenuItem>
+            {session?.user && (
+              <MenuItem>
+                <Link
+                  className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+                  href={`/profile/${session.user.name}`}
+                >
+                  <img
+                    src={session.user.avatar || "/images/default-profile.svg"}
+                    alt="profile-image"
+                    className="w-5 h-5 rounded-full"
+                  />
+                  Profile
+                </Link>
+              </MenuItem>
+            )}
+          </MenuItems>
+        </Transition>
+      </Menu>
+    </div>
+  );
+}
 
 export function LeftSide({
   session,
@@ -135,7 +229,7 @@ export function LeftSide({
       </div>
 
       {/* Bottom Bar*/}
-      <div className="md:hidden fixed  bottom-0  w-full h-16 flex justify-around items-center backdrop-blur-sm z-50">
+      <div className="md:hidden bottom-0 fixed w-full h-16 flex justify-around items-center backdrop-blur-sm z-50">
         <Link href={"/"}>
           <HomeIcon className="w-7 h-7 cursor-pointer" />
         </Link>
@@ -153,22 +247,9 @@ export function LeftSide({
         <Link href={"/saved"}>
           <BookmarkIcon className="w-7 h-7 cursor-pointer" />
         </Link>
-        {session?.user ? (
-          <Link
-            href={`/profile/${session?.user?.name}`}
-            className="flex flex-col items-center"
-          >
-            <img
-              src={session?.user.avatar}
-              alt="avatar"
-              width={32}
-              height={32}
-              className="rounded-full"
-            />
-          </Link>
-        ) : (
-          <AuthProviders style="w-7 h-7 cursor-pointer" />
-        )}
+        <div className="">
+          <PlusButton session={session} />
+        </div>
       </div>
     </>
   );
