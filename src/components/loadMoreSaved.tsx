@@ -2,13 +2,10 @@
 
 import { getSavedPostPacked } from "@/app/saved/savedAction";
 import { SavedInterface, SessionInterface } from "@/app/types/types";
-import React, { use, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Card from "./card";
 import Loader from "./loader";
-
-// refresh the page rest the increment or keep prevposts
-let increment = 1;
 
 export default function LoadMoreSaved({
   session,
@@ -17,30 +14,30 @@ export default function LoadMoreSaved({
 }) {
   const { ref, inView } = useInView();
   const [prevPosts, setPrevPosts] = useState<SavedInterface[]>([]);
+  const [offset, setOffset] = useState(8);
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (inView) {
       setHasNextPage(true);
       try {
-        const res = await getSavedPostPacked(session.user.id, 8, 8 * increment);
+        const res = await getSavedPostPacked(session.user.id, 8, offset);
         setPrevPosts((prevPosts) => [...prevPosts, ...res]);
         if (res.length === 0) {
           setTimeout(() => {
             setHasNextPage(false);
           }, 1000);
         } else {
-          increment++;
+          setOffset((p) => p + 8);
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     }
-  };
+  }, [inView, offset, session?.user?.id]);
 
   useEffect(() => {
     fetchData();
-    console.log(increment);
   }, [inView]);
 
   return (
@@ -60,6 +57,7 @@ export default function LoadMoreSaved({
             clickable={true}
             imageUrl={saved.post?.imageUrl}
             country={saved.post?.country}
+            isSaved={true}
           />
         </div>
       ))}

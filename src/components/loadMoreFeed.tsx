@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { getPostForFeed } from "@/lib/actions";
 import { PostInterface, SessionInterface } from "@/app/types/types";
 import Loader from "./loader";
 import Card from "./card";
-
-let increment = 1;
 
 export default function LoadMoreFeed({
   session,
@@ -15,27 +13,28 @@ export default function LoadMoreFeed({
   session: SessionInterface | null;
 }) {
   const { ref, inView } = useInView();
+  const [offset, setOffset] = useState(8);
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (inView) {
       setHasNextPage(true);
       try {
-        const res = await getPostForFeed(8 * increment, 8 * increment);
+        const res = await getPostForFeed(8, offset, session?.user?.id);
         setPosts((prevPosts) => [...prevPosts, ...res]);
         if (res.length === 0) {
           setTimeout(() => {
             setHasNextPage(false);
           }, 1000);
         } else {
-          increment++;
+          setOffset((p) => p + 8);
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     }
-  };
+  }, [inView, offset, session?.user?.id]);
 
   useEffect(() => {
     fetchData();
