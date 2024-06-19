@@ -9,9 +9,10 @@ import BaseSearchBar from "./baseSearchBar";
 
 type Props = {
   session: SessionInterface | undefined | null;
+  isSearchPage?: boolean;
 };
 
-export function RightSide({ session }: Props) {
+export function RightSide({ session, isSearchPage }: Props) {
   const router = useRouter();
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
@@ -34,7 +35,11 @@ export function RightSide({ session }: Props) {
   }, [clicked]);
 
   return (
-    <div className=" fixed h-screen pt-14 hidden lg:block px-5">
+    <div
+      className={`${
+        isSearchPage ? "" : "hidden lg:block fixed h-screen pt-28 px-5 "
+      }`}
+    >
       <div className="w-full max-w-3xl mx-auto flex justify-center items-center border-[1px] border-black dark:border-neutral-400 rounded-lg p-3">
         <div className="w-full max-w-3xl mx-auto">
           <BaseSearchBar

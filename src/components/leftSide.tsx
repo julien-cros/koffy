@@ -9,6 +9,7 @@ import {
   Cog6ToothIcon,
   ExclamationCircleIcon,
   HomeIcon,
+  MagnifyingGlassIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { SquaresPlusIcon } from "@heroicons/react/24/solid";
@@ -25,6 +26,8 @@ import {
   Transition,
 } from "@headlessui/react";
 import { signIn, signOut } from "next-auth/react";
+import { useState } from "react";
+import SearchPageMobile from "./searchPageMobile";
 
 export default function PlusButton({
   session,
@@ -34,7 +37,7 @@ export default function PlusButton({
   return (
     <div className="">
       <Menu>
-        <MenuButton className="inline-flex items-center py-3 ">
+        <MenuButton className="inline-flex py-3">
           <Bars3Icon className="w-7" />
         </MenuButton>
         <Transition
@@ -47,7 +50,7 @@ export default function PlusButton({
         >
           <MenuItems
             anchor="top end"
-            className="w-44 z-50 origin-bottom-right rounded-xl border border-white/5 bg-white/5 p-1 backdrop-blur-sm text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none outline-none"
+            className="w-44 z-50 origin-bottom-right rounded-lg border border-black dark:border-white  bg-white/50 dark:bg-black/50 p-1 backdrop-blur-sm text-sm/6 text-black dark:text-white [--anchor-gap:var(--spacing-1)] focus:outline-none outline-none"
             onScroll={(e) => e.stopPropagation()}
           >
             <MenuItem>
@@ -77,6 +80,15 @@ export default function PlusButton({
                   Sign In
                 </button>
               )}
+            </MenuItem>
+            <MenuItem>
+              <Link
+                href="/saved"
+                className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
+              >
+                <BookmarkIcon className="w-5" />
+                Saved
+              </Link>
             </MenuItem>
             <MenuItem>
               <Link
@@ -115,6 +127,7 @@ export function LeftSide({
   session: SessionInterface | null | undefined;
 }) {
   const router = useRouter();
+  const [searchPageOpen, setSearchPageOpen] = useState(false);
 
   // reactive sideBar dependig of the page
   // const pathname = usePathname();
@@ -130,7 +143,7 @@ export function LeftSide({
 
   return (
     <>
-      <div className="hidden md:block h-screen fixed pt-14">
+      <div className="hidden md:block h-screen fixed pt-16">
         {/* TODO: test some border to get greates style*/}
 
         <div className="w-56 flex flex-col items-end lg:items-start  space-y-1 md:pr-5">
@@ -141,8 +154,8 @@ export function LeftSide({
             <img
               src="/coffee.png"
               alt="logo"
-              width={24}
-              height={24}
+              width={32}
+              height={32}
               className="dark:invert"
             />
           </Link>
@@ -229,7 +242,7 @@ export function LeftSide({
       </div>
 
       {/* Bottom Bar*/}
-      <div className="md:hidden bottom-0 fixed w-full h-16 flex justify-around items-center backdrop-blur-sm z-50">
+      <div className="md:hidden bottom-0 fixed w-full h-16 flex justify-around items-center bg-white/50 dark:bg-black/50 backdrop-blur-sm z-50">
         <Link href={"/"}>
           <HomeIcon className="w-7 h-7 cursor-pointer" />
         </Link>
@@ -244,13 +257,17 @@ export function LeftSide({
               : () => alert("Please sign in to create a card")
           }
         />
-        <Link href={"/saved"}>
-          <BookmarkIcon className="w-7 h-7 cursor-pointer" />
-        </Link>
-        <div className="">
-          <PlusButton session={session} />
-        </div>
+        <button onClick={() => setSearchPageOpen(true)}>
+          <MagnifyingGlassIcon className="w-7 h-7 cursor-pointer" />
+        </button>
+        <PlusButton session={session} />
       </div>
+      {searchPageOpen && (
+        <SearchPageMobile
+          setSearchPageOpen={setSearchPageOpen}
+          session={session}
+        />
+      )}
     </>
   );
 }

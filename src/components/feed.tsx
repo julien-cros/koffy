@@ -42,7 +42,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
       </div>
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="w-full h-full flex flex-col justify-center items-center border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-          <div className="w-full flex flex-col border-b-[1px] border-neutral-700 dark:border-neutral-400 h-14">
+          <div className="w-full flex flex-col border-b-[1px] border-neutral-700 dark:border-neutral-400 h-16">
             <div className="grid grid-cols-2 h-full">
               <div className="w-full flex justify-center items-center cursor-pointer">
                 <button
