@@ -41,7 +41,7 @@ export default function LoadMoreSaved({
   }, [inView]);
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col p-4 md:p-2 space-y-4 md:space-y-2">
       {prevPosts?.map((saved) => (
         <div key={saved.post.id}>
           <Card

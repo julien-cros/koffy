@@ -74,6 +74,7 @@ export default function page() {
                     country={mapped.post.country}
                     author={mapped.post.author?.name}
                     avatar={mapped.post.author?.avatar}
+                    isSaved={true}
                   />
                 ))}
                 {session?.user.id && <LoadMoreSaved session={session} />}
