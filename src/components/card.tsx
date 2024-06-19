@@ -27,6 +27,7 @@ export type CardProps = {
   country: string | null;
   author?: string | null;
   avatar?: string | null;
+  isSaved?: boolean;
 };
 
 export default function Card({
@@ -42,27 +43,28 @@ export default function Card({
   country,
   author,
   avatar,
+  isSaved,
 }: CardProps) {
   const router = useRouter();
 
   const [clicked, setClicked] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(isSaved);
 
-  const { data: dataSaved, isLoading: isLoadingSaved } = useQuery({
-    queryKey: ["saved", id],
-    queryFn: async () => {
-      const res = await getSavedPost(id, session?.user.id);
-      return res;
-    },
-  });
+  // const { data: dataSaved, isLoading: isLoadingSaved } = useQuery({
+  //   queryKey: ["saved", id],
+  //   queryFn: async () => {
+  //     const res = await getSavedPost(id, session?.user.id);
+  //     return res;
+  //   },
+  // });
 
-  useEffect(() => {
-    if (dataSaved) {
-      setSaved(true);
-    } else {
-      setSaved(false);
-    }
-  }, [dataSaved]);
+  // useEffect(() => {
+  //   if (dataSaved) {
+  //     setSaved(true);
+  //   } else {
+  //     setSaved(false);
+  //   }
+  // }, [dataSaved]);
 
   const redirectToCard = () => {
     if (clickable) {
@@ -137,15 +139,11 @@ export default function Card({
                 handleSavePost();
               }}
             >
-              {isLoadingSaved ? (
-                <Loader />
-              ) : (
-                <BookmarkIcon
-                  className={`h-6 w-6 ${
-                    saved ? "text-orange-500 fill-orange-500" : ""
-                  }`}
-                />
-              )}
+              <BookmarkIcon
+                className={`h-6 w-6 ${
+                  saved ? "text-orange-500 fill-orange-500" : ""
+                }`}
+              />
             </button>
           </div>
 

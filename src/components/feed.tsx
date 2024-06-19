@@ -10,8 +10,6 @@ import { useState } from "react";
 import { SessionInterface } from "@/app/types/types";
 import { LeftSide } from "./leftSide";
 import { RightSide } from "./rightSide";
-import Link from "next/link";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 function Feed({ session }: { session: SessionInterface | null }) {
   const [FeedOrCoffeeList, setFeedOrCoffeeList] = useState("feed");
@@ -23,7 +21,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
   } = useQuery({
     queryKey: [],
     queryFn: async () => {
-      const res = await getPostForFeed(8, 0);
+      const res = await getPostForFeed(8, 0, session?.user?.id);
       return res;
     },
   });
@@ -95,6 +93,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
                     clickable={true}
                     imageUrl={post.imageUrl}
                     country={post?.country}
+                    isSaved={post.isSaved}
                   />
                 </div>
               ))

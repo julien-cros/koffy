@@ -157,9 +157,8 @@ export async function getImageAndName(posts: any) {
 	return creator;
 }
 
-//ici
-export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
-	return db.posts.findMany({
+export async function getPostForFeed(NumbOfPosts: number, PostOffset: number, userId: string | null | undefined) {
+	const posts = await db.posts.findMany({
 		skip: PostOffset,
 		take: NumbOfPosts,
 		include: {
@@ -169,6 +168,7 @@ export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
 					avatar: true,
 				},
 			},
+			savedBy: true
 		},
 		orderBy: {
 			createdAt: "desc",
@@ -177,6 +177,18 @@ export async function getPostForFeed(NumbOfPosts: number, PostOffset: number) {
 			status: true,
 		},
 	});
+
+	if (!userId) {
+		return posts.map((post) => {
+			return { ...post, isSaved: false };
+		});
+	}
+
+	return posts.map((post) => {
+		const savedBy = post.savedBy.map((saved) => saved.userId);
+		const isSaved = savedBy.includes(userId);
+		return { ...post, isSaved };
+	})
 }
 
 export async function getCreator(id: string) {
