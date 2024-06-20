@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/session";
 import { db } from "./db";
 import { checkUserByPost, deleteImage } from "@/app/create-card/actions";
 import { getServerSession } from "next-auth";
+import { utapi } from "@/app/server/uploadthing";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
@@ -42,11 +43,15 @@ export const createUser = async (
 	email: string,
 	avatar: string,
 ) => {
+
+	const uploadedFile = await utapi.uploadFilesFromUrl(avatar);
 	const user = await db.user.create({
 		data: {
 			name,
 			email,
-			avatar,
+			avatar: uploadedFile.data?.url || avatar,
+			avatarKey: uploadedFile.data?.key,
+
 		},
 	});
 	return user;
