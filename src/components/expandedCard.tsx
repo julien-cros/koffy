@@ -82,7 +82,10 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
               <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full max-w-5xl mx-2  h-full">
                 <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
                   <div className="flex justify-between">
-                    <div className="flex items-center gap-2 pb-5">
+                    <Link
+                      className="flex items-center gap-2 pb-5"
+                      href={`/profile/${post?.author?.name}`}
+                    >
                       <Image
                         src={
                           post?.author?.avatar || "/images/default-profile.svg"
@@ -93,7 +96,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                         height={40}
                       />
                       {post?.author?.name}
-                    </div>
+                    </Link>
                     {session?.user.id && isMine && (
                       <Link href={`/coffee-list/${id}/update`}>
                         <PencilSquareIcon className="h-6 w-6" />

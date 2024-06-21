@@ -14,6 +14,7 @@ import { getSavedPost, savePost } from "@/app/saved/savedAction";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./loader";
 import Image from "next/image";
+import Link from "next/link";
 
 export type CardProps = {
   title: string;
@@ -94,10 +95,16 @@ export default function Card({
     <div
       className="bg-gradient-to-br from-neutral-200 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full min-w-fit"
       key={id}
-      onClick={() => redirectToCard()}
+      onClick={redirectToCard}
     >
       <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
-        <div className="flex items-center gap-2 pb-5">
+        <Link
+          className="flex items-center gap-2 pb-5 w-fit"
+          href={`profile/${author}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <Image
             src={avatar || "images/default-profile.svg"}
             alt="avatar"
@@ -106,7 +113,7 @@ export default function Card({
             height={40}
           />
           {author}
-        </div>
+        </Link>
         <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
         </p>
@@ -151,7 +158,7 @@ export default function Card({
           </div>
 
           {/* copy link of post */}
-          <div className=" dark:text-white hover:scale-105 ">
+          <div className=" dark:text-white">
             <button
               onClick={(e) => {
                 e.preventDefault();
