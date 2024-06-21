@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import { db } from "@/lib/db";
 
 export async function findSearchPost(
@@ -12,6 +12,14 @@ export async function findSearchPost(
     return findPostWithAllKeys(value, isPrivate, user?.user.id);
   if (isPrivate === "private") {
     const posts = await db.posts.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       where: {
         [key]: {
           contains: value,
@@ -24,6 +32,14 @@ export async function findSearchPost(
     else return null;
   } else if (isPrivate === "public") {
     const posts = await db.posts.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       where: {
         [key]: {
           contains: value,
@@ -47,6 +63,14 @@ async function findPostWithAllKeys(
   }
   if (isPrivate === "private" && user) {
     const posts = await db.posts.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       where: {
         OR: [
           { brand: { contains: value, mode: "insensitive" } },
@@ -63,6 +87,14 @@ async function findPostWithAllKeys(
     return null;
   } else if (isPrivate === "public") {
     const posts = await db.posts.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       where: {
         OR: [
           { brand: { contains: value, mode: "insensitive" } },

@@ -4,13 +4,15 @@ import HearthRate from "./hearthRate";
 import { useRouter } from "next/navigation";
 import {
   ArrowUpOnSquareIcon,
+  BookmarkIcon,
   CheckIcon,
-  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
-import type { SessionInterface } from "@/lib/session";
-import { DuplicatePost } from "@/lib/actions";
+import type { SessionInterface } from "@/app/types/types";
 import { useState } from "react";
 import copy from "clipboard-copy";
+import { savePost } from "@/app/saved/savedAction";
+import Image from "next/image";
+import Link from "next/link";
 
 export type CardProps = {
   title: string;
@@ -21,6 +23,11 @@ export type CardProps = {
   id: string;
   session?: SessionInterface | null;
   clickable?: boolean;
+  imageUrl: string | null;
+  country: string | null;
+  author?: string | null;
+  avatar?: string | null;
+  isSaved?: boolean;
 };
 
 export default function Card({
@@ -32,9 +39,32 @@ export default function Card({
   id,
   session,
   clickable,
+  imageUrl,
+  country,
+  author,
+  avatar,
+  isSaved,
 }: CardProps) {
   const router = useRouter();
+
   const [clicked, setClicked] = useState(false);
+  const [saved, setSaved] = useState(isSaved);
+
+  // const { data: dataSaved, isLoading: isLoadingSaved } = useQuery({
+  //   queryKey: ["saved", id],
+  //   queryFn: async () => {
+  //     const res = await getSavedPost(id, session?.user.id);
+  //     return res;
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   if (dataSaved) {
+  //     setSaved(true);
+  //   } else {
+  //     setSaved(false);
+  //   }
+  // }, [dataSaved]);
 
   const redirectToCard = () => {
     if (clickable) {
@@ -42,19 +72,10 @@ export default function Card({
     }
   };
 
-  const handleDuplicate = async (
-    id: string,
-    session?: SessionInterface | null,
-  ) => {
-    console.log("Duplicate button clicked");
-    if (!session?.user.id) {
-      return;
-    }
-    const res = await DuplicatePost(id, session);
-    if (res) {
-      alert("Post duplicated successfully");
-    } else {
-      alert("Post duplication failed");
+  const handleSavePost = async () => {
+    if (session) {
+      const res = await savePost(id, session.user.id);
+      setSaved(res);
     }
   };
 
@@ -70,61 +91,91 @@ export default function Card({
 
   return (
     <div
-      className="dark:bg-gradient-to-br bg-white border-black border-[1px]  dark:from-neutral-700 dark:to-black rounded-2xl p-[2px] w-56 h-64 lg:w-72 lg:h-80 cursor-pointer hover:scale-105 transition duration-150"
+      className="w-full min-w-fit border-b-[1px] border-neutral-600 dark:border-neutral-800"
       key={id}
-      onClick={() => redirectToCard()}
+      onClick={redirectToCard}
     >
-      <div className="bg-white dark:bg-black rounded-[14px] w-full h-full p-4 lg:p-6 relative">
+      <div className="w-full h-full p-4 relative">
+        <Link
+          className="flex items-center gap-2 pb-5 w-fit"
+          href={`profile/${author}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Image
+            src={avatar || "images/default-profile.svg"}
+            alt="avatar"
+            className="h-10 w-10 rounded-full"
+            width={40}
+            height={40}
+          />
+          {author}
+        </Link>
         <p className="text-lg font-medium lg:text-xl  text-clip truncate">
           {title}
         </p>
-        <p className="font-light  text-lg  text-clip truncate">{brand}</p>
-        <p className="font-light text-md  truncate pt-6 lg:pt-10">{tasting}</p>
-        <div className="absolute bottom-20 left-5">
-          <HearthRate rate={rate} />
-        </div>
-        <p className="text-sm font-light absolute bottom-20 right-5">
-          {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
+        <p className="font-light text-lg text-clip truncate">{brand}</p>
+        <p className="font-light text-md  truncate flex justify-end pr-4">
+          {country}
         </p>
-        <div className="border-b-[1px] border-black dark:border-white my-4 absolutw w-12/12 px-10" />
-        <div className="absolute bottom-5 left-5 ">
-          {/* duplicate to post to account */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleDuplicate(id, session);
-            }}
-          >
-            {session?.user.id ? (
-              <PlusCircleIcon className=" h-6 w-6  dark:text-white hover:scale-105" />
-            ) : null}
-          </button>
-        </div>
+        <p className="font-light text-md  truncate py-4 ">{tasting}</p>
+        {imageUrl && (
+          <div className="w-full h-52 relative">
+            <img
+              src={imageUrl}
+              alt="postImage"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        )}
 
-        {/* copy link of post */}
-        <div className="absolute bottom-5 right-5 dark:text-white hover:scale-105 ">
+        <div className="border-t-[1px] grid grid-cols-4 border-neutral-300 dark:border-neutral-700 mt-4 pt-4 absolutw w-full items-center">
+          <div className="">
+            <HearthRate rate={rate} />
+          </div>
+
           <button
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              handleCopyClipboard();
-              setClicked(true);
-              setTimeout(() => {
-                setClicked(false);
-              }, 1000);
+              handleSavePost();
             }}
-            className="flex items-center justify-center"
           >
-            {clicked ? (
-              <div className="dark:text-white flex flex-row items-center justify-center">
-                <p className="text-xs">link copied</p>
-                <CheckIcon className="h-6 w-6" />
-              </div>
-            ) : (
-              <ArrowUpOnSquareIcon className="h-6 w-6" />
-            )}
+            <BookmarkIcon
+              className={`h-6 w-6 ${
+                saved ? "text-orange-500 fill-orange-500" : ""
+              }`}
+            />
           </button>
+
+          {/* copy link of post */}
+          <div className=" dark:text-white">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCopyClipboard();
+                setClicked(true);
+                setTimeout(() => {
+                  setClicked(false);
+                }, 1000);
+              }}
+              className="flex items-center justify-center"
+            >
+              {clicked ? (
+                <div className="dark:text-white flex flex-row items-center justify-center">
+                  <p className="text-xs">link copied</p>
+                  <CheckIcon className="h-6 w-6" />
+                </div>
+              ) : (
+                <ArrowUpOnSquareIcon className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+          <p className="text-sm font-light flex text-center">
+            {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
+          </p>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import { DuplicatePost } from "@/lib/actions";
+// import { DuplicatePost } from "@/lib/actions";
 
 type Props = {
   session: SessionInterface | null;
@@ -14,15 +14,15 @@ const handleDuplicate = async (
   id: string,
   session: SessionInterface | null,
 ) => {
-  if (!session?.user.id) {
+  if (!session?.user.id || !id) {
     return;
   }
-  const res = await DuplicatePost(id, session);
-  if (res) {
-    alert("Post duplicated successfully");
-  } else {
-    alert("Post duplication failed");
-  }
+  // const res = await DuplicatePost(id, session);
+  // if (res) {
+  //   alert("Post duplicated successfully");
+  // } else {
+  //   alert("Post duplication failed");
+  // }
 };
 
 const DuplicateButton = ({ session, id }: Props) => {

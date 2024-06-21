@@ -8,7 +8,7 @@ type HearthRateProps = {
 const HearthRate = ({ rate }: HearthRateProps) => {
   if (!rate) rate = 0;
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row min-w-full">
       <HeartIcon
         width={20}
         height={20}

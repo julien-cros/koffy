@@ -3,7 +3,7 @@ import AuthProviders from "./authProviders";
 import Link from "next/link";
 import HowItWorks from "./howItWorksButton";
 import DisplayCard from "./displayCard";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 
 const Center = async () => {
   const session = await getCurrentUser();
@@ -69,9 +69,9 @@ const Center = async () => {
           )}
         </div>
       </div>
-      <div className=" flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 border-black dark:border-white border-t-[1px] lg:border-none mt-5 ">
+      <div className="flex justify-center items-center mx-6 md:mx-10 lg:mx-0 xl:mx-0 2xl:mx-0 w-full border-black dark:border-white border-t-[1px] lg:border-none mt-5 ">
         <div
-          className="lg:h-[100%] w-full
+          className="lg:h-[100%] w-full max-w-sm mx-auto 
 		 				flex justify-center items-center rounded-3xl md:rounded-3xl lg:rounded-r-none xl:rounded-r-none 2xl:rounded-r-none"
         >
           <DisplayCard />

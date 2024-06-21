@@ -1,6 +1,6 @@
 import ExpandedCard from "@/components/expandedCard";
 import { getPostFromId, getUserFromId } from "@/lib/actions";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import type { Metadata } from "next";
 
 // TODO: change id to title, brand, author, or something concret and unique
@@ -56,7 +56,7 @@ const page = async ({ params }: PageProps) => {
 
   const isMine = user ? true : false;
   return (
-    <div>
+    <div className="w-full h-full">
       <ExpandedCard
         post={post}
         id={params.id}

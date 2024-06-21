@@ -1,8 +1,11 @@
 import React from "react";
 import { findSearchPost } from "../actions";
-import PushBackButton from "@/components/pushBackButton";
 import DisplayCards from "@/components/renderCards";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser, getUserByName } from "@/lib/actions";
+import { RightSide } from "@/components/rightSide";
+import { LeftSide } from "@/components/leftSide";
+import { DefaultHeader } from "@/components/defaultHeader";
+import DisplayUsers from "@/components/displayUsers";
 
 type PageProps = {
   params: {
@@ -19,16 +22,27 @@ const SearchPage = async ({ params }: PageProps) => {
 
   const MyValue = key === "rate" ? Number.parseInt(value) : value;
   const posts = await findSearchPost(key, MyValue, isPrivate);
+  const users = await getUserByName(value, false);
 
   return (
-    <div className="w-full h-full items-cneter">
-      <div className="flex flex-row justify-between items-center m-10">
-        <div className="flex flex-row items-center gap-2">
-          <PushBackButton />
-          <p className="text-2xl md:text-3xl lg:text-5xl font-light">results</p>
+    <div className=" flex flex-row min-h-screen">
+      <div className="flex flex-1 justify-end">
+        <LeftSide session={session} />
+      </div>
+      <div className="flex justify-center w-full md:max-w-xl mx-auto">
+        <div className="relative w-full h-full flex flex-row">
+          <div className="w-full flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
+            <DefaultHeader title="Results" />
+            {(key === "user" || key === "all") && value && users.length > 0 ? (
+              <DisplayUsers users={users} />
+            ) : null}
+            {key !== "user" && <DisplayCards post={posts} session={session} />}
+          </div>
         </div>
       </div>
-      <DisplayCards post={posts} session={session} />
+      <div className="flex flex-1 justify-start">
+        <RightSide session={session} />
+      </div>
     </div>
   );
 };

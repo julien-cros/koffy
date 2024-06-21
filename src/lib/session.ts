@@ -1,19 +1,12 @@
-import { type NextAuthOptions, type User, getServerSession } from "next-auth";
-import type { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from "jsonwebtoken";
+import type { AdapterUser } from "next-auth/adapters";
 import type { JWT } from "next-auth/jwt";
-import type { Session } from "next-auth";
-import { createUser, getUser } from "./actions";
+import { type NextAuthOptions, type User } from "next-auth";
 
-export interface SessionInterface extends Session {
-  user: User & {
-    id: number;
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}
+import { createUser, getProfile, getUser, getUserByName } from "./actions";
+import { createProfile, updateUser } from "@/app/editProfile/action";
+import { utapi } from "@/app/server/uploadthing";
 
 export interface UserProfile {
   id: number;
@@ -88,11 +81,49 @@ export const authOptions: NextAuthOptions = {
         const userExists = await getUser(user?.email as string);
 
         if (!userExists) {
-          await createUser(
+          const nameAlreadyExist = await getUserByName(
             user.name as string,
-            user.email as string,
-            user.image as string,
+            true,
           );
+          if (nameAlreadyExist) {
+            if (user.name && user.name?.length > 14)
+              user.name = user.name?.substring(0, 14);
+            const nameWithNumber = `${user.name?.replace(/\s/g, "")}${Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000}`;
+            nameWithNumber.replace(/\s/g, "");
+            const createdUser = await createUser(
+              nameWithNumber as string,
+              user.email as string,
+              user.image as string,
+            );
+            await createProfile(null, null, createdUser.id);
+          } else {
+            if (user.name && user.name?.length > 20)
+              user.name = user.name?.substring(0, 20);
+            const createdUser = await createUser(
+              user.name?.replace(/\s/g, "") as string,
+              user.email as string,
+              user.image as string,
+            );
+            await createProfile(null, null, createdUser.id);
+          }
+        } else {
+          const profile = await getProfile(userExists.name);
+          if (!profile) {
+            await createProfile(null, null, userExists.id);
+          }
+          if (!userExists.avatarKey) {
+            const uploadedFile = await utapi.uploadFilesFromUrl(
+              user.image as string,
+            );
+            if (!uploadedFile.data?.url || !uploadedFile.data?.key)
+              return false;
+            await updateUser(
+              userExists.id,
+              userExists.name,
+              uploadedFile.data?.url,
+              uploadedFile.data?.key,
+            );
+          }
         }
 
         return true;
@@ -103,11 +134,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-
-export async function getCurrentUser() {
-  const session = (await getServerSession(
-    authOptions,
-  )) as SessionInterface | null;
-
-  return session;
-}

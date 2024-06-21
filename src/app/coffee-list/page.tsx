@@ -1,5 +1,5 @@
 import { getUserPosts } from "@/lib/actions";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser } from "@/lib/actions";
 import React from "react";
 import CoffeeListComponent from "@/components/coffeeListComponent";
 import type { Metadata } from "next";

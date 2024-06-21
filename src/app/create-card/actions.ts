@@ -1,8 +1,11 @@
 "use server";
 
-import type { FormState } from "@/components/formPage";
-import { getCurrentUser } from "@/lib/session";
+import type { FormState } from "@/app/types/types";
+import { getCurrentUser } from "@/lib/actions";
 import { db } from "@/lib/db";
+import { utapi } from "../server/uploadthing";
+// import { uploadThingByUrl } from "@/lib/uploadThingActions";
+// import { utapi } from "../server/uploadthing";
 
 export async function getData() {
   const user = await getCurrentUser();
@@ -14,10 +17,34 @@ export async function getData() {
   return user;
 }
 
+// export async function UploadFile(file: File) {
+//   try{
+// 		const data = new FormData();
+// 		data.append("file", file);
+// 		data.append("upload_preset", "coffee");
+// 		data.append("cloud_name", "dwx7x0j8d");
+// 		const response = await fetch(
+// 			"https://api.cloudinary.com/v1_1/dwx7x0j8d/image/upload",
+// 			{
+// 				method: "POST",
+// 				body: data,
+// 			}
+// 		);
+// 		const result = await response.json();
+// 		return result.url;
+// 	}
+// 	catch(error){
+// 		console.log(error);
+// 	}
+// }
+
 export default async function submit(form: FormState) {
   const user = await getData();
+
+  // const imageUrl = await uploadThingByUrl(form.imageUrl);
+
   try {
-    await db.posts.create({
+    const post = await db.posts.create({
       data: {
         title: form.title,
         brand: form.brand,
@@ -27,7 +54,14 @@ export default async function submit(form: FormState) {
         note: form?.note,
         price: form?.price,
         weight: form?.weight,
-        status: form?.status,
+        status: form.status,
+        imageUrl: form?.imageUrl,
+        imageKey: form?.imageKey,
+        country: form?.country,
+        domain: form?.domain,
+        altitude: form?.altitude,
+        process: form?.process,
+        type: form?.type,
         author: {
           connect: {
             id: user.user.id,
@@ -35,24 +69,36 @@ export default async function submit(form: FormState) {
         },
       },
     });
-    return true;
+    return post;
   } catch (error) {
     console.log("error:", error);
-    return error;
+    return null;
   }
 }
 
-export async function updatePost(id: string, form: FormState, type: string) {
+export async function deleteImage(imageKey: string | null) {
+  if (!imageKey) {
+    return null;
+  }
+  await utapi.deleteFiles(imageKey);
+}
+
+export async function updatePost(
+  postId: string,
+  form: FormState,
+  type: string,
+) {
   const user = await getData();
-  const post = await checkUser(id, user.user.id);
+  const post = await checkUserByPost(postId, user.user.id);
   if (!post) {
     throw new Error("Unauthorized");
   }
   if (type === "delete") {
+    await deleteImage(post.imageKey);
     try {
       await db.posts.delete({
         where: {
-          id,
+          id: postId,
         },
       });
       return true;
@@ -64,7 +110,7 @@ export async function updatePost(id: string, form: FormState, type: string) {
     try {
       await db.posts.update({
         where: {
-          id,
+          id: postId,
         },
         data: {
           title: form?.title,
@@ -76,6 +122,13 @@ export async function updatePost(id: string, form: FormState, type: string) {
           price: form?.price,
           weight: form?.weight,
           status: form?.status,
+          imageUrl: form?.imageUrl,
+          imageKey: form?.imageKey,
+          country: form?.country,
+          domain: form?.domain,
+          altitude: form?.altitude,
+          process: form?.process,
+          type: form?.type,
         },
       });
       return true;
@@ -107,7 +160,7 @@ export const findValidPost = async (
   return false;
 };
 
-export const checkUser = async (id: string, userId: string) => {
+export const checkUserByPost = async (id: string, userId: string) => {
   const post = await db.posts.findUnique({
     where: {
       id,

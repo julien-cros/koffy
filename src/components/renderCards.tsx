@@ -3,9 +3,9 @@
 import React from "react";
 import Card from "./card";
 import { useRouter } from "next/navigation";
-import type { PostInterface } from "./expandedCard";
+import type { PostInterface } from "@/app/types/types";
 import { useState } from "react";
-import type { SessionInterface } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
 
 type DisplayCardsProps = {
   post: PostInterface[] | undefined | null;
@@ -22,11 +22,13 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
   };
 
   return (
-    <div className="mt-20 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center gap-10 pb-10">
+    <div className=" flex flex-col justify-items-center space-y-4 md:space-y-2 pb-10 w-full">
+      {/* <DisplayUsers /> */}
       {post?.map((post) => (
         <div key={post.id} onClick={() => handleClick(post.id, State)}>
           <Card
             key={post.id}
+            author={post?.author?.name}
             title={post.title}
             brand={post.brand}
             tasting={post?.tasting}
@@ -35,11 +37,14 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
             id={post.id}
             session={session}
             clickable={true}
+            imageUrl={post?.imageUrl}
+            country={post?.country}
+            avatar={post?.author?.avatar}
           />
         </div>
       ))}
       {!post && (
-        <p className="flex justify-center items-center text-lg md:text-xl lg:text-2xl">
+        <p className=" flex justify-center items-center text-lg">
           Nothing Found
         </p>
       )}

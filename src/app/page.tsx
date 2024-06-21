@@ -1,15 +1,7 @@
-import Center from "@/components/center";
-import GetStarted from "@/components/howItWorks";
+import Feed from "@/components/feed";
+import { getCurrentUser } from "@/lib/actions";
 
-export default function HomePage() {
-  return (
-    <section className="w-full h-full ">
-      <section id="section-0">
-        <Center />
-      </section>
-      <section id="section-1">
-        <GetStarted />
-      </section>
-    </section>
-  );
+export default async function HomePage() {
+  const session = await getCurrentUser();
+  return <Feed session={session} />;
 }

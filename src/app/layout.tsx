@@ -1,11 +1,13 @@
 import "./globals.css";
-import NavBar from "@/components/navBar";
-import { getCurrentUser } from "@/lib/session";
 import { PenkleAnalytics } from "@/components/penkleAnalytics";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Providers } from "@/components/providers";
-import SwitchDarkLightMode from "@/components/switchDarkLightMode";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
+import QueryProviders from "@/components/tanstackProvider";
+import React from "react";
 
 const EBGaramond = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -57,8 +59,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getCurrentUser();
-
   return (
     <html lang="en">
       <head>
@@ -75,22 +75,21 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={EBGaramond.className}>
-        <Providers>
-          <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col">
-            <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-10">
-              <div className="fixed inset-0 justify-center flex -z-20 items-center">
-                <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />
-                <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
-                <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+        <QueryProviders>
+          <Providers>
+            <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col hiddeScrollBar">
+              <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]">
+                <div className="fixed inset-0 justify-center flex -z-20 items-center">
+                  <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />
+                  <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+                  <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+                </div>
               </div>
+              <div className="z-10 childScrollBar">{children}</div>
             </div>
-            <div className="z-50">
-              <NavBar session={session} />
-              {children}
-            </div>
-          </div>
-          <SwitchDarkLightMode />
-        </Providers>
+          </Providers>
+        </QueryProviders>
       </body>
     </html>
   );

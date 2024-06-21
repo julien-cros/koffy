@@ -1,26 +1,58 @@
 "use server";
 
-import type { FormState } from "@/components/formPage";
-import type { SessionInterface } from "@/lib/session";
-import { getCurrentUser } from "@/lib/session";
+import type { SessionInterface } from "@/app/types/types";
+import { authOptions } from "@/lib/session";
 import { db } from "./db";
-import { checkUser } from "@/app/create-card/actions";
+import { checkUserByPost, deleteImage } from "@/app/create-card/actions";
+import { getServerSession } from "next-auth";
+import { utapi } from "@/app/server/uploadthing";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction || "http://localhost:3000/api/auth/token";
+
+export async function getCurrentUser() {
+  const session = (await getServerSession(
+    authOptions as any,
+  )) as SessionInterface | null;
+
+  return session;
+}
+
+export const getUserByName = async (name: string, exactName: boolean) => {
+  if (exactName) {
+    return await db.user.findMany({
+      where: {
+        name,
+      },
+    });
+  } else {
+    if (name === "") return [];
+    return await db.user.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: "insensitive",
+        },
+      },
+    });
+  }
+};
 
 export const createUser = async (
   name: string,
   email: string,
   avatar: string,
 ) => {
-  await db.user.create({
+  const uploadedFile = await utapi.uploadFilesFromUrl(avatar);
+  const user = await db.user.create({
     data: {
       name,
       email,
-      avatar,
+      avatar: uploadedFile.data?.url || avatar,
+      avatarKey: uploadedFile.data?.key,
     },
   });
+  return user;
 };
 
 export const getUser = async (email: string) => {
@@ -41,28 +73,17 @@ export const fetchToken = async () => {
   }
 };
 
-export const CreatePost = async (form: FormState, user: SessionInterface) => {
-  await db.posts.create({
-    data: {
-      title: form.title,
-      brand: form.brand,
-      variety: form.variety,
-      tasting: form.tasting,
-      rate: form.rate,
-      note: form.note,
-      price: form.price,
-      status: form.status,
+export const getPostFromId = async (id: string | null) => {
+  if (!id) return null;
+  const post = await db.posts.findUnique({
+    include: {
       author: {
-        connect: {
-          id: user.user.id,
+        select: {
+          name: true,
+          avatar: true,
         },
       },
     },
-  });
-};
-
-export const getPostFromId = async (id: string) => {
-  const post = await db.posts.findUnique({
     where: {
       id,
     },
@@ -70,9 +91,21 @@ export const getPostFromId = async (id: string) => {
   return post;
 };
 
-export const getUserPosts = async (authorId: string) => {
+export const getUserPosts = async (authorId: string | undefined) => {
+  if (!authorId) return null;
   try {
     const posts = await db.posts.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        author: {
+          select: {
+            name: true,
+            avatar: true,
+          },
+        },
+      },
       where: {
         authorId,
       },
@@ -110,45 +143,98 @@ export default async function findPosts(
 export async function getUserFromId(id: string) {
   const user = await getCurrentUser();
   if (!user?.user.id) return null;
-  const response = checkUser(id, user.user.id);
+  const response = checkUserByPost(id, user.user.id);
   if (response) return response;
   else return null;
 }
 
-export async function DuplicatePost(id: string, user: SessionInterface) {
-  if (!user?.user.id) {
-    console.log("No user found");
-    return null;
-  }
-  const post = await getPostFromId(id);
-  if (!post) return null;
+export async function getImageAndName(posts: any) {
+  const creator = await db.user.findMany({
+    where: {
+      id: {
+        in: posts.map((post: any) => post.authorId),
+      },
+    },
+  });
+  return creator;
+}
 
-  if (post.authorId === user.user.id) {
-    console.log("User is the author");
-    return null;
-  } else if (
-    (await findPosts("title", post.title, user.user.id)) === null &&
-    (await findPosts("brand", post.brand, user.user.id)) === null
-  ) {
-    await db.posts.create({
-      data: {
-        title: post.title,
-        brand: post.brand,
-        variety: post.variety,
-        tasting: post.tasting,
-        rate: post.rate,
-        note: post.note,
-        price: post.price,
-        status: post.status,
-        author: {
-          connect: {
-            id: user.user.id,
-          },
+export async function getPostForFeed(
+  NumbOfPosts: number,
+  PostOffset: number,
+  userId: string | null | undefined,
+) {
+  const posts = await db.posts.findMany({
+    skip: PostOffset,
+    take: NumbOfPosts,
+    include: {
+      author: {
+        select: {
+          name: true,
+          avatar: true,
         },
       },
+      savedBy: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    where: {
+      status: true,
+    },
+  });
+
+  if (!userId) {
+    return posts.map((post) => {
+      return { ...post, isSaved: false };
     });
-    return post;
-  } else return null;
+  }
+
+  return posts.map((post) => {
+    const savedBy = post.savedBy.map((saved) => saved.userId);
+    const isSaved = savedBy.includes(userId);
+    return { ...post, isSaved };
+  });
+}
+
+export async function getCreator(id: string) {
+  const creator = await db.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  return creator;
+}
+
+export async function getProfile(user: string) {
+  return await db.profile.findFirst({
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          avatar: true,
+          avatarKey: true,
+        },
+      },
+    },
+    where: {
+      user: {
+        name: decodeURI(user),
+      },
+    },
+  });
+}
+
+export async function deleteUser(session: SessionInterface) {
+  if (session.user.avatarKey) {
+    await deleteImage(session.user.avatarKey);
+  }
+  await db.user.delete({
+    where: {
+      id: session.user.id,
+    },
+  });
 }
 
 // export const getWishlist = async (authorId: string) => {

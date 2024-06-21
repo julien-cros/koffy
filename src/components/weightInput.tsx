@@ -14,12 +14,14 @@ type WeightProp = {
 };
 
 const weightList = [
-  { id: 1, value: "150g" },
-  { id: 2, value: "250g" },
-  { id: 3, value: "300g" },
-  { id: 4, value: "500g" },
-  { id: 5, value: "1Kg" },
-  { id: 6, value: "2kg" },
+  { id: 1, value: "100g" },
+  { id: 2, value: "150g" },
+  { id: 3, value: "200g" },
+  { id: 4, value: "250g" },
+  { id: 5, value: "300g" },
+  { id: 6, value: "500g" },
+  { id: 7, value: "1Kg" },
+  { id: 8, value: "2kg" },
 ];
 
 export default function WeightInput({ setState }: Props) {
@@ -37,21 +39,21 @@ export default function WeightInput({ setState }: Props) {
         );
 
   return (
-    <div className="flex justify-start pl-10 z-10 items-end w-full">
+    <div className="flex justify-start z-10 items-center">
       <Combobox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
+        <div className="relative w-full">
           <div
-            className="relative w-full cursor-default overflow-hidden rounded-full px-3 py-2 border-[1px] border-black dark:border-white pl-3 pr-10
+            className="relative w-full h-10 cursor-default overflow-hidden rounded-lg py-1 border-[1px] border-black dark:border-neutral-400 pr-10
 		  	text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 
 			focus-visible:ring-offset-2 focus-visible:ring-slate-900 sm:text-sm"
           >
             <Combobox.Input
-              className={`w-24 md:w-32 text-sm  border-none
-              } py-2 pl-3 pr-10 leading-5 outline-none bg-white dark:bg-black dark:placeholder-white`}
+              className={`w-full md:w-full text-sm  border-none
+              } py-1 pl-10 pr-10 leading-5 outline-none bg-transparent dark:placeholder-white`}
               displayValue={(weight: WeightProp) => weight.value}
               onChange={(event) => setQuery(event.target.value)}
             />
-            <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+            <Combobox.Button className="absolute inset-y-0 left-2 flex items-center pr-2">
               <ChevronUpDownIcon className="h-5 w-5" aria-hidden="true" />
             </Combobox.Button>
           </div>
@@ -62,7 +64,7 @@ export default function WeightInput({ setState }: Props) {
             leaveTo="opacity-0"
             afterLeave={() => setQuery("")}
           >
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-black dark:border-[1px] dark:border-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-black border-[1px] border-black dark:border-neutral-400 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
               {filteredWeightList.length === 0 && query !== "" ? (
                 <div className="relative cursor-default  select-none py-2 px-4 text-gray-700">
                   Nothing found.

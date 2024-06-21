@@ -30,7 +30,7 @@ const DisplayCard = () => {
           {coffeDsisplay.map((coffee) => (
             <div
               key={coffee.title}
-              className="flex h-full justify-center mt-10 mb-10"
+              className="flex h-full justify-center mt-10 mb-10 mx-10"
             >
               <Card
                 key={coffee.title}
@@ -42,6 +42,8 @@ const DisplayCard = () => {
                 id=""
                 session={null}
                 clickable={false}
+                imageUrl={""}
+                country={coffee.country}
               />
             </div>
           ))}
