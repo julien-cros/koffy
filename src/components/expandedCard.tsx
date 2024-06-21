@@ -45,7 +45,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
     () => copyClipboard(id);
@@ -69,7 +69,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
 
   return (
     <div className=" flex flex-row">
-      <div className="flex flex-1 justify-end">
+      <div className="flex flex-1 md:justify-end">
         <LeftSide session={session} />
       </div>
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
@@ -78,8 +78,8 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
             <DefaultHeader title="Details" />
             {/* card */}
             <div className="flex justify-center items-center pt-2">
-              <div className="bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full max-w-5xl mx-2  h-full">
-                <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
+              <div className="w-full max-w-5xl  h-full border-b-[1px] border-neutral-600 dark:border-neutral-800">
+                <div className="w-full h-full p-4 lg:p-6 relative">
                   <div className="flex justify-between">
                     <Link
                       className="flex items-center gap-2 pb-5"
@@ -135,20 +135,13 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                       </div>
                     )}
                   </div>
-                  <div className="flex justify-between items-end">
-                    <div className="">
-                      <HearthRate rate={post?.rate} />
+
+                  <div className="border-t-[1px] grid grid-cols-4 border-neutral-300 dark:border-neutral-700 mt-4 pt-4 absolutw w-full items-center">
+                    <div className="flex justify-between items-end">
+                      <div className="">
+                        <HearthRate rate={post?.rate} />
+                      </div>
                     </div>
-                    <p className="text-sm font-light">
-                      {post?.createdAt
-                        ?.toJSON()
-                        .slice(0, 10)
-                        .split("-")
-                        .reverse()
-                        .join("/")}
-                    </p>
-                  </div>
-                  <div className="border-t-[1px] border-black dark:border-white mt-4 pt-4 absolutw w-12/12 flex justify-between">
                     <div className="">
                       {!isMine && (
                         <button
@@ -193,6 +186,14 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                         )}
                       </button>
                     </div>
+                    <p className="text-sm font-light">
+                      {post?.createdAt
+                        ?.toJSON()
+                        .slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("/")}
+                    </p>
                   </div>
                 </div>
               </div>

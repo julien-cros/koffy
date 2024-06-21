@@ -91,7 +91,7 @@ export default function Card({
 
   return (
     <div
-      className="w-full border-b-[1px] border-neutral-600 dark:border-neutral-800"
+      className="w-full border-b-[1px] border-neutral-600 dark:border-neutral-400"
       key={id}
       onClick={redirectToCard}
     >
@@ -116,10 +116,14 @@ export default function Card({
           {title}
         </p>
         <p className="font-light text-lg text-clip truncate">{brand}</p>
-        <p className="font-light text-md  truncate flex justify-end pr-4">
-          {country}
-        </p>
-        <p className="font-light text-md  truncate py-4 ">{tasting}</p>
+        {country && (
+          <p className="font-light text-md  truncate flex justify-end pr-4 pb-2">
+            {country}
+          </p>
+        )}
+        {tasting && (
+          <p className="font-light text-md truncate pb-2 ">{tasting}</p>
+        )}
         {imageUrl && (
           <div className="w-full h-52 relative">
             <img

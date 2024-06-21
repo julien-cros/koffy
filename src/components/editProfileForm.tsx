@@ -25,10 +25,10 @@ export function EditProfileForm({ profile }: Props) {
   const [nameBuffer, setNameBuffer] = useState("");
   const [isValidName, setIsValidName] = useState(true);
   const [imageUrlBuffer, setImageUrlBuffer] = useState(
-    profile.user?.avatar || "",
+    profile.user?.avatar || ""
   );
   const [imageKeyBuffer, setImageKeyBuffer] = useState(
-    profile.user?.avatarKey || "",
+    profile.user?.avatarKey || ""
   );
   const [form, setForm] = useState({
     name: profile.user.name,
@@ -71,7 +71,7 @@ export function EditProfileForm({ profile }: Props) {
       profile.user.id,
       nameBuffer,
       imageUrlBuffer,
-      imageKeyBuffer,
+      imageKeyBuffer
     );
     await updateProfile(form.bio, form.location, profile.id).then(() => {
       if (nameBuffer) {
@@ -147,7 +147,7 @@ export function EditProfileForm({ profile }: Props) {
         <h3 className="flex justify-center text-2xl md:text-3xl text-black dark:text-white font-light text-center pb-10">
           Update your Profile
         </h3>
-        <div className="w-full h-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 pb-32 md:pb-20 gap-5">
+        <div className="w-full h-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 pb-56 gap-5">
           <div className="flex justify-center">
             <div className="w-full max-h-80 max-w-sm px-5 flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
               {imageUrlBuffer ? (

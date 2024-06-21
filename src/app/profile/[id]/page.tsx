@@ -80,7 +80,7 @@ const profilePage = ({ params }: PageProps) => {
   const { data: queryPost, isLoading: isLoadingPost } = useQuery({
     queryKey: ["post", profile?.user?.name],
     queryFn: async () => {
-      const res = await getUserPosts(profile?.user.id);
+      const res = await getUserPosts(profile?.user.id, session?.user.id);
       return res;
     },
     enabled: !!profile?.user?.name,
@@ -119,7 +119,7 @@ const profilePage = ({ params }: PageProps) => {
     const followData = await FollowAndUnfollow(
       profile?.user.id,
       session?.user.id,
-      isFollowing ? true : false,
+      isFollowing ? true : false
     );
     if (followData === "followed") {
       setIsFollowing(true);
