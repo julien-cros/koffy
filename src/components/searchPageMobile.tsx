@@ -1,7 +1,6 @@
 "use client";
 
-import React, { use, useCallback, useEffect } from "react";
-import Modal from "./modal";
+import React, { useCallback, useEffect } from "react";
 import { useRef } from "react";
 import { RightSide } from "./rightSide";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -31,7 +30,7 @@ export default function SearchPageMobile({
         onDismissInternal();
       }
     },
-    [onDismiss, overlay]
+    [onDismiss, overlay],
   );
 
   useEffect(() => {

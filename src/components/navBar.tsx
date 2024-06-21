@@ -18,8 +18,6 @@ import CategorySearchBar from "./categorySearchBar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import ButtonPrivatePublic from "./buttonPrivatePublic";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
-import { signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -36,25 +34,6 @@ export const NavBar: React.FC<Props> = ({ session }) => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [showNavBar, setShowNavBar] = useState(true);
-
-  const AlertBox = () => {
-    Swal.fire({
-      icon: "warning",
-      title: "You need to be logged in to create a card",
-      showCloseButton: true,
-      timer: 10000,
-      timerProgressBar: true,
-      showConfirmButton: true,
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Sign in",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        signIn("google");
-      } else {
-        <Link href="/" />;
-      }
-    });
-  };
 
   useEffect(() => {
     console.log(pathname);
@@ -188,7 +167,7 @@ export const NavBar: React.FC<Props> = ({ session }) => {
                   onClick={
                     session?.user
                       ? () => router.push("/create-card")
-                      : () => AlertBox()
+                      : () => alert("Please sign in to create a card")
                   }
                 >
                   create

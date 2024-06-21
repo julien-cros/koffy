@@ -27,7 +27,7 @@ export function RightSide({ session, isSearchPage }: Props) {
         router.push(
           `/search-page/${category}-${search}-${
             isPublic ? "public" : "private"
-          }`
+          }`,
         );
       }
       setClicked(false);

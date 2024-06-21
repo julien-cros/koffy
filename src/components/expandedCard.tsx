@@ -7,7 +7,6 @@ import {
   BookmarkIcon,
   CheckIcon,
   PencilSquareIcon,
-  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import type { SessionInterface } from "@/app/types/types";
 import type { PostInterface } from "@/app/types/types";
@@ -46,7 +45,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
     () => copyClipboard(id);

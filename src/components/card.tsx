@@ -8,11 +8,9 @@ import {
   CheckIcon,
 } from "@heroicons/react/24/outline";
 import type { SessionInterface } from "@/app/types/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import copy from "clipboard-copy";
-import { getSavedPost, savePost } from "@/app/saved/savedAction";
-import { useQuery } from "@tanstack/react-query";
-import Loader from "./loader";
+import { savePost } from "@/app/saved/savedAction";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -86,7 +84,7 @@ export default function Card({
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`
+        `${window.location.origin}` + `/coffee-list/${id}`,
       );
     }
   };
