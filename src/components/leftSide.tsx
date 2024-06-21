@@ -28,6 +28,7 @@ import {
 import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import SearchPageMobile from "./searchPageMobile";
+import Image from "next/image";
 
 export default function PlusButton({
   session,
@@ -105,7 +106,7 @@ export default function PlusButton({
                   className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10"
                   href={`/profile/${session.user.name}`}
                 >
-                  <img
+                  <Image
                     src={session.user.avatar || "/images/default-profile.svg"}
                     alt="profile-image"
                     className="w-5 h-5 rounded-full"
@@ -151,7 +152,7 @@ export function LeftSide({
             href="/"
             className="px-3 py-3 cursor-pointer transition duration-100 dark:hover:bg-neutral-800 hover:bg-neutral-200 w-14 rounded-lg flex justify-center"
           >
-            <img
+            <Image
               src="/coffee.png"
               alt="logo"
               width={32}
@@ -222,15 +223,15 @@ export function LeftSide({
           {session?.user && (
             <Link
               href={`/profile/${session?.user?.name}`}
-              className="lg:w-full w-14 flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
+              className="lg:w-full h-12 w-14 flex flex-row items-center cursor-pointer gap-2 transition duration-100 hover:bg-opacity-80 dark:hover:bg-neutral-800 hover:bg-neutral-200 rounded-lg py-2 px-3"
             >
               {session?.user.avatar ? (
-                <img
+                <Image
                   src={session?.user.avatar}
                   alt="avatar"
                   width={32}
                   height={32}
-                  className="rounded-full flex justify-end items-end"
+                  className="rounded-full flex justify-end items-end w-8 h-8"
                 />
               ) : (
                 <UserIcon className="w-8 h-8" />

@@ -75,9 +75,9 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={EBGaramond.className}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <QueryProviders>
           <Providers>
-            <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
             <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col">
               <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]">
                 <div className="fixed inset-0 justify-center flex -z-20 items-center">

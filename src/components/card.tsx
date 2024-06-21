@@ -13,6 +13,7 @@ import copy from "clipboard-copy";
 import { getSavedPost, savePost } from "@/app/saved/savedAction";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./loader";
+import Image from "next/image";
 
 export type CardProps = {
   title: string;
@@ -97,10 +98,12 @@ export default function Card({
     >
       <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
         <div className="flex items-center gap-2 pb-5">
-          <img
+          <Image
             src={avatar || "images/default-profile.svg"}
             alt="avatar"
             className="h-10 w-10 rounded-full"
+            width={40}
+            height={40}
           />
           {author}
         </div>

@@ -16,6 +16,7 @@ import { useState } from "react";
 import { RightSide } from "@/components/rightSide";
 import { LeftSide } from "@/components/leftSide";
 import { DefaultHeader } from "@/components/defaultHeader";
+import Image from "next/image";
 
 type PageProps = {
   params: {
@@ -143,12 +144,14 @@ const profilePage = ({ params }: PageProps) => {
               ) : (
                 <div className="flex justify-between">
                   <div className="flex space-x-2 items-center">
-                    <img
+                    <Image
                       src={
                         profile?.user.avatar || "/images/default-profile.svg"
                       }
-                      alt={profile?.user.name}
+                      alt={profile?.user.name || "avatar"}
                       className="w-24 h-24 rounded-full"
+                      width={96}
+                      height={96}
                     />
                     <h1 className="text-xl font-light">{profile?.user.name}</h1>
                   </div>

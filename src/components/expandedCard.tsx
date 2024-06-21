@@ -20,6 +20,7 @@ import { getSavedPost, savePost } from "@/app/saved/savedAction";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./loader";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   post: PostInterface | null;
@@ -82,12 +83,14 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                 <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
                   <div className="flex justify-between">
                     <div className="flex items-center gap-2 pb-5">
-                      <img
+                      <Image
                         src={
                           post?.author?.avatar || "/images/default-profile.svg"
                         }
                         alt="avatar"
                         className="h-10 w-10 rounded-full"
+                        width={40}
+                        height={40}
                       />
                       {post?.author?.name}
                     </div>

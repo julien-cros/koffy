@@ -3,14 +3,13 @@
 @tailwind utilities;
 
 .background-color {
-	/* background-color: #FCF9F6; */
+  /* background-color: #FCF9F6; */
 }
-:root{
-	/* background-color: #FCF9F6; */
+:root {
+  /* background-color: #FCF9F6; */
 }
 
-
- /* 
+/* 
 	Transition leftSide
  .LeftSideEnd{
 	position: absolute;
@@ -26,106 +25,121 @@
 		transition: all 300ms; 
 } */
 
+.image-cropper {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.profile-pic-portrait {
+  display: inline;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
 
-
+/* .profile-pic-landscape {
+  display: inline;
+  margin: 0 auto;
+  margin-top: 25%;
+  width: 100%;
+  height: auto;
+} */
 
 ::-webkit-scrollbar {
-	width: 5px;
-	height: 4px;
-	}
-	
+  width: 5px;
+  height: 4px;
+}
+
 ::-webkit-scrollbar-thumb {
-	background: #888;
-	border-radius: 12px;
-	}
-
-.big-shape{
-	@media screen and (min-width: 768px){
-		animation: one 15s infinite;
-	}
+  background: #888;
+  border-radius: 12px;
 }
 
-.medium-shape{
-	@media screen and (min-width: 768px){
-		animation: two 20s infinite;
-	}
+.big-shape {
+  @media screen and (min-width: 768px) {
+    animation: one 15s infinite;
+  }
 }
 
-.littleshape{
-	@media screen and (min-width: 768px){
-		animation: three 25s infinite;
-	}
+.medium-shape {
+  @media screen and (min-width: 768px) {
+    animation: two 20s infinite;
+  }
+}
 
+.littleshape {
+  @media screen and (min-width: 768px) {
+    animation: three 25s infinite;
+  }
 }
 
 @keyframes one {
-	0% {
-		left: 0px;
-		top: 0px;
-	}
-	25% {
-		left: -100px;
-		top: 70px;
-	}
-	50% {
-		left: 20px;
-		top: 150px;
-	}
-	75% {
-		left: 70px;
-		top: 80px;
-	}
-	100% {
-		left: 0px;
-		top: 0px;
-	}
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: -100px;
+    top: 70px;
+  }
+  50% {
+    left: 20px;
+    top: 150px;
+  }
+  75% {
+    left: 70px;
+    top: 80px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
 }
 
 @keyframes two {
-	0% {
-		left: 0px;
-		top: 0px;
-	}
-	25% {
-		left: 50px;
-		top: 10px;
-	}
-	50% {
-		left: 100px;
-		top: 50px;
-	}
-	75% {
-		left: 50px;
-		top: 100px;
-	}
-	100% {
-		left: 0px;
-		top: 0px;
-	}
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 50px;
+    top: 10px;
+  }
+  50% {
+    left: 100px;
+    top: 50px;
+  }
+  75% {
+    left: 50px;
+    top: 100px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
 }
 
 @keyframes three {
-	0% {
-		left: 0px;
-		top: 0px;
-	}
-	25% {
-		left: 100px;
-		top: 50px;
-	}
-	50% {
-		left: 50px;
-		top: 100px;
-	}
-	75% {
-		left: 10px;
-		top: 50px;
-	}
-	100% {
-		left: 0px;
-		top: 0px;
-	}
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 100px;
+    top: 50px;
+  }
+  50% {
+    left: 50px;
+    top: 100px;
+  }
+  75% {
+    left: 10px;
+    top: 50px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
 }
-
-
-

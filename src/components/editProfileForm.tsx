@@ -11,6 +11,7 @@ import FormInput from "./formInput";
 import { getUserByName } from "@/lib/actions";
 import { useDebounce } from "@uidotdev/usehooks";
 import { updateProfile, updateUser } from "@/app/editProfile/action";
+import Image from "next/image";
 
 type Props = {
   profile: ProfileInterface;
@@ -23,12 +24,16 @@ export function EditProfileForm({ profile }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [nameBuffer, setNameBuffer] = useState("");
   const [isValidName, setIsValidName] = useState(true);
+  const [imageDimensions, setImageDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
   const [imageUrlBuffer, setImageUrlBuffer] = useState(
-    profile.user?.avatar || "",
+    profile.user?.avatar || ""
   );
   //rm user?.avatarKey i think bcs it deletes the image
   const [imageKeyBuffer, setImageKeyBuffer] = useState(
-    profile.user?.avatarKey || "",
+    profile.user?.avatarKey || ""
   );
   const [form, setForm] = useState({
     name: profile.user.name,
@@ -71,7 +76,7 @@ export function EditProfileForm({ profile }: Props) {
       profile.user.id,
       nameBuffer,
       imageUrlBuffer,
-      imageKeyBuffer,
+      imageKeyBuffer
     );
     await updateProfile(form.bio, form.location, profile.id).then(() => {
       if (nameBuffer) {
@@ -118,6 +123,15 @@ export function EditProfileForm({ profile }: Props) {
     };
     fetchUser();
   }, [debouncedSearchName]);
+
+  // useEffect(() => {
+  //   const getSize = async () => {
+  //     const size = await getImageSize(imageUrlBuffer, imageKeyBuffer);
+  //     setImageDimensions(size);
+  //   };
+  //   getSize();
+  // }, [imageUrlBuffer]);
+
   return (
     <form
       action={() => handleFormSubmit()}
@@ -138,11 +152,21 @@ export function EditProfileForm({ profile }: Props) {
             <div className="w-full max-h-80 max-w-sm px-5 flex flex-col items-center justify-center border-[1px] rounded-lg border-black dark:border-neutral-400 p-2">
               {imageUrlBuffer ? (
                 <div className="flex flex-col items-center justify-center">
-                  <img
-                    src={imageUrlBuffer}
-                    alt="image"
-                    className="h-24 lg:h-32 w-fit max-w-xs rounded-full"
-                  />
+                  <div className="image-cropper">
+                    <Image
+                      src={imageUrlBuffer}
+                      alt="image-profile"
+                      width={100}
+                      height={100}
+                      className="rounded-full  profile-pic-portrait"
+
+                      // className={`${
+                      //   imageDimensions.width < imageDimensions.height
+                      //     ? "profile-pic-landscape"
+                      //     : "profile-pic-portrait"
+                      // }`}
+                    />
+                  </div>
                   <div className="w-full border-b-[1px] border-black dark:border-neutral-400 pb-2" />
                   <UploadButton
                     endpoint="imageUploader"
