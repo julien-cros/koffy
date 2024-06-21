@@ -12,7 +12,7 @@ import Card from "@/components/card";
 import LoadMoreSaved from "@/components/loadMoreSaved";
 
 export default function page() {
-  const { data: session } = useQuery({
+  const { data: session, isLoading: isLoadingSession } = useQuery({
     queryKey: ["session"],
     queryFn: async () => {
       const res = await getCurrentUser();
@@ -53,13 +53,19 @@ export default function page() {
                     No saved posts yet
                   </p>
                 ) : (
-                  <p className="text-lg dark:text-neutral-300 text-neutral-700">
-                    Log In to to access your saved posts
-                  </p>
+                  <>
+                    {isLoadingSession ? (
+                      <Loader />
+                    ) : (
+                      <p className="text-lg dark:text-neutral-300 text-neutral-700">
+                        Log In to to access your saved posts
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
             ) : (
-              <div className="flex flex-col p-4 md:p-2 space-y-4 md:space-y-2">
+              <div className="flex flex-col space-y-4 md:space-y-2">
                 {saved?.map((mapped) => (
                   <Card
                     key={mapped.id}

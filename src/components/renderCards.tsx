@@ -22,7 +22,7 @@ const DisplayCards = ({ post, session }: DisplayCardsProps) => {
   };
 
   return (
-    <div className=" pt-10 flex flex-col justify-items-center p-4 md:p-2 space-y-4 md:space-y-2 pb-10">
+    <div className=" flex flex-col justify-items-center space-y-4 md:space-y-2 pb-10 w-full">
       {/* <DisplayUsers /> */}
       {post?.map((post) => (
         <div key={post.id} onClick={() => handleClick(post.id, State)}>

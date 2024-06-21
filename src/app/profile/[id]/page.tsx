@@ -196,7 +196,7 @@ const profilePage = ({ params }: PageProps) => {
               </div>
             </div>
             {/* TODO: query 8 by 8 while scrolling */}
-            <div className="flex flex-col p-4 md:p-2 space-y-4 md:space-y-2 pb-10 justify-center w-full pt-10">
+            <div className="flex flex-col space-y-4 md:space-y-2 pb-10 justify-center w-full pt-10">
               {isLoadingPost ? (
                 <Loader />
               ) : (

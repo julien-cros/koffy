@@ -93,11 +93,11 @@ export default function Card({
 
   return (
     <div
-      className="bg-gradient-to-br from-neutral-200 to-white dark:from-neutral-700 dark:to-black rounded-3xl p-[2px] cursor-pointer transition duration-150 w-full min-w-fit"
+      className="w-full min-w-fit border-b-[1px] border-neutral-600 dark:border-neutral-800"
       key={id}
       onClick={redirectToCard}
     >
-      <div className="bg-white dark:bg-black rounded-[22px] w-full h-full p-4 lg:p-6 relative">
+      <div className="w-full h-full p-4 relative">
         <Link
           className="flex items-center gap-2 pb-5 w-fit"
           href={`profile/${author}`}
@@ -118,44 +118,38 @@ export default function Card({
           {title}
         </p>
         <p className="font-light text-lg text-clip truncate">{brand}</p>
-        <p className="font-light text-md  truncate flex justify-end ">
+        <p className="font-light text-md  truncate flex justify-end pr-4">
           {country}
         </p>
-        <p className="font-light text-md  truncate py-6 lg:py-10 ">{tasting}</p>
+        <p className="font-light text-md  truncate py-4 ">{tasting}</p>
         {imageUrl && (
-          <div className="h-64 xs:h-[400px] lg:h-[450px] w-full object-cover mb-5">
+          <div className="w-full h-52 relative">
             <img
               src={imageUrl}
               alt="postImage"
-              className="h-64 xs:h-[400px] lg:h-[450px] w-full rounded-2xl object-cover mb-5"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         )}
-        <div className="flex justify-between">
+
+        <div className="border-t-[1px] grid grid-cols-4 border-neutral-300 dark:border-neutral-700 mt-4 pt-4 absolutw w-full items-center">
           <div className="">
             <HearthRate rate={rate} />
           </div>
-          <p className="text-sm font-light">
-            {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
-          </p>
-        </div>
-        <div className="border-t-[1px] border-black dark:border-white mt-4 pt-4 absolutw w-12/12 flex justify-between">
-          <div className="">
-            {/* duplicate to post to account */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleSavePost();
-              }}
-            >
-              <BookmarkIcon
-                className={`h-6 w-6 ${
-                  saved ? "text-orange-500 fill-orange-500" : ""
-                }`}
-              />
-            </button>
-          </div>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleSavePost();
+            }}
+          >
+            <BookmarkIcon
+              className={`h-6 w-6 ${
+                saved ? "text-orange-500 fill-orange-500" : ""
+              }`}
+            />
+          </button>
 
           {/* copy link of post */}
           <div className=" dark:text-white">
@@ -181,6 +175,9 @@ export default function Card({
               )}
             </button>
           </div>
+          <p className="text-sm font-light flex text-center">
+            {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
+          </p>
         </div>
       </div>
     </div>
