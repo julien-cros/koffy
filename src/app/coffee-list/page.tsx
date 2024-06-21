@@ -30,7 +30,7 @@ export default async function CoffeeListPage() {
   const isLogged = !session ? false : true;
 
   if (session) {
-    posts = await getUserPosts(session?.user?.id);
+    posts = await getUserPosts(session?.user?.id, null);
   }
 
   return (
