@@ -84,14 +84,14 @@ export default function Card({
       copy(`${window.location.origin}` + `/coffee-list/${id}`);
     } else {
       navigator.clipboard.writeText(
-        `${window.location.origin}` + `/coffee-list/${id}`,
+        `${window.location.origin}` + `/coffee-list/${id}`
       );
     }
   };
 
   return (
     <div
-      className="w-full min-w-fit border-b-[1px] border-neutral-600 dark:border-neutral-800"
+      className="w-full border-b-[1px] border-neutral-600 dark:border-neutral-800"
       key={id}
       onClick={redirectToCard}
     >
