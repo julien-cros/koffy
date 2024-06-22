@@ -72,7 +72,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
               </div>
             </div>
           </div>
-          <div className="flex flex-col space-y-4 md:space-y-2 w-full">
+          <div className="flex flex-col w-full">
             {isLoading ? (
               <div className="h-screen flex justify-center items-center">
                 <Loader />

@@ -1,19 +1,23 @@
 "use client";
 
-import { getSavedPostPacked } from "@/app/saved/savedAction";
-import { SavedInterface, SessionInterface } from "@/app/types/types";
+import { PostInterface, SessionInterface } from "@/app/types/types";
 import React, { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Card from "./card";
 import Loader from "./loader";
+import { getUserPostPacked } from "@/app/profile/profileAction";
 
-export default function LoadMoreSaved({
+type LoadMoreProfileProps = {
+  authorId: string | null | undefined;
+  session: SessionInterface | null | undefined;
+};
+
+export default function LoadMorePost({
+  authorId,
   session,
-}: {
-  session: SessionInterface;
-}) {
+}: LoadMoreProfileProps) {
   const { ref, inView } = useInView();
-  const [prevPosts, setPrevPosts] = useState<SavedInterface[]>([]);
+  const [prevPosts, setPrevPosts] = useState<PostInterface[]>([]);
   const [offset, setOffset] = useState(8);
   const [hasNextPage, setHasNextPage] = useState(true);
 
@@ -21,7 +25,12 @@ export default function LoadMoreSaved({
     if (inView) {
       setHasNextPage(true);
       try {
-        const res = await getSavedPostPacked(session.user.id, 8, offset);
+        const res = await getUserPostPacked(
+          authorId,
+          session?.user.id,
+          8,
+          offset
+        );
         setPrevPosts((prevPosts) => [...prevPosts, ...res]);
         if (res.length === 0) {
           setTimeout(() => {
@@ -42,22 +51,21 @@ export default function LoadMoreSaved({
 
   return (
     <div className="flex flex-col space-y-4 md:space-y-2 w-full">
-      {prevPosts?.map((saved) => (
-        <div key={saved.post.id}>
+      {prevPosts?.map((post) => (
+        <div key={post.id}>
           <Card
-            author={saved.post.author?.name}
-            avatar={saved.post.author?.avatar}
-            id={saved.post.id}
-            title={saved.post.title}
-            brand={saved.post.brand}
-            rate={saved.post.rate}
+            author={post.author?.name}
+            avatar={post.author?.avatar}
+            id={post.id}
+            title={post.title}
+            brand={post.brand}
+            rate={post.rate}
             session={session}
-            createdAt={saved.post.createdAt}
-            tasting={saved.post.tasting}
+            createdAt={post.createdAt}
+            tasting={post.tasting}
             clickable={true}
-            imageUrl={saved.post?.imageUrl}
-            country={saved.post?.country}
-            isSaved={true}
+            imageUrl={post?.imageUrl}
+            country={post?.country}
           />
         </div>
       ))}

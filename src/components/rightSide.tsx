@@ -27,7 +27,7 @@ export function RightSide({ session, isSearchPage }: Props) {
         router.push(
           `/search-page/${category}-${search}-${
             isPublic ? "public" : "private"
-          }`,
+          }`
         );
       }
       setClicked(false);
@@ -37,7 +37,7 @@ export function RightSide({ session, isSearchPage }: Props) {
   return (
     <div
       className={`${
-        isSearchPage ? "" : "hidden lg:block fixed h-screen pt-28 px-5 "
+        isSearchPage ? "" : "hidden lg:block fixed h-screen pt-16 px-5 "
       }`}
     >
       <div className="w-full max-w-3xl mx-auto flex justify-center items-center border-[1px] border-black dark:border-neutral-400 rounded-lg p-3">

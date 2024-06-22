@@ -41,7 +41,7 @@ export default function LoadMoreFeed({
   }, [inView]);
 
   return (
-    <div className="flex flex-col space-y-4 md:space-y-2 w-full">
+    <div className="flex flex-col w-full">
       {posts?.map((post) => (
         <div key={post.id}>
           <Card
@@ -61,7 +61,17 @@ export default function LoadMoreFeed({
         </div>
       ))}
       <div className="flex" ref={ref}>
-        {inView && hasNextPage && <Loader />}
+        {inView && hasNextPage ? (
+          <div className="h-20 w-full justify-center items-center">
+            <Loader />
+          </div>
+        ) : (
+          <div className=" flex justify-center items-center w-full h-20">
+            <p className="text-sm text-neutral-700 dark:text-neutral-400">
+              You reached the end
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

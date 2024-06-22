@@ -112,9 +112,7 @@ export default function Card({
           />
           {author}
         </Link>
-        <p className="text-lg font-medium lg:text-xl  text-clip truncate">
-          {title}
-        </p>
+        <p className="text-lg text-clip truncate">{title}</p>
         <p className="font-light text-lg text-clip truncate">{brand}</p>
         {country && (
           <p className="font-light text-md  truncate flex justify-end pr-4 pb-2">
@@ -133,53 +131,56 @@ export default function Card({
             />
           </div>
         )}
-
-        <div className="border-t-[1px] grid grid-cols-4 border-neutral-300 dark:border-neutral-700 mt-4 pt-4 absolutw w-full items-center">
+        <div className="w-full flex justify-end pt-2">
+          <p className="text-md font-light flex text-center">
+            {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
+          </p>
+        </div>
+        <div className="border-t-[1px] border-neutral-300 dark:border-neutral-700 mt-4 pt-4 w-full flex flex-row items-center">
           <div className="">
             <HearthRate rate={rate} />
           </div>
 
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleSavePost();
-            }}
-          >
-            <BookmarkIcon
-              className={`h-6 w-6 ${
-                saved ? "text-orange-500 fill-orange-500" : ""
-              }`}
-            />
-          </button>
-
-          {/* copy link of post */}
-          <div className=" dark:text-white">
+          <div className="flex justify-end gap-4 w-full">
             <button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleCopyClipboard();
-                setClicked(true);
-                setTimeout(() => {
-                  setClicked(false);
-                }, 1000);
+                handleSavePost();
               }}
-              className="flex items-center justify-center"
             >
-              {clicked ? (
-                <div className="dark:text-white flex flex-row items-center justify-center">
-                  <p className="text-xs">link copied</p>
-                  <CheckIcon className="h-6 w-6" />
-                </div>
-              ) : (
-                <ArrowUpOnSquareIcon className="h-6 w-6" />
-              )}
+              <BookmarkIcon
+                className={`h-6 w-6 ${
+                  saved ? "text-orange-500 fill-orange-500" : ""
+                }`}
+              />
             </button>
+
+            {/* copy link of post */}
+            <div className=" dark:text-white">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleCopyClipboard();
+                  setClicked(true);
+                  setTimeout(() => {
+                    setClicked(false);
+                  }, 1000);
+                }}
+                className="flex items-center justify-center"
+              >
+                {clicked ? (
+                  <div className="dark:text-white flex flex-row items-center justify-center">
+                    <p className="text-xs">link copied</p>
+                    <CheckIcon className="h-6 w-6" />
+                  </div>
+                ) : (
+                  <ArrowUpOnSquareIcon className="h-6 w-6" />
+                )}
+              </button>
+            </div>
           </div>
-          <p className="text-sm font-light flex text-center">
-            {createdAt?.toJSON().slice(0, 10).split("-").reverse().join("/")}
-          </p>
         </div>
       </div>
     </div>

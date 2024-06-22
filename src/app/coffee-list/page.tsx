@@ -1,8 +1,8 @@
-import { getUserPosts } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/actions";
 import React from "react";
 import CoffeeListComponent from "@/components/coffeeListComponent";
 import type { Metadata } from "next";
+import { getUserPostPacked } from "../profile/profileAction";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   return {
@@ -30,7 +30,7 @@ export default async function CoffeeListPage() {
   const isLogged = !session ? false : true;
 
   if (session) {
-    posts = await getUserPosts(session?.user?.id, null);
+    posts = await getUserPostPacked(session?.user?.id, session?.user?.id, 8, 0);
   }
 
   return (

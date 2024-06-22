@@ -1,12 +1,13 @@
 "use client";
 
 import Card from "@/components/card";
-import { getProfile, getUserPosts } from "@/lib/actions";
+import { getProfile } from "@/lib/actions";
 import {
   FollowAndUnfollow,
   getFollowStatus,
   getNumOfFollowers,
   getNumOfFollowings,
+  getUserPostPacked,
 } from "@/app/profile/profileAction";
 import { getCurrentUser } from "@/lib/actions";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +18,7 @@ import { RightSide } from "@/components/rightSide";
 import { LeftSide } from "@/components/leftSide";
 import { DefaultHeader } from "@/components/defaultHeader";
 import Image from "next/image";
+import LoadMorePost from "@/components/loadMorePost";
 
 type PageProps = {
   params: {
@@ -80,7 +82,12 @@ const profilePage = ({ params }: PageProps) => {
   const { data: queryPost, isLoading: isLoadingPost } = useQuery({
     queryKey: ["post", profile?.user?.name],
     queryFn: async () => {
-      const res = await getUserPosts(profile?.user.id, session?.user.id);
+      const res = await getUserPostPacked(
+        profile?.user.id,
+        session?.user.id,
+        8,
+        0
+      );
       return res;
     },
     enabled: !!profile?.user?.name,
@@ -176,11 +183,11 @@ const profilePage = ({ params }: PageProps) => {
                   </div>
                 </div>
               )}
-              <div className="text-lg break-all font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400">
+              <div className="text-lg break-all font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-neutral-300 dark:border-neutral-700">
                 <p>bio:</p>
                 <p className="pl-5">{profile?.bio}</p>
               </div>
-              <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-black dark:border-neutral-400 flex justify-around">
+              <div className="text-lg font-light text-neutral-700 dark:text-neutral-300 mt-4 pt-4 border-t-[1px] border-neutral-300 dark:border-neutral-700 flex justify-around">
                 <>
                   <p className="flex flex-row gap-2">
                     {isLoadingPost ? <Loader /> : numOfPosts} posts
@@ -196,7 +203,7 @@ const profilePage = ({ params }: PageProps) => {
               </div>
             </div>
             {/* TODO: query 8 by 8 while scrolling */}
-            <div className="flex flex-col space-y-4 md:space-y-2 pb-10 justify-center w-full pt-10">
+            <div className="flex flex-col justify-center w-full">
               {isLoadingPost ? (
                 <Loader />
               ) : (
@@ -218,6 +225,7 @@ const profilePage = ({ params }: PageProps) => {
                   </div>
                 ))
               )}
+              <LoadMorePost authorId={profile?.user.id} session={session} />
             </div>
           </div>
         </div>

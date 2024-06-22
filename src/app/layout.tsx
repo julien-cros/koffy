@@ -78,15 +78,17 @@ export default async function RootLayout({
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <QueryProviders>
           <Providers>
-            <div className="min-h-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col hiddeScrollBar">
-              <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]">
-                <div className="fixed inset-0 justify-center flex -z-20 items-center">
-                  <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] opacity-90 bg-neutral-300 dark:bg-neutral-500" />
-                  <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
-                  <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 opacity-90 blur-[99px]" />
+            <div className="h-screen w-screen dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] fixed flex flex-col hiddeScrollBar">
+              <div className="w-full h-full fixed pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black)]">
+                <div className="inset-0 justify-center flex -z-20 items-center">
+                  <div className="big-shape w-96 h-96 rounded-full relative blur-[99px] bg-neutral-300 dark:bg-neutral-500" />
+                  <div className="medium-shape w-72 h-72 rounded-full relative bg-neutral-300 dark:bg-neutral-500  blur-[99px]" />
+                  <div className="little-shape w-52 h-52 rounded-full relative bg-neutral-300 dark:bg-neutral-500 blur-[99px]" />
                 </div>
               </div>
-              <div className="z-10 childScrollBar">{children}</div>
+            </div>
+            <div className="z-10 childScrollBar absolute w-full h-full justify-center items-center">
+              {children}
             </div>
           </Providers>
         </QueryProviders>

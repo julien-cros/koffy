@@ -7,6 +7,7 @@ import type { SessionInterface } from "@/app/types/types";
 import { LeftSide } from "./leftSide";
 import { RightSide } from "./rightSide";
 import { DefaultHeader } from "./defaultHeader";
+import LoadMorePost from "./loadMorePost";
 
 type Props = {
   posts?: PostInterface[] | null;
@@ -43,7 +44,7 @@ const CoffeeListComponent = ({ posts, session }: Props) => {
                 />
               </div>
             ))}
-            {!posts && (
+            {!posts ? (
               <Card
                 author={"future Author"}
                 avatar={"images/default-profile.svg"}
@@ -58,6 +59,8 @@ const CoffeeListComponent = ({ posts, session }: Props) => {
                 imageUrl={""}
                 country={""}
               />
+            ) : (
+              <LoadMorePost authorId={session?.user.id} session={session} />
             )}
           </div>
         </div>
