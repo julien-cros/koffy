@@ -77,10 +77,10 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
           <div className="w-full min-h-screen flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
             <DefaultHeader title="Details" />
             {/* card */}
-            <div className="flex justify-center items-center pt-2">
+            <div className="flex justify-center items-center">
               <div className="w-full max-w-5xl  h-full border-b-[1px] border-neutral-600 dark:border-neutral-800">
-                <div className="w-full h-full p-4 lg:p-6 relative">
-                  <div className="flex justify-between">
+                <div className="w-full h-full p-2 relative">
+                  <div className="flex justify-between p-2">
                     <Link
                       className="flex items-center gap-2 pb-5"
                       href={`/profile/${post?.author?.name}`}
@@ -102,7 +102,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                       </Link>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl">
+                  <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl px-14">
                     <div className="pr-5 h-full w-full pb-5 flex gap-2 flex-col">
                       <div className="flex flex-col pb-2">
                         <p className="text-2xl font-light">{post?.title}</p>
@@ -135,58 +135,8 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                       </div>
                     )}
                   </div>
-
-                  <div className="border-t-[1px] grid grid-cols-4 border-neutral-300 dark:border-neutral-700 mt-4 pt-4 absolutw w-full items-center">
-                    <div className="flex justify-between items-end">
-                      <div className="">
-                        <HearthRate rate={post?.rate} />
-                      </div>
-                    </div>
-                    <div className="">
-                      {!isMine && (
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleSavePost();
-                          }}
-                        >
-                          {isLoadingSaved ? (
-                            <Loader />
-                          ) : (
-                            <BookmarkIcon
-                              className={`h-6 w-6 ${
-                                saved ? "text-orange-500 fill-orange-500" : ""
-                              }`}
-                            />
-                          )}
-                        </button>
-                      )}
-                    </div>
-
-                    {/* copy link of post */}
-                    <div className=" dark:text-white hover:scale-105 ">
-                      <button
-                        onClick={() => {
-                          copyClipboard(id);
-                          setClicked(true);
-                          setTimeout(() => {
-                            setClicked(false);
-                          }, 1000);
-                        }}
-                        className="flex items-center justify-center"
-                      >
-                        {clicked ? (
-                          <div className="dark:text-white flex flex-row items-center justify-center">
-                            <p className="text-xs">link copied</p>
-                            <CheckIcon className="h-6 w-6" />
-                          </div>
-                        ) : (
-                          <ArrowUpOnSquareIcon className="h-6 w-6" />
-                        )}
-                      </button>
-                    </div>
-                    <p className="text-sm font-light">
+                  <div className="w-full flex justify-end pt-2">
+                    <p className="text-md font-light flex text-center">
                       {post?.createdAt
                         ?.toJSON()
                         .slice(0, 10)
@@ -194,6 +144,62 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                         .reverse()
                         .join("/")}
                     </p>
+                  </div>
+                  <div className="w-full pl-14">
+                    <div className="border-t-[1px] border-neutral-300 dark:border-neutral-700 mt-4 pt-4 w-full flex flex-row items-center">
+                      <div className="">
+                        <HearthRate rate={post?.rate} />
+                      </div>
+
+                      <div className="flex justify-end gap-2 w-full">
+                        <div className=" dark:text-white">
+                          <button
+                            onClick={() => {
+                              copyClipboard(id);
+                              setClicked(true);
+                              setTimeout(() => {
+                                setClicked(false);
+                              }, 1000);
+                            }}
+                            className="flex items-center justify-center"
+                          >
+                            {clicked ? (
+                              <div className="dark:text-white flex flex-row items-center justify-center">
+                                <p className="text-xs">link copied</p>
+                                <CheckIcon className="h-6 w-6" />
+                              </div>
+                            ) : (
+                              <ArrowUpOnSquareIcon className="h-6 w-6" />
+                            )}
+                          </button>
+                        </div>
+                        <div className="">
+                          {!isMine && (
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleSavePost();
+                              }}
+                            >
+                              {isLoadingSaved ? (
+                                <Loader />
+                              ) : (
+                                <BookmarkIcon
+                                  className={`h-6 w-6 ${
+                                    saved
+                                      ? "text-orange-500 fill-orange-500"
+                                      : ""
+                                  }`}
+                                />
+                              )}
+                            </button>
+                          )}
+                        </div>
+
+                        {/* copy link of post */}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

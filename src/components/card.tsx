@@ -95,7 +95,7 @@ export default function Card({
       key={id}
       onClick={redirectToCard}
     >
-      <div className="w-10 h-full p-4 absolute">
+      <div className="w-fit h-full p-4 absolute">
         <Link
           className="flex items-center gap-2 pb-5 w-fit"
           href={`profile/${author}`}
@@ -143,21 +143,7 @@ export default function Card({
             <HearthRate rate={rate} />
           </div>
 
-          <div className="flex justify-end gap-4 w-full">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleSavePost();
-              }}
-            >
-              <BookmarkIcon
-                className={`h-6 w-6 ${
-                  saved ? "text-orange-500 fill-orange-500" : ""
-                }`}
-              />
-            </button>
-
+          <div className="flex justify-end gap-2 w-full">
             {/* copy link of post */}
             <div className=" dark:text-white">
               <button
@@ -182,6 +168,19 @@ export default function Card({
                 )}
               </button>
             </div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleSavePost();
+              }}
+            >
+              <BookmarkIcon
+                className={`h-6 w-6 ${
+                  saved ? "text-orange-500 fill-orange-500" : ""
+                }`}
+              />
+            </button>
           </div>
         </div>
       </div>
