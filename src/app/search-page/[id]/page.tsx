@@ -31,7 +31,7 @@ const SearchPage = ({ params }: PageProps) => {
 
   const MyValue = category === "rate" ? Number.parseInt(value) : value;
 
-  const { data: posts } = useQuery({
+  const { data: posts, isLoading: isLoadingPosts } = useQuery({
     queryKey: ["quryPosts", category, MyValue, isPrivate],
     queryFn: async () => {
       const res = await findSearchPostPacked(
@@ -57,14 +57,17 @@ const SearchPage = ({ params }: PageProps) => {
 
   return (
     <div className=" flex flex-row min-h-screen">
-      <div className="flex flex-1 justify-end">
+      <div className="flex flex-1 md:justify-end">
         <LeftSide session={session} />
       </div>
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
           <div className="w-full flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
             <DefaultHeader title="Results" />
-            {(category === "user" || category === "all") && value && users ? (
+            {(category === "user" || category === "all") &&
+            value &&
+            users &&
+            users.length > 0 ? (
               <DisplayUsers users={users} />
             ) : null}
             {category !== "user" && (
@@ -74,6 +77,7 @@ const SearchPage = ({ params }: PageProps) => {
                 category={category}
                 MyValue={MyValue}
                 isPrivate={isPrivate}
+                isLoading={isLoadingPosts}
               />
             )}
           </div>

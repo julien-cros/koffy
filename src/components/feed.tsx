@@ -10,6 +10,8 @@ import { useState } from "react";
 import { SessionInterface } from "@/app/types/types";
 import { LeftSide } from "./leftSide";
 import { RightSide } from "./rightSide";
+import Link from "next/link";
+import Image from "next/image";
 
 function Feed({ session }: { session: SessionInterface | null }) {
   const [FeedOrCoffeeList, setFeedOrCoffeeList] = useState("feed");
@@ -42,8 +44,14 @@ function Feed({ session }: { session: SessionInterface | null }) {
       </div>
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="w-full h-full flex flex-col justify-center items-center border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
-          <div className="w-full flex flex-col border-b-[1px] border-neutral-700 dark:border-neutral-400 h-16">
-            <div className="grid grid-cols-2 h-full">
+          <div className="w-full flex flex-col border-b-[1px] border-neutral-700 dark:border-neutral-400 h-24 md:h-16">
+            <Link
+              href={"/"}
+              className="w-full flex justify-center pt-2 md:hidden"
+            >
+              <Image src={"/coffee.png"} alt={"logo"} width={24} height={24} />
+            </Link>
+            <div className="grid grid-cols-2 items-end h-full pb-2">
               <div className="w-full flex justify-center items-center cursor-pointer">
                 <button
                   className={`font-light text-lg md:text-xl w-32 py-2 hover:w-40 transition-width duration-100

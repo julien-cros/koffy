@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { PostInterface } from "@/app/types/types";
 import type { SessionInterface } from "@/app/types/types";
 import LoadMoreResults from "./loadMoreResults";
+import Loader from "./loader";
 
 type DisplayCardsProps = {
   post: PostInterface[] | undefined | null;
@@ -13,6 +14,7 @@ type DisplayCardsProps = {
   category: string;
   MyValue: string | number;
   isPrivate: string;
+  isLoading: boolean;
 };
 
 // TODO: Implement the DisplayCards componentwith the button because it is not working
@@ -22,6 +24,7 @@ const DisplayCards = ({
   category,
   MyValue,
   isPrivate,
+  isLoading,
 }: DisplayCardsProps) => {
   const router = useRouter();
 
@@ -50,9 +53,15 @@ const DisplayCards = ({
         </div>
       ))}
       {!post || post.length === 0 ? (
-        <p className=" flex justify-center items-center text-lg">
-          Nothing Found
-        </p>
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <p className=" flex justify-center items-center text-lg">
+              Nothing Found
+            </p>
+          )}
+        </>
       ) : (
         <LoadMoreResults
           category={category}
