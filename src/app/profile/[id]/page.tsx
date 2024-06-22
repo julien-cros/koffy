@@ -137,15 +137,15 @@ const profilePage = ({ params }: PageProps) => {
   };
   // TODO: find a way to rerender only follower/following counter
   return (
-    <div className="flex flex-row h-full min-h-screen">
+    <div className="flex flex-row min-h-screen">
       <div className="flex flex-1 md:justify-end">
         <LeftSide session={session} />
       </div>
       <div className="flex justify-center w-full md:max-w-xl mx-auto">
         <div className="relative w-full h-full flex flex-row">
-          <div className="w-full flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
+          <div className="w-full flex flex-col border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
             <DefaultHeader title="Profile" />
-            <div className="w-full max-w-5xl mx-auto  h-fit p-4  border-b-[1px] border-y-black dark:border-neutral-400 ">
+            <div className="w-full max-w-5xl mx-auto p-4  border-b-[1px] border-y-black dark:border-neutral-400 ">
               {isLoadingProfile ? (
                 <Loader />
               ) : (

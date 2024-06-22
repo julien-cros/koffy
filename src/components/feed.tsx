@@ -107,7 +107,7 @@ function Feed({ session }: { session: SessionInterface | null }) {
               ))
             )}
           </div>
-          <div className=" flex justify-center items-center w-full">
+          <div className=" flex justify-center items-center w-full h-full">
             <LoadMoreFeed session={session} />
           </div>
         </div>
