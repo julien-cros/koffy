@@ -137,7 +137,7 @@ const profilePage = ({ params }: PageProps) => {
   };
   // TODO: find a way to rerender only follower/following counter
   return (
-    <div className="flex flex-row min-h-screen">
+    <div className="flex flex-row h-full min-h-screen">
       <div className="flex flex-1 md:justify-end">
         <LeftSide session={session} />
       </div>

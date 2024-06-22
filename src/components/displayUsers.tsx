@@ -1,6 +1,7 @@
 "use client";
 
 import { UserInterface } from "@/app/types/types";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -16,12 +17,14 @@ export default function DisplayUsers({ users }: { users: UserInterface[] }) {
             key={index}
             className="flex w-full items-center space-x-2 border-[1px] px-3 py-2 border-neutral-700 dark:border-neutral-400 rounded-lg"
           >
-            <img
-              src={user.avatar || "/images/default-profile.png"}
+            <Image
+              src={user.avatar || "/images/default-profile.svg"}
               alt="avatar"
               className="w-10 h-10 rounded-full"
+              width={40}
+              height={40}
             />
-            <p>{user.name}</p>
+            <p className="w-full truncate">{user.name}</p>
           </Link>
         ))}
       </div>

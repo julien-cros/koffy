@@ -73,7 +73,7 @@ export default function LoadMorePost({
         {hasNextPage && inView ? (
           <Loader />
         ) : (
-          <div className=" flex justify-center items-center w-full h-20">
+          <div className=" flex justify-center items-center w-full">
             <p className="text-sm text-neutral-700 dark:text-neutral-400">
               You reached the end
             </p>

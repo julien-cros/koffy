@@ -77,9 +77,9 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
           <div className="w-full min-h-screen flex flex-col sm:border-0 md:border-x-[1px] border-neutral-700 dark:border-neutral-400">
             <DefaultHeader title="Details" />
             {/* card */}
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center pb-32">
               <div className="w-full max-w-5xl  h-full border-b-[1px] border-neutral-600 dark:border-neutral-800">
-                <div className="w-full h-full p-2 relative">
+                <div className="w-full h-full p-4 relative">
                   <div className="flex justify-between p-2">
                     <Link
                       className="flex items-center gap-2 pb-5"
@@ -102,7 +102,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                       </Link>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl px-14">
+                  <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl pl-14">
                     <div className="pr-5 h-full w-full pb-5 flex gap-2 flex-col">
                       <div className="flex flex-col pb-2">
                         <p className="text-2xl font-light">{post?.title}</p>
@@ -146,7 +146,7 @@ const ExpandedCard = ({ post, id, isMine, session }: Props) => {
                     </p>
                   </div>
                   <div className="w-full pl-14">
-                    <div className="border-t-[1px] border-neutral-300 dark:border-neutral-700 mt-4 pt-4 w-full flex flex-row items-center">
+                    <div className="border-t-[1px] border-neutral-300 dark:border-neutral-700  mt-2 pt-4 w-full flex flex-row items-center">
                       <div className="">
                         <HearthRate rate={post?.rate} />
                       </div>
