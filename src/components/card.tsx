@@ -95,7 +95,7 @@ export default function Card({
       key={id}
       onClick={redirectToCard}
     >
-      <div className="w-10 h-full p-4">
+      <div className="w-10 h-full p-4 absolute">
         <Link
           className="flex items-center gap-2 pb-5 w-fit"
           href={`profile/${author}`}
@@ -113,7 +113,7 @@ export default function Card({
           {author}
         </Link>
       </div>
-      <div className="w-full h-full p-2 pl-6 pt-14 relative">
+      <div className="w-full h-full p-2 pl-16 pt-14 relative">
         <p className="text-lg text-clip truncate">{title}</p>
         <p className="font-light text-lg text-clip truncate">{brand}</p>
         {country && (
